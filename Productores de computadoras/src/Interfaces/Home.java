@@ -48,6 +48,25 @@ public class Home extends javax.swing.JFrame {
         jSpinner6 = new javax.swing.JSpinner();
         jTextArea2 = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jSpinner7 = new javax.swing.JSpinner();
+        jSpinner11 = new javax.swing.JSpinner();
+        jSpinner12 = new javax.swing.JSpinner();
+        jSpinner13 = new javax.swing.JSpinner();
+        jSpinner14 = new javax.swing.JSpinner();
+        jSpinner15 = new javax.swing.JSpinner();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jTextArea3 = new javax.swing.JTextArea();
+        jLabel18 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,6 +165,79 @@ public class Home extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Apple", jPanel2);
 
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel12.setText("Deadline");
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("Prod. Placa base:");
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 120, 30));
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel19.setText("Número de trabajadores");
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel20.setText("Estados");
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, -1, -1));
+        jPanel3.add(jSpinner7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 100, 20));
+        jPanel3.add(jSpinner11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 410, 100, 20));
+        jPanel3.add(jSpinner12, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 100, 20));
+        jPanel3.add(jSpinner13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 100, 20));
+        jPanel3.add(jSpinner14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 100, 20));
+        jPanel3.add(jSpinner15, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, 100, 20));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dellcomputer.png"))); // NOI18N
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel15.setBackground(new java.awt.Color(0, 118, 206));
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Dell");
+        jLabel15.setOpaque(true);
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 440, -1));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Prod. CPUs:");
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 110, 30));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("Prod. RAM:");
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, 30));
+
+        jTextArea3.setEditable(false);
+        jTextArea3.setColumns(20);
+        jTextArea3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextArea3.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea3.setRows(5);
+        jTextArea3.setText("Prod. Fuente de\nalimentación:");
+        jTextArea3.setWrapStyleWord(true);
+        jTextArea3.setBorder(null);
+        jTextArea3.setCaretColor(new java.awt.Color(0, 0, 0));
+        jTextArea3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea3.setOpaque(false);
+        jPanel3.add(jTextArea3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 120, 20));
+
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/background dell.jpg"))); // NOI18N
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 470));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
+
+        jTabbedPane1.addTab("Dell", jPanel3);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,6 +285,7 @@ public class Home extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Home().setVisible(true);
             }
@@ -203,7 +296,16 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -213,14 +315,24 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinner11;
+    private javax.swing.JSpinner jSpinner12;
+    private javax.swing.JSpinner jSpinner13;
+    private javax.swing.JSpinner jSpinner14;
+    private javax.swing.JSpinner jSpinner15;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JSpinner jSpinner5;
     private javax.swing.JSpinner jSpinner6;
+    private javax.swing.JSpinner jSpinner7;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
