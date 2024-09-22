@@ -78,7 +78,6 @@ public class Store {
     }
     
     public void AddComponent(int employee_type){
-        System.out.println("se agrego una parte");
         switch(employee_type){
             case 1:
               this.motherboards += 1;
