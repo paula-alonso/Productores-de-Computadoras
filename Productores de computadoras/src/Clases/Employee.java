@@ -4,25 +4,26 @@
  */
 package Clases;
 
-
-
 /**
  *
  * @author alons
  */
-public class Employee extends Thread{
+public class Employee extends Thread {
+
     private int type;
     private double salary;
     private double day_count;
     private final double day_proportion;
     private Company company;
+    private boolean working;
 
     public Employee(double salary, Company company, double day_proportion) {
         this.type = 0;
         this.salary = salary;
-        this.day_count= 0;
+        this.day_count = 0;
         this.day_proportion = day_proportion;
         this.company = null;
+        this.working = true;
     }
 
     /**
@@ -52,28 +53,33 @@ public class Employee extends Thread{
     public void setSalary(double salary) {
         this.salary = salary;
     }
-    
-    @Override 
-    public void run(){
-        for (int i = 1; i <= 5; i++){
+
+    @Override
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
             work();
         }
     }
-    
-    public void work(){
+
+    public void work() {
         
-        if(this.day_count==1){
-            try{
-                this.company.getMutex().acquire();
-                this.company.getStore().AddComponent(this.type);
-                this.company.getMutex().release();
-                this.day_count = 0;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } 
         this.day_count += this.day_proportion;
+        while (this.working) {
+            if (this.day_count >= 1) {
+                try {
+                    this.company.getMutex().acquire();
+                    this.company.getStore().AddComponent(this.type);
+                    this.company.getMutex().release();
+                    this.day_count = 0;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
-    
-    
+
+    public void Stop() {
+
+    }
+
 }

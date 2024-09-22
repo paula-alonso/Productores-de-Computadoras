@@ -5,8 +5,10 @@
 package Interfaces;
 
 import Clases.Company;
+import EDD.Lista;
 import java.io.File;
 import productores.de.computadoras.Functions;
+
 
 /**
  *
@@ -21,6 +23,7 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    Lista<Company> companies = new Lista<Company>();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,19 +46,22 @@ public class Home extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jSpinner3 = new javax.swing.JSpinner();
+        base_emp_quantity = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jSpinner4 = new javax.swing.JSpinner();
+        cpu_emp_quantity = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
-        jSpinner5 = new javax.swing.JSpinner();
-        jSpinner6 = new javax.swing.JSpinner();
+        ram_emp_quantity = new javax.swing.JSpinner();
+        graphic_emp_quantity = new javax.swing.JSpinner();
         jTextArea2 = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jTextArea3 = new javax.swing.JTextArea();
+        power_emp_quantity = new javax.swing.JSpinner();
+        jLabel16 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,13 +111,13 @@ public class Home extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Cantidad de trabajadores");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Prod. Placa base:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, 30));
-        jPanel2.add(jSpinner3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 100, 30));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, 30));
+        jPanel2.add(base_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 100, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/applecomputer.png"))); // NOI18N
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
@@ -127,48 +133,67 @@ public class Home extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Prod. CPUs:");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, 30));
-        jPanel2.add(jSpinner4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 100, 30));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, 30));
+        jPanel2.add(cpu_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 100, 30));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Prod. RAM:");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, 30));
-        jPanel2.add(jSpinner5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 100, 30));
-        jPanel2.add(jSpinner6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 100, 30));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, 30));
+        jPanel2.add(ram_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 100, 30));
+        jPanel2.add(graphic_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 100, 30));
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTextArea2.setForeground(new java.awt.Color(0, 0, 0));
         jTextArea2.setRows(5);
-        jTextArea2.setText("Prod. Fuente de\nalimentación:");
+        jTextArea2.setText("Prod. tarjetas\ngráficas:");
         jTextArea2.setWrapStyleWord(true);
         jTextArea2.setBorder(null);
         jTextArea2.setCaretColor(new java.awt.Color(0, 0, 0));
         jTextArea2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextArea2.setOpaque(false);
-        jPanel2.add(jTextArea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 120, 50));
+        jPanel2.add(jTextArea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 120, 50));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("Unid. en almacén: 0/25");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 380, -1, 30));
+        jLabel12.setText("Unid. en almacén: 0/10");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, 30));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Unid. en almacén: 0/25");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, -1, 30));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, 30));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("Unid. en almacén: 0/25");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, -1, 30));
+        jLabel14.setText("Unid. en almacén: 0/20");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, -1, 30));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("Unid. en almacén: 0/25");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, 30));
+        jLabel15.setText("Unid. en almacén: 0/55");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, -1, 30));
+
+        jTextArea3.setEditable(false);
+        jTextArea3.setColumns(20);
+        jTextArea3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextArea3.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea3.setRows(5);
+        jTextArea3.setText("Prod. Fuente de\nalimentación:");
+        jTextArea3.setWrapStyleWord(true);
+        jTextArea3.setBorder(null);
+        jTextArea3.setCaretColor(new java.awt.Color(0, 0, 0));
+        jTextArea3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea3.setOpaque(false);
+        jPanel2.add(jTextArea3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 120, 50));
+        jPanel2.add(power_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 100, 30));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Unid. en almacén: 0/35");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, -1, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/background apple.png"))); // NOI18N
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 460));
@@ -192,7 +217,15 @@ public class Home extends javax.swing.JFrame {
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         File file = Functions.FileChooser();
         if (file!=null){
-            Company[] companies = Functions.LeerTxt(file);
+            companies = Functions.LeerTxt(file);
+            base_emp_quantity.setValue(companies.getFirst().getData().getBase_employees().getSize());
+            cpu_emp_quantity.setValue(companies.getFirst().getData().getCpu_employees().getSize());
+            ram_emp_quantity.setValue(companies.getFirst().getData().getRam_employees().getSize());
+            power_emp_quantity.setValue(companies.getFirst().getData().getPower_employees().getSize());
+            graphic_emp_quantity.setValue(companies.getFirst().getData().getGraphic_employee().getSize());
+            
+            
+            
         }
     }//GEN-LAST:event_inicioActionPerformed
 
@@ -232,6 +265,9 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner base_emp_quantity;
+    private javax.swing.JSpinner cpu_emp_quantity;
+    private javax.swing.JSpinner graphic_emp_quantity;
     private javax.swing.JToggleButton inicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -240,6 +276,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -252,11 +289,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
-    private javax.swing.JSpinner jSpinner4;
-    private javax.swing.JSpinner jSpinner5;
-    private javax.swing.JSpinner jSpinner6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JSpinner power_emp_quantity;
+    private javax.swing.JSpinner ram_emp_quantity;
     // End of variables declaration//GEN-END:variables
 }

@@ -48,9 +48,9 @@ public class Functions {
 
     }
 
-    public static Company[] LeerTxt(File archivo) {
+    public static Lista<Company> LeerTxt(File archivo) {
         
-        Company[] companies = new Company[2];
+        Lista<Company> companies = new Lista<Company>();
         String line;
         String computadorastxt = "";
         //String path = "test\\computadoras.txt";
@@ -70,62 +70,48 @@ public class Functions {
 
                     String company_name = "";
                     String[] sections = computadorastxt.split("\n");
-                    double duration = Integer.parseInt(sections[1].replace(";", ""));
-                    double deadline = Integer.parseInt(sections[3].replace(";", ""));
+                    double duration = Double.parseDouble(sections[1].replace(";", ""));
+                    double deadline = Double.parseDouble(sections[3].replace(";", ""));
                     int i = 5;
                     while (i < sections.length) {
                         company_name = sections[i].replace("/", "").trim();
                         Store store = new Store();
                         Company company = new Company(company_name, store);
-                        Lista<Employee> base_employee = new Lista<Employee>();
-                        Lista<Employee> cpu_employee = new Lista<Employee>();
-                        Lista<Employee> ram_employee = new Lista<Employee>();
-                        Lista<Employee> power_employee = new Lista<Employee>();
-                        Lista<Employee> graphic_employee = new Lista<Employee>();
                         i += 2; // Saltar a la sección de trabajadores
 
                         // Leer los trabajadores de la empresa
                         while (i < sections.length && !sections[i].contains("/")) {
                             String[] trabajador = sections[i].split(",");
                             String type = trabajador[0];
-                            double salary = Integer.parseInt(trabajador[2]);
-                            double day_prod = Integer.parseInt(trabajador[3]);
-                            int num = 0;
-                            Employee employee = new Employee(salary, company, day_prod);
-                            for (int j = 1; j <= Integer.parseInt(trabajador[1]); j++) {
-                                switch (type) {
+                            int num=0;
+                            switch (type) {
                                     case "base":
                                         num = 1;
-                                        employee.setType(num);
-                                        base_employee.AddElement(employee);
                                         break;
                                     case "cpu":
                                         num = 2;
-                                        employee.setType(num);
-                                        cpu_employee.AddElement(employee);
                                         break;
                                     case "ram":
                                         num = 3;
-                                        employee.setType(num);
-                                        ram_employee.AddElement(employee);
                                         break;
                                     case "power":
                                         num = 4;
-                                        employee.setType(num);
-                                        power_employee.AddElement(employee);
                                         break;
                                     case "graphic":
                                         num = 5;
-                                        employee.setType(num);
-                                        graphic_employee.AddElement(employee);
                                         break;
                                 }
+                            double salary = Double.parseDouble(trabajador[2]);
+                            double day_prod = Double.parseDouble(trabajador[3]);
+                            for (int j = 1; j <= Integer.parseInt(trabajador[1]); j++) {
+                                Employee employee = new Employee(salary, company, day_prod);
+                                company.AddEmployee(num, employee);
                             }
+                            i++;
                             
 
                         }
-                        companies[0] = company;
-                        i++;
+                        companies.AddElement(company);
                     }
                 }
 
