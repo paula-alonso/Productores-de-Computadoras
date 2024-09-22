@@ -17,12 +17,12 @@ public class Employee extends Thread{
     private final double day_proportion;
     private Company company;
 
-    public Employee(int type, double salary, double day_proportion, Company company) {
-        this.type = type;
+    public Employee(double salary, Company company, double day_proportion) {
+        this.type = 0;
         this.salary = salary;
         this.day_count= 0;
         this.day_proportion = day_proportion;
-        this.company = company;
+        this.company = null;
     }
 
     /**

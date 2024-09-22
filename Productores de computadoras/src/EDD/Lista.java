@@ -13,7 +13,7 @@ public class Lista<T> {
     private Nodo<T> Last;
     private int size;
 
-    public Lista(Nodo<T> First, Nodo<T> Last, int size) {
+    public Lista() {
         this.First = null;
         this.Last = null;
         this.size = 0;
