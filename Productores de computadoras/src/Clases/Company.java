@@ -5,6 +5,7 @@
 package Clases;
 
 import EDD.Lista;
+import EDD.Nodo;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -60,24 +61,26 @@ public class Company {
     }
     
     public void DeleteEmployee(int type){
+        Employee emp_deleted = null;
         switch (type) {
             case 1:
-                this.base_employees.removeLast();
+                emp_deleted = (Employee) this.base_employees.removeLast().getData();
                 break;
             case 2:
-                this.cpu_employees.removeLast();
+                emp_deleted = (Employee) this.cpu_employees.removeLast().getData();
                 break;
             case 3:
-                this.ram_employees.removeLast();
+                emp_deleted = (Employee)  this.ram_employees.removeLast().getData();
                 break;
             case 4:
-                this.power_employees.removeLast();
+                emp_deleted = (Employee)  this.power_employees.removeLast().getData();
                 break;
             case 5:
-                this.graphic_employee.removeLast();
+                emp_deleted = (Employee)  this.graphic_employee.removeLast().getData();
                 break;
         }
-        //employee.start();
+        emp_deleted.Stop();
+        
     }
 
     /**

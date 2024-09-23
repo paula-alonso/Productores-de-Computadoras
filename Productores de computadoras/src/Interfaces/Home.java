@@ -7,6 +7,7 @@ package Interfaces;
 import Clases.Company;
 import EDD.Lista;
 import java.io.File;
+import javax.swing.JLabel;
 import productores.de.computadoras.Functions;
 
 
@@ -24,7 +25,7 @@ public class Home extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     Lista<Company> companies = new Lista<Company>();
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,13 +56,13 @@ public class Home extends javax.swing.JFrame {
         ram_emp_quantity = new javax.swing.JSpinner();
         graphic_emp_quantity = new javax.swing.JSpinner();
         jTextArea2 = new javax.swing.JTextArea();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        graphic_quantity = new javax.swing.JLabel();
+        base_quantity = new javax.swing.JLabel();
+        cpu_quantity = new javax.swing.JLabel();
+        ram_quantity = new javax.swing.JLabel();
         jTextArea3 = new javax.swing.JTextArea();
         power_emp_quantity = new javax.swing.JSpinner();
-        jLabel16 = new javax.swing.JLabel();
+        power_quantity = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -156,25 +157,30 @@ public class Home extends javax.swing.JFrame {
         jTextArea2.setOpaque(false);
         jPanel2.add(jTextArea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 120, 50));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("Unid. en almacén: 0/10");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, 30));
+        graphic_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        graphic_quantity.setForeground(new java.awt.Color(0, 0, 0));
+        graphic_quantity.setText("Unid. en almacén: 0/10");
+        jPanel2.add(graphic_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, 30));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText("Unid. en almacén: 0/25");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, 30));
+        base_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        base_quantity.setForeground(new java.awt.Color(0, 0, 0));
+        base_quantity.setText("Unid. en almacén: 0/25");
+        base_quantity.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                base_quantityPropertyChange(evt);
+            }
+        });
+        jPanel2.add(base_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, 30));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("Unid. en almacén: 0/20");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, -1, 30));
+        cpu_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cpu_quantity.setForeground(new java.awt.Color(0, 0, 0));
+        cpu_quantity.setText("Unid. en almacén: 0/20");
+        jPanel2.add(cpu_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, -1, 30));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("Unid. en almacén: 0/55");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, -1, 30));
+        ram_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ram_quantity.setForeground(new java.awt.Color(0, 0, 0));
+        ram_quantity.setText("Unid. en almacén: 0/55");
+        jPanel2.add(ram_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, -1, 30));
 
         jTextArea3.setEditable(false);
         jTextArea3.setColumns(20);
@@ -190,10 +196,10 @@ public class Home extends javax.swing.JFrame {
         jPanel2.add(jTextArea3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 120, 50));
         jPanel2.add(power_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 100, 30));
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("Unid. en almacén: 0/35");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, -1, 30));
+        power_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        power_quantity.setForeground(new java.awt.Color(0, 0, 0));
+        power_quantity.setText("Unid. en almacén: 0/35");
+        jPanel2.add(power_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, -1, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/background apple.png"))); // NOI18N
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 460));
@@ -223,11 +229,12 @@ public class Home extends javax.swing.JFrame {
             ram_emp_quantity.setValue(companies.getFirst().getData().getRam_employees().getSize());
             power_emp_quantity.setValue(companies.getFirst().getData().getPower_employees().getSize());
             graphic_emp_quantity.setValue(companies.getFirst().getData().getGraphic_employee().getSize());
-            
-            
-            
         }
     }//GEN-LAST:event_inicioActionPerformed
+
+    private void base_quantityPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_base_quantityPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_base_quantityPropertyChange
 
     /**
      * @param args the command line arguments
@@ -263,20 +270,19 @@ public class Home extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner base_emp_quantity;
+    public static javax.swing.JLabel base_quantity;
     private javax.swing.JSpinner cpu_emp_quantity;
+    public static javax.swing.JLabel cpu_quantity;
     private javax.swing.JSpinner graphic_emp_quantity;
+    public static javax.swing.JLabel graphic_quantity;
     private javax.swing.JToggleButton inicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -293,6 +299,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JSpinner power_emp_quantity;
+    public static javax.swing.JLabel power_quantity;
     private javax.swing.JSpinner ram_emp_quantity;
+    public static javax.swing.JLabel ram_quantity;
     // End of variables declaration//GEN-END:variables
 }

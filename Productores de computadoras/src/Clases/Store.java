@@ -4,6 +4,8 @@
  */
 package Clases;
 
+import Interfaces.Home;
+
 /**
  *
  * @author alons
@@ -12,6 +14,7 @@ public class Store {
     private int motherboards;
     private int cpu;
     private int ram;
+    private int power;
     private int graphic_cards;
 
     public Store() {
@@ -19,6 +22,7 @@ public class Store {
         this.cpu = 0;
         this.ram = 0;
         this.graphic_cards = 0;
+        this.power=0;
     }
 
     /**
@@ -81,16 +85,25 @@ public class Store {
         switch(employee_type){
             case 1:
               this.motherboards += 1;
+              Home.base_quantity.setText("Unid. en almacén: "+Integer.toString(this.motherboards)+"/25");
               break;
             case 2:
                 this.cpu += 1;
+                Home.cpu_quantity.setText("Unid. en almacén: "+Integer.toString(this.cpu)+"/20");
                 break;
             case 3:
                 this.ram += 1;
+                Home.ram_quantity.setText("Unid. en almacén: "+Integer.toString(this.ram)+"/55");
                 break;
             case 4:
+                this.power += 1;
+                Home.power_quantity.setText("Unid. en almacén: "+Integer.toString(this.power)+"/35");
+                break;
+            case 5:
                 this.graphic_cards += 1;
+                Home.graphic_quantity.setText("Unid. en almacén: "+Integer.toString(this.power)+"/10");
                 break;
         }
+        
     }
 }

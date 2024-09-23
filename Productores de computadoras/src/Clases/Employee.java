@@ -22,7 +22,7 @@ public class Employee extends Thread {
         this.salary = salary;
         this.day_count = 0;
         this.day_proportion = day_proportion;
-        this.company = null;
+        this.company = company;
         this.working = true;
     }
 
@@ -56,30 +56,36 @@ public class Employee extends Thread {
 
     @Override
     public void run() {
-        for (int i = 1; i <= 5; i++) {
+        while (this.working) {
+            try{
             work();
+            sleep(3000);
+            }catch(InterruptedException e){
+                System.out.println("uwu");
+            }
+            
         }
     }
 
     public void work() {
-        
+
         this.day_count += this.day_proportion;
-        while (this.working) {
-            if (this.day_count >= 1) {
-                try {
-                    this.company.getMutex().acquire();
-                    this.company.getStore().AddComponent(this.type);
-                    this.company.getMutex().release();
-                    this.day_count = 0;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
+        if (this.day_count >= 1) {
+            try {
+                this.company.getMutex().acquire();
+                this.company.getStore().AddComponent(this.type);
+                this.company.getMutex().release();
+                this.day_count = 0;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
+
     }
 
     public void Stop() {
-
+        this.working = false;
     }
 
 }
