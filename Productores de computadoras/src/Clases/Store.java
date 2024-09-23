@@ -14,11 +14,11 @@ public class Store {
     private int ram;
     private int graphic_cards;
 
-    public Store(int motherboards, int cpu, int ram, int graphic_cards) {
-        this.motherboards = motherboards;
-        this.cpu = cpu;
-        this.ram = ram;
-        this.graphic_cards = graphic_cards;
+    public Store() {
+        this.motherboards = 0;
+        this.cpu = 0;
+        this.ram = 0;
+        this.graphic_cards = 0;
     }
 
     /**
