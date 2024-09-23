@@ -5,11 +5,13 @@
 package Interfaces;
 
 import Clases.Company;
+import Clases.Employee;
 import EDD.Lista;
 import java.io.File;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
 import productores.de.computadoras.Functions;
-
 
 /**
  *
@@ -23,9 +25,19 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         this.setLocationRelativeTo(null);
+        JFormattedTextField spinnerTextField1 = ((JSpinner.DefaultEditor) base_emp_quantity.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField2 = ((JSpinner.DefaultEditor) cpu_emp_quantity.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField3 = ((JSpinner.DefaultEditor) ram_emp_quantity.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField4 = ((JSpinner.DefaultEditor) power_emp_quantity.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField5 = ((JSpinner.DefaultEditor) graphic_emp_quantity.getEditor()).getTextField();
+        initSpinners(spinnerTextField1);
+        initSpinners(spinnerTextField2);
+        initSpinners(spinnerTextField3);
+        initSpinners(spinnerTextField4);
+        initSpinners(spinnerTextField5);
     }
     Lista<Company> companies = new Lista<Company>();
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,6 +130,18 @@ public class Home extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Prod. Placa base:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, 30));
+
+        base_emp_quantity.setEditor(new javax.swing.JSpinner.NumberEditor(base_emp_quantity, ""));
+        base_emp_quantity.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                base_emp_quantityStateChanged(evt);
+            }
+        });
+        base_emp_quantity.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                base_emp_quantityPropertyChange(evt);
+            }
+        });
         jPanel2.add(base_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 100, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/applecomputer.png"))); // NOI18N
@@ -220,9 +244,13 @@ public class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void initSpinners(JFormattedTextField spinnerTextField) {
+        spinnerTextField.setEditable(false);
+        spinnerTextField.setFocusable(false);
+    }
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         File file = Functions.FileChooser();
-        if (file!=null){
+        if (file != null) {
             companies = Functions.LeerTxt(file);
             base_emp_quantity.setValue(companies.getFirst().getData().getBase_employees().getSize());
             cpu_emp_quantity.setValue(companies.getFirst().getData().getCpu_employees().getSize());
@@ -235,6 +263,22 @@ public class Home extends javax.swing.JFrame {
     private void base_quantityPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_base_quantityPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_base_quantityPropertyChange
+
+    private void base_emp_quantityPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_base_emp_quantityPropertyChange
+
+    }//GEN-LAST:event_base_emp_quantityPropertyChange
+
+    private void base_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_base_emp_quantityStateChanged
+        Lista<Employee> base = companies.getFirst().getData().getBase_employees();
+        int diference = base.getSize() - (int) base_emp_quantity.getValue();
+        if (diference < 0) {
+            Employee new_emp = new Employee(20,companies.getFirst().getData(),0.25);
+            new_emp.setType(1);
+            base.AddElement(new_emp);
+        } else {
+            base.removeLast();
+        }
+    }//GEN-LAST:event_base_emp_quantityStateChanged
 
     /**
      * @param args the command line arguments
@@ -270,7 +314,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner base_emp_quantity;
