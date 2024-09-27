@@ -4,6 +4,8 @@
  */
 package EDD;
 
+import Clases.Employee;
+
 /**
  *
  * @author alons
@@ -91,10 +93,11 @@ public class Lista<T> {
         }
     }
     
-    public void removeLast() {
+    public Nodo<T> removeLast() {
+        Nodo<T> nodo = Last;
         if (isEmpty()) {
             System.out.println("La lista está vacía, no hay nada que eliminar.");
-            return;
+            return null;
         }
     
         // Si la lista tiene un solo elemento
@@ -112,8 +115,8 @@ public class Lista<T> {
             current.setpNext(null);
             Last = current;
         }
-    
         size--; // Reducir el tamaño de la lista
+        return nodo;
     }
     
     

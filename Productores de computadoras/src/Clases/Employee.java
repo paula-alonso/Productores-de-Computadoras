@@ -4,25 +4,26 @@
  */
 package Clases;
 
-
-
 /**
  *
  * @author alons
  */
-public class Employee extends Thread{
+public class Employee extends Thread {
+
     private int type;
     private double salary;
     private double day_count;
     private final double day_proportion;
     private Company company;
+    private boolean working;
 
     public Employee(double salary, Company company, double day_proportion) {
         this.type = 0;
         this.salary = salary;
-        this.day_count= 0;
+        this.day_count = 0;
         this.day_proportion = day_proportion;
-        this.company = null;
+        this.company = company;
+        this.working = true;
     }
 
     /**
@@ -52,18 +53,26 @@ public class Employee extends Thread{
     public void setSalary(double salary) {
         this.salary = salary;
     }
-    
-    @Override 
-    public void run(){
-        for (int i = 1; i <= 5; i++){
+
+    @Override
+    public void run() {
+        while (this.working) {
+            try{
             work();
+            sleep(3000);
+            }catch(InterruptedException e){
+                System.out.println("uwu");
+            }
+            
         }
     }
-    
-    public void work(){
-        
-        if(this.day_count==1){
-            try{
+
+    public void work() {
+
+        this.day_count += this.day_proportion;
+
+        if (this.day_count >= 1) {
+            try {
                 this.company.getMutex().acquire();
                 this.company.getStore().AddComponent(this.type);
                 this.company.getMutex().release();
@@ -71,9 +80,12 @@ public class Employee extends Thread{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } 
-        this.day_count += this.day_proportion;
+        }
+
     }
-    
-    
+
+    public void Stop() {
+        this.working = false;
+    }
+
 }

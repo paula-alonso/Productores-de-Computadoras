@@ -5,6 +5,7 @@
 package Clases;
 
 import EDD.Lista;
+import EDD.Nodo;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -12,6 +13,7 @@ import java.util.concurrent.Semaphore;
  * @author alons
  */
 public class Company {
+
     private String name;
     private Store store;
     private Semaphore mutex;
@@ -25,11 +27,60 @@ public class Company {
         this.name = name;
         this.store = store;
         this.mutex = new Semaphore(1);
-        this.base_employees = null;
-        this.cpu_employees = null;
-        this.ram_employees = null;
-        this.power_employees = null;
-        this.graphic_employee=null;
+        this.base_employees = new Lista<Employee>();
+        this.cpu_employees = new Lista<Employee>();
+        this.ram_employees = new Lista<Employee>();
+        this.power_employees = new Lista<Employee>();
+        this.graphic_employee = new Lista<Employee>();
+    }
+
+    public void AddEmployee(int type, Employee employee) {
+        switch (type) {
+            case 1:
+                employee.setType(type);
+                this.base_employees.AddElement(employee);
+                break;
+            case 2:
+                employee.setType(type);
+                this.cpu_employees.AddElement(employee);
+                break;
+            case 3:
+                employee.setType(type);
+                this.ram_employees.AddElement(employee);
+                break;
+            case 4:
+                employee.setType(type);
+                this.power_employees.AddElement(employee);
+                break;
+            case 5:
+                employee.setType(type);
+                this.graphic_employee.AddElement(employee);
+                break;
+        }
+        employee.start();
+    }
+    
+    public void DeleteEmployee(int type){
+        Employee emp_deleted = null;
+        switch (type) {
+            case 1:
+                emp_deleted = (Employee) this.base_employees.removeLast().getData();
+                break;
+            case 2:
+                emp_deleted = (Employee) this.cpu_employees.removeLast().getData();
+                break;
+            case 3:
+                emp_deleted = (Employee)  this.ram_employees.removeLast().getData();
+                break;
+            case 4:
+                emp_deleted = (Employee)  this.power_employees.removeLast().getData();
+                break;
+            case 5:
+                emp_deleted = (Employee)  this.graphic_employee.removeLast().getData();
+                break;
+        }
+        emp_deleted.Stop();
+        
     }
 
     /**
@@ -129,6 +180,19 @@ public class Company {
     public void setPower_employees(Lista<Employee> power_employees) {
         this.power_employees = power_employees;
     }
-    
-    
+
+    /**
+     * @return the graphic_employee
+     */
+    public Lista<Employee> getGraphic_employee() {
+        return graphic_employee;
+    }
+
+    /**
+     * @param graphic_employee the graphic_employee to set
+     */
+    public void setGraphic_employee(Lista<Employee> graphic_employee) {
+        this.graphic_employee = graphic_employee;
+    }
+
 }
