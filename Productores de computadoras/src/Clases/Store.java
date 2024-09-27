@@ -22,7 +22,7 @@ public class Store {
     private int counterForGraphic;
     private Company company;
 
-    public Store(Company company) {
+    public Store() {
         
         this.company = company;
         this.motherboards = 0;
