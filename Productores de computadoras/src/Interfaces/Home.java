@@ -535,5 +535,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSpinner ram_emp_quantity1;
     public static javax.swing.JLabel ram_quantity;
     public static javax.swing.JLabel ram_quantity1;
+  
     // End of variables declaration//GEN-END:variables
 }

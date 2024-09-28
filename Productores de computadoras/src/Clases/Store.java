@@ -142,8 +142,10 @@ public class Store {
     }
     
     /**
-     *
-     * @param assemblersAmount
+     * Función para ensamblar las computadoras y agregarlas a la tienda
+     * Actualiza los compontentes disponibles en la tienda
+     * 
+     * @param assemblersAmount // Cantidad de ensambladores disponibles
      */
     public void assembleComputer (int assemblersAmount) {
         
@@ -154,13 +156,13 @@ public class Store {
         component[3] = power;
         
         
-        int computersAmount = assemblersAmount;
+        int computersAmount = assemblersAmount; // Se inicializa la cantidad de computadoras posibles en el número de ensambladores disponibles para ir disminuyendo de ser necesario
         
         for (int i = 0; i < 4; i++) {
-            int quantity = possibleComputers (component[i], i);
+            int quantity = possibleComputers (component[i], i); 
         
             if (quantity < computersAmount) {
-                computersAmount = quantity;
+                computersAmount = quantity; // Si la cantidad de componentes necesarios disponibles es menor, se iguala la cantidad de computadoras a esa
             }
          }
         
