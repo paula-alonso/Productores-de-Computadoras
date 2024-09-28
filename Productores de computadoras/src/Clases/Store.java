@@ -120,6 +120,13 @@ public class Store {
         
     }
     
+    /**
+     * Función para calcular la cantidad de computadores que es posible ensamblar en base a los componentes disponibles en la tienda
+     *
+     * @param amount // Total de componentes de ese tipo (type) disponibles en la tienda
+     * @param type // Tipo de componente
+     * @return quantity // Cantidad de computadoras posibles
+     */
     public int possibleComputers (int amount, int type) {
         int componentAmount = amount; // Total de componentes de ese tipo (type) disponibles en la tienda
         int quantity = 0; // Camtidad de computadoras que se pueden producir según la disponibilidad de ese componente
@@ -133,6 +140,32 @@ public class Store {
         }
         return quantity;
     }
+    
+    /**
+     *
+     * @param assemblersAmount
+     */
+    public void assembleComputer (int assemblersAmount) {
+        
+        int[] component = null;
+        component[0] = motherboards;
+        component[1] = cpu;
+        component[2] = ram;
+        component[3] = power;
+        
+        
+        int computersAmount = assemblersAmount;
+        
+        for (int i = 0; i < 4; i++) {
+            int quantity = possibleComputers (component[i], i);
+        
+            if (quantity < computersAmount) {
+                computersAmount = quantity;
+            }
+         }
+        
+    }
+    
     
     
     
