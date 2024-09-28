@@ -19,6 +19,13 @@ import productores.de.computadoras.Functions;
  */
 public class Home extends javax.swing.JFrame {
 
+    Lista<Company> companies = new Lista<Company>();
+    Functions func = new Functions();
+    boolean running;
+    boolean inicialized = false;
+    Company apple;
+    Company dell;
+
     /**
      * Creates new form Home
      */
@@ -35,8 +42,37 @@ public class Home extends javax.swing.JFrame {
         initSpinners(spinnerTextField3);
         initSpinners(spinnerTextField4);
         initSpinners(spinnerTextField5);
+        loadInfo();
     }
-    Lista<Company> companies = new Lista<Company>();
+
+    private void loadInfo() {
+        companies = func.LeerTxt();
+        apple=companies.getFirst().getData();
+        dell=companies.getFirst().getData();
+        base_emp_quantity.setValue(apple.getBase_employees().getSize());
+        cpu_emp_quantity.setValue(apple.getCpu_employees().getSize());
+        ram_emp_quantity.setValue(apple.getRam_employees().getSize());
+        power_emp_quantity.setValue(apple.getPower_employees().getSize());
+        graphic_emp_quantity.setValue(apple.getGraphic_employee().getSize());
+        inicialized = true;
+    }
+
+    public void manageQuantityAddChange(Employee new_emp, Company company) {
+        if (!running) {
+            company.AddEmployee(new_emp);
+        } else {
+            company.hireEmployee(new_emp);
+        }
+    }
+
+    public void manageQuantityDeleteChange(Company company, int type) {
+        company.DeleteEmployee(type);
+    }
+
+    public int getDifference(Lista<Employee> list, javax.swing.JSpinner spinner) {
+        int diference = list.getSize() - (int) spinner.getValue();
+        return diference;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -162,11 +198,6 @@ public class Home extends javax.swing.JFrame {
                 base_emp_quantityStateChanged(evt);
             }
         });
-        base_emp_quantity.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                base_emp_quantityPropertyChange(evt);
-            }
-        });
         jPanel2.add(base_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 100, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/applecomputer.png"))); // NOI18N
@@ -184,13 +215,31 @@ public class Home extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Prod. CPUs:");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, 30));
+
+        cpu_emp_quantity.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                cpu_emp_quantityStateChanged(evt);
+            }
+        });
         jPanel2.add(cpu_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 100, 30));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Prod. RAM:");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, 30));
+
+        ram_emp_quantity.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ram_emp_quantityStateChanged(evt);
+            }
+        });
         jPanel2.add(ram_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 100, 30));
+
+        graphic_emp_quantity.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                graphic_emp_quantityStateChanged(evt);
+            }
+        });
         jPanel2.add(graphic_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 100, 30));
 
         jTextArea2.setEditable(false);
@@ -243,6 +292,12 @@ public class Home extends javax.swing.JFrame {
         jTextArea3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextArea3.setOpaque(false);
         jPanel2.add(jTextArea3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 120, 50));
+
+        power_emp_quantity.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                power_emp_quantityStateChanged(evt);
+            }
+        });
         jPanel2.add(power_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 100, 30));
 
         power_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -401,35 +456,25 @@ public class Home extends javax.swing.JFrame {
         spinnerTextField.setFocusable(false);
     }
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
-        File file = Functions.FileChooser();
-        if (file != null) {
-            companies = Functions.LeerTxt(file);
-            base_emp_quantity.setValue(companies.getFirst().getData().getBase_employees().getSize());
-            cpu_emp_quantity.setValue(companies.getFirst().getData().getCpu_employees().getSize());
-            ram_emp_quantity.setValue(companies.getFirst().getData().getRam_employees().getSize());
-            power_emp_quantity.setValue(companies.getFirst().getData().getPower_employees().getSize());
-            graphic_emp_quantity.setValue(companies.getFirst().getData().getGraphic_employee().getSize());
-        }
+        apple.startAll();
+        running = true;
     }//GEN-LAST:event_inicioActionPerformed
 
     private void base_quantityPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_base_quantityPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_base_quantityPropertyChange
 
-    private void base_emp_quantityPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_base_emp_quantityPropertyChange
-
-    }//GEN-LAST:event_base_emp_quantityPropertyChange
-
     private void base_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_base_emp_quantityStateChanged
-        Lista<Employee> base = companies.getFirst().getData().getBase_employees();
-        int diference = base.getSize() - (int) base_emp_quantity.getValue();
-        if (diference < 0) {
-            Employee new_emp = new Employee(20,companies.getFirst().getData(),0.25);
-            new_emp.setType(1);
-            base.AddElement(new_emp);
-        } else {
-            base.removeLast();
+        if (inicialized) {
+            if (getDifference(apple.getBase_employees(), base_emp_quantity) < 0) {
+                Employee new_emp = new Employee(20, apple, 0.25);
+                new_emp.setType(1);
+                manageQuantityAddChange(new_emp, apple);
+            } else {
+                manageQuantityDeleteChange(apple, 1);
+            }
         }
+
     }//GEN-LAST:event_base_emp_quantityStateChanged
 
     private void base_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_base_emp_quantity1StateChanged
@@ -443,6 +488,54 @@ public class Home extends javax.swing.JFrame {
     private void base_quantity1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_base_quantity1PropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_base_quantity1PropertyChange
+
+    private void cpu_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cpu_emp_quantityStateChanged
+        if (inicialized) {
+            if (getDifference(apple.getCpu_employees(), cpu_emp_quantity) < 0) {
+                Employee new_emp = new Employee(26, apple, 0.25);
+                new_emp.setType(2);
+                manageQuantityAddChange(new_emp, apple);
+            } else {
+                manageQuantityDeleteChange(apple, 2);
+            }
+        }
+    }//GEN-LAST:event_cpu_emp_quantityStateChanged
+
+    private void ram_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ram_emp_quantityStateChanged
+        if (inicialized) {
+            if (getDifference(apple.getRam_employees(), ram_emp_quantity) < 0) {
+                Employee new_emp = new Employee(40, apple, 1);
+                new_emp.setType(3);
+                manageQuantityAddChange(new_emp, apple);
+            } else {
+                manageQuantityDeleteChange(apple, 3);
+            }
+        }
+    }//GEN-LAST:event_ram_emp_quantityStateChanged
+
+    private void power_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_power_emp_quantityStateChanged
+        if (inicialized) {
+            if (getDifference(apple.getPower_employees(), power_emp_quantity) < 0) {
+                Employee new_emp = new Employee(16, apple, 5);
+                new_emp.setType(4);
+                manageQuantityAddChange(new_emp, apple);
+            } else {
+                manageQuantityDeleteChange(apple, 4);
+            }
+        }
+    }//GEN-LAST:event_power_emp_quantityStateChanged
+
+    private void graphic_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_graphic_emp_quantityStateChanged
+        if (inicialized) {
+            if (getDifference(apple.getGraphic_employee(), graphic_emp_quantity) < 0) {
+                Employee new_emp = new Employee(34, apple, 0.5);
+                new_emp.setType(5);
+                manageQuantityAddChange(new_emp, apple);
+            } else {
+                manageQuantityDeleteChange(apple, 5);
+            }
+        }
+    }//GEN-LAST:event_graphic_emp_quantityStateChanged
 
     /**
      * @param args the command line arguments
@@ -535,6 +628,5 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSpinner ram_emp_quantity1;
     public static javax.swing.JLabel ram_quantity;
     public static javax.swing.JLabel ram_quantity1;
-  
     // End of variables declaration//GEN-END:variables
 }

@@ -11,7 +11,10 @@ import EDD.Lista;
 import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFileChooser;
@@ -48,19 +51,18 @@ public class Functions {
 
     }
 
-    public static Lista<Company> LeerTxt(File archivo) {
-        
+    public Lista<Company> LeerTxt() {
+
         Lista<Company> companies = new Lista<Company>();
         String line;
         String computadorastxt = "";
         //String path = "test\\computadoras.txt";
-        File file = archivo;
         try {
-            if (!file.exists()) {
-                file.createNewFile();
+            InputStream inputStream = getClass().getResourceAsStream("computadoras.txt"); // Cambia esto según la ubicación del archivo
+            if (inputStream == null) {
+                throw new FileNotFoundException("El archivo no se encuentra dentro del proyecto.");
             } else {
-                FileReader fr = new FileReader(file);
-                BufferedReader br = new BufferedReader(fr);
+                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
                 while ((line = br.readLine()) != null) {
                     if (!line.isEmpty()) {
                         computadorastxt += line + "\n";
@@ -83,32 +85,32 @@ public class Functions {
                         while (i < sections.length && !sections[i].contains("/")) {
                             String[] trabajador = sections[i].split(",");
                             String type = trabajador[0];
-                            int num=0;
+                            int num = 0;
                             switch (type) {
-                                    case "base":
-                                        num = 1;
-                                        break;
-                                    case "cpu":
-                                        num = 2;
-                                        break;
-                                    case "ram":
-                                        num = 3;
-                                        break;
-                                    case "power":
-                                        num = 4;
-                                        break;
-                                    case "graphic":
-                                        num = 5;
-                                        break;
-                                }
+                                case "base":
+                                    num = 1;
+                                    break;
+                                case "cpu":
+                                    num = 2;
+                                    break;
+                                case "ram":
+                                    num = 3;
+                                    break;
+                                case "power":
+                                    num = 4;
+                                    break;
+                                case "graphic":
+                                    num = 5;
+                                    break;
+                            }
                             double salary = Double.parseDouble(trabajador[2]);
                             double day_prod = Double.parseDouble(trabajador[3]);
                             for (int j = 1; j <= Integer.parseInt(trabajador[1]); j++) {
                                 Employee employee = new Employee(salary, company, day_prod);
-                                company.AddEmployee(num, employee);
+                                employee.setType(num);
+                                company.AddEmployee(employee);
                             }
                             i++;
-                            
 
                         }
                         companies.AddElement(company);
