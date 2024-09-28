@@ -56,10 +56,10 @@ public class Employee extends Thread {
 
     @Override
     public void run() {
-        while (this.working) {
+        while (this.isWorking()) {
             try{
             work();
-            sleep(3000);
+            sleep(5000);
             }catch(InterruptedException e){
                 System.out.println("uwu");
             }
@@ -85,7 +85,22 @@ public class Employee extends Thread {
     }
 
     public void Stop() {
-        this.working = false;
+        this.setWorking(false);
+        System.out.println("empleado detenido");
+    }
+
+    /**
+     * @return the working
+     */
+    public boolean isWorking() {
+        return working;
+    }
+
+    /**
+     * @param working the working to set
+     */
+    public void setWorking(boolean working) {
+        this.working = working;
     }
 
 }

@@ -34,53 +34,92 @@ public class Company {
         this.graphic_employee = new Lista<Employee>();
     }
 
-    public void AddEmployee(int type, Employee employee) {
-        switch (type) {
+    public void AddEmployee(Employee employee) {
+        switch (employee.getType()) {
             case 1:
-                employee.setType(type);
+                System.out.println(base_employees.getSize());
                 this.base_employees.AddElement(employee);
+                System.out.println("Empleado añadodo a base");
+                System.out.println(base_employees.getSize());
                 break;
             case 2:
-                employee.setType(type);
+                System.out.println("Empleado añadodo a cpu");
                 this.cpu_employees.AddElement(employee);
+                System.out.println(cpu_employees.getSize());
                 break;
             case 3:
-                employee.setType(type);
+                System.out.println("Empleado añadodo a ram");
                 this.ram_employees.AddElement(employee);
+                System.out.println(ram_employees.getSize());
                 break;
             case 4:
-                employee.setType(type);
+                System.out.println("Empleado añadodo a alimentacion");
                 this.power_employees.AddElement(employee);
+                System.out.println(power_employees.getSize());
                 break;
             case 5:
-                employee.setType(type);
+                System.out.println("Empleado añadodo a tarjeta");
                 this.graphic_employee.AddElement(employee);
+                System.out.println(graphic_employee.getSize());
                 break;
         }
-        employee.start();
     }
     
-    public void DeleteEmployee(int type){
+    public void hireEmployee(Employee employee){
+        AddEmployee(employee);
+        employee.start();
+        System.out.println("Empleado iniciado");
+    }
+
+    public void DeleteEmployee(int type) {
         Employee emp_deleted = null;
         switch (type) {
             case 1:
                 emp_deleted = (Employee) this.base_employees.removeLast().getData();
+                System.out.println("Empleado eliminado de la lista de base");
+                System.out.println(base_employees.getSize());
                 break;
             case 2:
                 emp_deleted = (Employee) this.cpu_employees.removeLast().getData();
+                System.out.println("Empleado eliminado de la lista de cpu");
+                System.out.println(cpu_employees.getSize());
                 break;
             case 3:
-                emp_deleted = (Employee)  this.ram_employees.removeLast().getData();
+                emp_deleted = (Employee) this.ram_employees.removeLast().getData();
+                System.out.println("Empleado eliminado de la lista de ram");
+                System.out.println(ram_employees.getSize());
                 break;
             case 4:
-                emp_deleted = (Employee)  this.power_employees.removeLast().getData();
+                emp_deleted = (Employee) this.power_employees.removeLast().getData();
+                System.out.println("Empleado eliminado de la lista de power");
+                System.out.println(power_employees.getSize());
                 break;
             case 5:
-                emp_deleted = (Employee)  this.graphic_employee.removeLast().getData();
+                emp_deleted = (Employee) this.graphic_employee.removeLast().getData();
+                System.out.println("Empleado eliminado de la lista de tarjeta");
+                System.out.println(graphic_employee.getSize());
                 break;
         }
-        emp_deleted.Stop();
-        
+        if(emp_deleted.isWorking()){
+            emp_deleted.Stop();
+        }
+
+    }
+
+    public void startAll() {
+        startList(base_employees);
+        startList(cpu_employees);
+        startList(ram_employees);
+        startList(power_employees);
+        startList(graphic_employee);
+    }
+
+    public void startList(Lista<Employee> employees) {
+        Nodo<Employee> emp = employees.getFirst();
+        while (emp != null) {
+            emp.getData().start();
+            emp = emp.getpNext();
+        }
     }
 
     /**

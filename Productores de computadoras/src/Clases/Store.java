@@ -110,7 +110,7 @@ public class Store {
                 Home.ram_quantity.setText("Unid. en almacén: "+Integer.toString(this.ram)+"/55");
                 break;
             case 4:
-                this.power += 1;
+                this.power += 5;
                 Home.power_quantity.setText("Unid. en almacén: "+Integer.toString(this.power)+"/35");
                 break;
             case 5:
