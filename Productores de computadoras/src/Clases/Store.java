@@ -21,6 +21,7 @@ public class Store {
     private int computerWithGraphic;
     private int counterForGraphic;
     private Company company;
+    private int [] necessaryComponents; 
 
     public Store() {
         
@@ -118,4 +119,21 @@ public class Store {
         }
         
     }
+    
+    public int possibleComputers (int amount, int type) {
+        int componentAmount = amount; // Total de componentes de ese tipo (type) disponibles en la tienda
+        int quantity = 0; // Camtidad de computadoras que se pueden producir según la disponibilidad de ese componente
+        
+        while (componentAmount > 0) {
+            int spare = componentAmount - necessaryComponents[type]; // Son los componentes que sobran después de tomar los que necesito
+            if (spare >= 0) { // Si hay suficiente disponibilidad de componentes
+                quantity += 1; 
+            } 
+            componentAmount = spare; // Se iguala los componentes disponibles a los sobrantes
+        }
+        return quantity;
+    }
+    
+    
+    
 }
