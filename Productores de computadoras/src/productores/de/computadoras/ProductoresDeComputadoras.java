@@ -19,6 +19,7 @@ public class ProductoresDeComputadoras {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         Semaphore mutex = new Semaphore(1);
         //Store store1 = new Store(0,0,0,0);
         //Store store2 = new Store(0,0,0,0);

@@ -6,6 +6,8 @@ package Clases;
 
 import Interfaces.Home;
 
+import Interfaces.Home;
+
 /**
  *
  * @author alons
@@ -16,13 +18,25 @@ public class Store {
     private int ram;
     private int power;
     private int graphic_cards;
+    private int computersQuantity;
+    private int computer;
+    private int computerWithGraphic;
+    private int counterForGraphic;
+    private Company company;
 
     public Store() {
+        
+        this.company = company;
         this.motherboards = 0;
         this.cpu = 0;
         this.ram = 0;
         this.graphic_cards = 0;
         this.power=0;
+        this.computersQuantity = 0;
+        this.computer = 0;
+        this.computerWithGraphic = 0;
+        this.counterForGraphic = 0;
+        
     }
 
     /**
