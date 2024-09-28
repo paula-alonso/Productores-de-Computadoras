@@ -33,7 +33,7 @@ public class Assembler extends Thread {
         
     }
     
-
+    
     public int getSalary() {
         return salary;
     }
