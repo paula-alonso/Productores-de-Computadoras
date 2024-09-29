@@ -377,6 +377,12 @@ public class Home extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Prod. CPUs:");
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, 30));
+
+        cpu_emp_quantity1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                cpu_emp_quantity1StateChanged(evt);
+            }
+        });
         jPanel3.add(cpu_emp_quantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 100, 30));
 
         cpu_quantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -388,6 +394,12 @@ public class Home extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Prod. RAM:");
         jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, 30));
+
+        ram_emp_quantity1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ram_emp_quantity1StateChanged(evt);
+            }
+        });
         jPanel3.add(ram_emp_quantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 100, 30));
 
         ram_quantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -407,6 +419,12 @@ public class Home extends javax.swing.JFrame {
         jTextArea5.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextArea5.setOpaque(false);
         jPanel3.add(jTextArea5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 120, 50));
+
+        power_emp_quantity1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                power_emp_quantity1StateChanged(evt);
+            }
+        });
         jPanel3.add(power_emp_quantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 100, 30));
 
         power_quantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -426,6 +444,12 @@ public class Home extends javax.swing.JFrame {
         jTextArea6.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextArea6.setOpaque(false);
         jPanel3.add(jTextArea6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 120, 50));
+
+        graphic_emp_quantity1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                graphic_emp_quantity1StateChanged(evt);
+            }
+        });
         jPanel3.add(graphic_emp_quantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 100, 30));
 
         graphic_quantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -470,7 +494,7 @@ public class Home extends javax.swing.JFrame {
     private void base_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_base_emp_quantityStateChanged
 
         
-       //Apple 
+       //Apple Base # Employees Spinner change in real time
         
         if (inicialized) {
             if (getDifference(apple.getBase_employees(), base_emp_quantity) < 0) {
@@ -486,11 +510,11 @@ public class Home extends javax.swing.JFrame {
 
     private void base_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_base_emp_quantity1StateChanged
         
-        // Dell
+        // Dell Base # Employees Spinner change in real time
       
         if (inicialized) {
             if (getDifference(dell.getBase_employees(), base_emp_quantity1) < 0) {
-                Employee new_emp = new Employee(20, dell, 0.25);
+                Employee new_emp = new Employee(20, dell, 0.34);
                 new_emp.setType(1);
                 manageQuantityAddChange(new_emp, dell);
             } else {
@@ -508,6 +532,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_base_quantity1PropertyChange
 
     private void cpu_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cpu_emp_quantityStateChanged
+       
+        // Apple CPU # Employees Spinner change in real time
+        
         if (inicialized) {
             if (getDifference(apple.getCpu_employees(), cpu_emp_quantity) < 0) {
                 Employee new_emp = new Employee(26, apple, 0.25);
@@ -520,6 +547,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_cpu_emp_quantityStateChanged
 
     private void ram_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ram_emp_quantityStateChanged
+       
+        // Apple RAM # Employees Spinner change in real time
+        
         if (inicialized) {
             if (getDifference(apple.getRam_employees(), ram_emp_quantity) < 0) {
                 Employee new_emp = new Employee(40, apple, 1);
@@ -532,6 +562,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_ram_emp_quantityStateChanged
 
     private void power_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_power_emp_quantityStateChanged
+        
+        // Apple Power # Employees Spinner change in real time
+        
         if (inicialized) {
             if (getDifference(apple.getPower_employees(), power_emp_quantity) < 0) {
                 Employee new_emp = new Employee(16, apple, 5);
@@ -544,6 +577,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_power_emp_quantityStateChanged
 
     private void graphic_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_graphic_emp_quantityStateChanged
+        
+        // Apple Grapic Card # Employees Spinner change in real time
+        
         if (inicialized) {
             if (getDifference(apple.getGraphic_employee(), graphic_emp_quantity) < 0) {
                 Employee new_emp = new Employee(34, apple, 0.5);
@@ -554,6 +590,70 @@ public class Home extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_graphic_emp_quantityStateChanged
+
+    private void cpu_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cpu_emp_quantity1StateChanged
+        
+        // Dell CPU # Employees Spinner change in real time
+        
+        if (inicialized) {
+            if (getDifference(dell.getBase_employees(), cpu_emp_quantity1) < 0) {
+                Employee new_emp = new Employee(26, dell, 0.34);
+                new_emp.setType(2);
+                manageQuantityAddChange(new_emp, dell);
+            } else {
+                manageQuantityDeleteChange(dell, 1);
+            }
+        } 
+
+    }//GEN-LAST:event_cpu_emp_quantity1StateChanged
+
+    private void ram_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ram_emp_quantity1StateChanged
+        
+        // Dell RAM # Employees Spinner change in real time
+        
+        if (inicialized) {
+            if (getDifference(dell.getBase_employees(), ram_emp_quantity1) < 0) {
+                Employee new_emp = new Employee(40, dell, 2);
+                new_emp.setType(3);
+                manageQuantityAddChange(new_emp, dell);
+            } else {
+                manageQuantityDeleteChange(dell, 1);
+            }
+        }
+        
+    }//GEN-LAST:event_ram_emp_quantity1StateChanged
+
+    private void power_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_power_emp_quantity1StateChanged
+        
+        // Dell Power # Employees Spinner change in real time
+        
+        if (inicialized) {
+            if (getDifference(dell.getBase_employees(), power_emp_quantity1) < 0) {
+                Employee new_emp = new Employee(16, dell, 5);
+                new_emp.setType(4);
+                manageQuantityAddChange(new_emp, dell);
+            } else {
+                manageQuantityDeleteChange(dell, 1);
+            }
+        }
+        
+    }//GEN-LAST:event_power_emp_quantity1StateChanged
+
+    private void graphic_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_graphic_emp_quantity1StateChanged
+        
+        // Dell Grapic Card # Employees Spinner change in real time
+        
+        if (inicialized) {
+            if (getDifference(dell.getGraphic_employee(), graphic_emp_quantity1) < 0) {
+                Employee new_emp = new Employee(34, dell, 0.5);
+                new_emp.setType(5);
+                manageQuantityAddChange(new_emp, dell);
+            } else {
+                manageQuantityDeleteChange(dell, 5);
+            }
+        }
+        
+    }//GEN-LAST:event_graphic_emp_quantity1StateChanged
 
     /**
      * @param args the command line arguments
