@@ -123,6 +123,9 @@ public class Home extends javax.swing.JFrame {
         base_quantity = new javax.swing.JLabel();
         cpu_quantity = new javax.swing.JLabel();
         ram_quantity = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        assembler_emp_quantity = new javax.swing.JSpinner();
+        comp_quantity = new javax.swing.JLabel();
         jTextArea3 = new javax.swing.JTextArea();
         power_emp_quantity = new javax.swing.JSpinner();
         power_quantity = new javax.swing.JLabel();
@@ -146,7 +149,10 @@ public class Home extends javax.swing.JFrame {
         power_emp_quantity1 = new javax.swing.JSpinner();
         power_quantity1 = new javax.swing.JLabel();
         jTextArea6 = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
+        assembler_emp_quantity1 = new javax.swing.JSpinner();
         graphic_emp_quantity1 = new javax.swing.JSpinner();
+        comp_quantity1 = new javax.swing.JLabel();
         graphic_quantity1 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
 
@@ -292,6 +298,29 @@ public class Home extends javax.swing.JFrame {
         ram_quantity.setForeground(new java.awt.Color(0, 0, 0));
         ram_quantity.setText("Unid. en almacén: 0/55");
         jPanel2.add(ram_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, -1, 30));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Ensambladores");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 230, -1, 30));
+
+        assembler_emp_quantity.setEditor(new javax.swing.JSpinner.NumberEditor(assembler_emp_quantity, ""));
+        assembler_emp_quantity.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                assembler_emp_quantityStateChanged(evt);
+            }
+        });
+        assembler_emp_quantity.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                assembler_emp_quantityPropertyChange(evt);
+            }
+        });
+        jPanel2.add(assembler_emp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 230, 100, 30));
+
+        comp_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        comp_quantity.setForeground(new java.awt.Color(0, 0, 0));
+        comp_quantity.setText("Computadoras: 0");
+        jPanel2.add(comp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, 30));
 
         jTextArea3.setEditable(false);
         jTextArea3.setColumns(20);
@@ -452,12 +481,35 @@ public class Home extends javax.swing.JFrame {
         jTextArea6.setOpaque(false);
         jPanel3.add(jTextArea6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 120, 50));
 
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("Ensambladores");
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 230, -1, 30));
+
+        assembler_emp_quantity1.setEditor(new javax.swing.JSpinner.NumberEditor(assembler_emp_quantity1, ""));
+        assembler_emp_quantity1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                assembler_emp_quantity1StateChanged(evt);
+            }
+        });
+        assembler_emp_quantity1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                assembler_emp_quantity1PropertyChange(evt);
+            }
+        });
+        jPanel3.add(assembler_emp_quantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 230, 100, 30));
+
         graphic_emp_quantity1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 graphic_emp_quantity1StateChanged(evt);
             }
         });
         jPanel3.add(graphic_emp_quantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 100, 30));
+
+        comp_quantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        comp_quantity1.setForeground(new java.awt.Color(0, 0, 0));
+        comp_quantity1.setText("Computadoras: 0");
+        jPanel3.add(comp_quantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, 30));
 
         graphic_quantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         graphic_quantity1.setForeground(new java.awt.Color(0, 0, 0));
@@ -663,6 +715,22 @@ public class Home extends javax.swing.JFrame {
         
     }//GEN-LAST:event_graphic_emp_quantity1StateChanged
 
+    private void assembler_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_assembler_emp_quantity1StateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_assembler_emp_quantity1StateChanged
+
+    private void assembler_emp_quantity1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_assembler_emp_quantity1PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_assembler_emp_quantity1PropertyChange
+
+    private void assembler_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_assembler_emp_quantityStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_assembler_emp_quantityStateChanged
+
+    private void assembler_emp_quantityPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_assembler_emp_quantityPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_assembler_emp_quantityPropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -701,10 +769,14 @@ public class Home extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner assembler_emp_quantity;
+    private javax.swing.JSpinner assembler_emp_quantity1;
     private javax.swing.JSpinner base_emp_quantity;
     private javax.swing.JSpinner base_emp_quantity1;
     public static javax.swing.JLabel base_quantity;
     public static javax.swing.JLabel base_quantity1;
+    public static javax.swing.JLabel comp_quantity;
+    public static javax.swing.JLabel comp_quantity1;
     private javax.swing.JSpinner cpu_emp_quantity;
     private javax.swing.JSpinner cpu_emp_quantity1;
     public static javax.swing.JLabel cpu_quantity;
@@ -720,6 +792,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
