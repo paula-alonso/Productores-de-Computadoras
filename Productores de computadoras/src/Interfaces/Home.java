@@ -50,12 +50,17 @@ public class Home extends javax.swing.JFrame {
     private void loadInfo() {
         companies = func.LeerTxt();
         apple=companies.getFirst().getData();
-        dell=companies.getFirst().getData();
+        dell=companies.getLast().getData();
         base_emp_quantity.setValue(apple.getBase_employees().getSize());
         cpu_emp_quantity.setValue(apple.getCpu_employees().getSize());
         ram_emp_quantity.setValue(apple.getRam_employees().getSize());
         power_emp_quantity.setValue(apple.getPower_employees().getSize());
         graphic_emp_quantity.setValue(apple.getGraphic_employee().getSize());
+        base_emp_quantity1.setValue(dell.getBase_employees().getSize());
+        cpu_emp_quantity1.setValue(dell.getCpu_employees().getSize());
+        ram_emp_quantity1.setValue(dell.getRam_employees().getSize());
+        power_emp_quantity1.setValue(dell.getPower_employees().getSize());
+        graphic_emp_quantity1.setValue(dell.getGraphic_employee().getSize());
         inicialized = true;
     }
 
@@ -466,15 +471,7 @@ public class Home extends javax.swing.JFrame {
 
         
        //Apple 
-        Lista<Employee> base = companies.getFirst().getData().getBase_employees();
-        int diference = base.getSize() - (int) base_emp_quantity.getValue();
-        if (diference < 0) {
-            Employee new_emp = new Employee(20,companies.getFirst().getData(),0.25);
-            new_emp.setType(1);
-            base.AddElement(new_emp);
-        } else {
-            base.removeLast();
-        }
+        
         if (inicialized) {
             if (getDifference(apple.getBase_employees(), base_emp_quantity) < 0) {
                 Employee new_emp = new Employee(20, apple, 0.25);
@@ -490,14 +487,15 @@ public class Home extends javax.swing.JFrame {
     private void base_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_base_emp_quantity1StateChanged
         
         // Dell
-        Lista<Employee> base1 = companies.getLast().getData().getBase_employees();
-        int diference1 = base1.getSize() - (int) base_emp_quantity1.getValue();
-        if (diference1 < 0) {
-            Employee new_emp1 = new Employee(20,companies.getLast().getData(),0.25);
-            new_emp1.setType(1);
-            base1.AddElement(new_emp1);
-        } else {
-            base1.removeLast();
+      
+        if (inicialized) {
+            if (getDifference(dell.getBase_employees(), base_emp_quantity1) < 0) {
+                Employee new_emp = new Employee(20, dell, 0.25);
+                new_emp.setType(1);
+                manageQuantityAddChange(new_emp, dell);
+            } else {
+                manageQuantityDeleteChange(dell, 1);
+            }
         }
     }//GEN-LAST:event_base_emp_quantity1StateChanged
 
