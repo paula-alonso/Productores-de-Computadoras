@@ -49,18 +49,25 @@ public class Home extends javax.swing.JFrame {
 
     private void loadInfo() {
         companies = func.LeerTxt();
+        
+        //Apple
         apple=companies.getFirst().getData();
-        dell=companies.getLast().getData();
+       
         base_emp_quantity.setValue(apple.getBase_employees().getSize());
         cpu_emp_quantity.setValue(apple.getCpu_employees().getSize());
         ram_emp_quantity.setValue(apple.getRam_employees().getSize());
         power_emp_quantity.setValue(apple.getPower_employees().getSize());
         graphic_emp_quantity.setValue(apple.getGraphic_employee().getSize());
+        
+        //Dell
+        dell=companies.getLast().getData();
+         
         base_emp_quantity1.setValue(dell.getBase_employees().getSize());
         cpu_emp_quantity1.setValue(dell.getCpu_employees().getSize());
         ram_emp_quantity1.setValue(dell.getRam_employees().getSize());
         power_emp_quantity1.setValue(dell.getPower_employees().getSize());
         graphic_emp_quantity1.setValue(dell.getGraphic_employee().getSize());
+        
         inicialized = true;
     }
 
@@ -483,6 +490,7 @@ public class Home extends javax.swing.JFrame {
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
 
         apple.startAll();
+        dell.startAll();
         running = true;
 
     }//GEN-LAST:event_inicioActionPerformed

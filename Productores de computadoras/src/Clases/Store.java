@@ -96,8 +96,10 @@ public class Store {
         this.graphic_cards = graphic_cards;
     }
     
-    public void AddComponent(int employee_type){
-        switch(employee_type){
+    public void AddComponent(int employee_type, String company_name){
+        
+        if ("Apple".equals(company_name)) {
+            switch(employee_type){
             case 1:
               this.motherboards += 1;
               Home.base_quantity.setText("Unid. en almacén: "+Integer.toString(this.motherboards)+"/25");
@@ -118,6 +120,31 @@ public class Store {
                 this.graphic_cards += 1;
                 Home.graphic_quantity.setText("Unid. en almacén: "+Integer.toString(this.power)+"/10");
                 break;
+            } 
+        
+        } else if ("Dell".equals(company_name)) {
+            switch(employee_type){
+            case 1:
+              this.motherboards += 1;
+              Home.base_quantity1.setText("Unid. en almacén: "+Integer.toString(this.motherboards)+"/25");
+              break;
+            case 2:
+                this.cpu += 1;
+                Home.cpu_quantity1.setText("Unid. en almacén: "+Integer.toString(this.cpu)+"/20");
+                break;
+            case 3:
+                this.ram += 1;
+                Home.ram_quantity1.setText("Unid. en almacén: "+Integer.toString(this.ram)+"/55");
+                break;
+            case 4:
+                this.power += 5;
+                Home.power_quantity1.setText("Unid. en almacén: "+Integer.toString(this.power)+"/35");
+                break;
+            case 5:
+                this.graphic_cards += 1;
+                Home.graphic_quantity1.setText("Unid. en almacén: "+Integer.toString(this.power)+"/10");
+                break;
+        }
         }
         
     }

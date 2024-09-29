@@ -74,7 +74,7 @@ public class Employee extends Thread {
         if (this.day_count >= 1) {
             try {
                 this.company.getMutex().acquire();
-                this.company.getStore().AddComponent(this.type);
+                this.company.getStore().AddComponent(this.type, company.getName());
                 this.company.getMutex().release();
                 this.day_count = 0;
             } catch (InterruptedException e) {
