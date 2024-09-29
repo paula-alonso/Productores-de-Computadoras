@@ -35,6 +35,7 @@ public class Home extends javax.swing.JFrame {
         initSpinners(spinnerTextField3);
         initSpinners(spinnerTextField4);
         initSpinners(spinnerTextField5);
+        
     }
     Lista<Company> companies = new Lista<Company>();
 
@@ -98,8 +99,6 @@ public class Home extends javax.swing.JFrame {
         graphic_emp_quantity1 = new javax.swing.JSpinner();
         graphic_quantity1 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -281,6 +280,7 @@ public class Home extends javax.swing.JFrame {
         jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 440, -1));
 
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dellcomputer.png"))); // NOI18N
+        jLabel23.setVerifyInputWhenFocusTarget(false);
         jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -374,12 +374,6 @@ public class Home extends javax.swing.JFrame {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/background dell.jpg"))); // NOI18N
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 470));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
-
         jTabbedPane1.addTab("Dell", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -403,12 +397,19 @@ public class Home extends javax.swing.JFrame {
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         File file = Functions.FileChooser();
         if (file != null) {
+            //Apple
             companies = Functions.LeerTxt(file);
             base_emp_quantity.setValue(companies.getFirst().getData().getBase_employees().getSize());
             cpu_emp_quantity.setValue(companies.getFirst().getData().getCpu_employees().getSize());
             ram_emp_quantity.setValue(companies.getFirst().getData().getRam_employees().getSize());
             power_emp_quantity.setValue(companies.getFirst().getData().getPower_employees().getSize());
             graphic_emp_quantity.setValue(companies.getFirst().getData().getGraphic_employee().getSize());
+            //Dell
+            base_emp_quantity1.setValue(companies.getLast().getData().getBase_employees().getSize());
+            cpu_emp_quantity1.setValue(companies.getLast().getData().getCpu_employees().getSize());
+            ram_emp_quantity1.setValue(companies.getLast().getData().getRam_employees().getSize());
+            power_emp_quantity1.setValue(companies.getLast().getData().getPower_employees().getSize());
+            graphic_emp_quantity1.setValue(companies.getLast().getData().getGraphic_employee().getSize());
         }
     }//GEN-LAST:event_inicioActionPerformed
 
@@ -421,6 +422,8 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_base_emp_quantityPropertyChange
 
     private void base_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_base_emp_quantityStateChanged
+        
+       //Apple 
         Lista<Employee> base = companies.getFirst().getData().getBase_employees();
         int diference = base.getSize() - (int) base_emp_quantity.getValue();
         if (diference < 0) {
@@ -430,10 +433,22 @@ public class Home extends javax.swing.JFrame {
         } else {
             base.removeLast();
         }
+        
+        
     }//GEN-LAST:event_base_emp_quantityStateChanged
 
     private void base_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_base_emp_quantity1StateChanged
-        // TODO add your handling code here:
+        
+        // Dell
+        Lista<Employee> base1 = companies.getLast().getData().getBase_employees();
+        int diference1 = base1.getSize() - (int) base_emp_quantity1.getValue();
+        if (diference1 < 0) {
+            Employee new_emp1 = new Employee(20,companies.getLast().getData(),0.25);
+            new_emp1.setType(1);
+            base1.AddElement(new_emp1);
+        } else {
+            base1.removeLast();
+        }
     }//GEN-LAST:event_base_emp_quantity1StateChanged
 
     private void base_emp_quantity1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_base_emp_quantity1PropertyChange
@@ -518,11 +533,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea5;
@@ -535,6 +548,5 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSpinner ram_emp_quantity1;
     public static javax.swing.JLabel ram_quantity;
     public static javax.swing.JLabel ram_quantity1;
-  
     // End of variables declaration//GEN-END:variables
 }
