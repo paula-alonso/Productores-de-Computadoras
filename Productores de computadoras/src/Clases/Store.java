@@ -176,6 +176,10 @@ public class Store {
         
     }
     
+    /**
+     * Checkea que ya se tengan todos los componentes necesarios para armar al menos una computadora
+     * @return ready
+     */
     public boolean check(){
         boolean ready = false;
         if (motherboards >= necessaryComponents[0] &&  cpu >= necessaryComponents[1] && ram >= necessaryComponents[2] && power >= necessaryComponents[3]){

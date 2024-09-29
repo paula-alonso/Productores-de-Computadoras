@@ -47,36 +47,42 @@ public class Assembler extends Thread {
                 }else{
                     work();
                 }
-                sleep(this.dayDuration);
+                sleep(this.dayDuration); // Gestiona la velocidad con que avanzan los días
             } catch (InterruptedException ex) {
                 Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
     
-    
+    /**
+     * Función para el trabajo del Ensamblador
+     */
     public void work () {
         
-        this.dayCounter += 1;
-        if (this.dayCounter == this.daysToAssemble) {
+        this.dayCounter += 1; // Se suma un día de trabajo
+        if (this.dayCounter == this.daysToAssemble) { // Si ya han pasado los días necesarios para ensamblar
             try {
                 this.mutex.acquire(); // wait
-                this.store.assembleComputer(this.quantityEmployees);
+                this.store.assembleComputer(this.quantityEmployees); // Se ensamblan las computadoras
                 this.mutex.release(); // signal
-                this.dayCounter = 0;
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+                this.dayCounter = 0; // Se reinicia el contador de días
+            } catch (InterruptedException ex) { // Si hay una interrupción al tratar de aplicar la exclusión mutua al hilo
+                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex); //
             }
         }
     }
     
+    /**
+     * Checkea que se tengan los componentes necesarios para ensamblar en Store
+     * @return ready
+     */
     public boolean check(){
-        boolean ready = false;
+        boolean ready = false; 
         try {
             this.mutex.acquire(); // wait
-            ready = this.store.check();
+            ready = this.store.check(); // Revisa la función Check de la tienda para verificar si se tienen los componentes necesarios
             this.mutex.release(); // signal
-        } catch (InterruptedException ex) {
+        } catch (InterruptedException ex) { // 
             Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ready;
