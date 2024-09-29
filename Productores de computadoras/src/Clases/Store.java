@@ -164,8 +164,24 @@ public class Store {
             if (quantity < computersAmount) {
                 computersAmount = quantity; // Si la cantidad de componentes necesarios disponibles es menor, se iguala la cantidad de computadoras a esa
             }
-         }
+        }
         
+        // Se actualiza la dispomnibilidad en la tienda
+        motherboards -= computersAmount*necessaryComponents[0];
+        cpu -= computersAmount*necessaryComponents[1];
+        ram -= computersAmount*necessaryComponents[2];
+        power -= computersAmount*necessaryComponents[3];
+        // Falta hacer que se vea reflejado en  la interfaz
+        // Falta el caso en que hay tarjeta gráfica
+        
+    }
+    
+    public boolean check(){
+        boolean ready = false;
+        if (motherboards >= necessaryComponents[0] &&  cpu >= necessaryComponents[1] && ram >= necessaryComponents[2] && power >= necessaryComponents[3]){
+            ready= true;
+        }
+        return ready;
     }
     
     

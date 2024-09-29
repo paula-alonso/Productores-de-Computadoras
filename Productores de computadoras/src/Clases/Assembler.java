@@ -4,6 +4,8 @@
  */
 package Clases;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -18,19 +20,66 @@ public class Assembler extends Thread {
     private int dayCounter;
     private int daysToAssemble;
     private float salaryTotal;
-    private int quantityWorkers;
+    private int quantityEmployees;
     private Store store;
 
     public Assembler(Semaphore mutex, int dayDuration, int quantityWorkers, Store store) {
         this.mutex = mutex;
         this.dayDuration = dayDuration;
-        this.quantityWorkers = quantityWorkers;
+        this.quantityEmployees = quantityWorkers;
         this.store = store;
         this.dayCounter = 0;
         this.salary = 50;
         this.daysToAssemble = 2;
         this.salaryTotal = 0;
         
+    }
+    
+    @Override
+    public void run(){
+        while(true) {
+            try {  
+                //paySalary();
+                if (dayCounter == 0){ // comentar
+                    if (check()){
+                        work();
+                    }
+                }else{
+                    work();
+                }
+                sleep(this.dayDuration);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    
+    public void work () {
+        
+        this.dayCounter += 1;
+        if (this.dayCounter == this.daysToAssemble) {
+            try {
+                this.mutex.acquire(); // wait
+                this.store.assembleComputer(this.quantityEmployees);
+                this.mutex.release(); // signal
+                this.dayCounter = 0;
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public boolean check(){
+        boolean ready = false;
+        try {
+            this.mutex.acquire(); // wait
+            ready = this.store.check();
+            this.mutex.release(); // signal
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ready;
     }
     
     
@@ -82,12 +131,12 @@ public class Assembler extends Thread {
         this.salaryTotal = salaryTotal;
     }
 
-    public int getQuantityWorkers() {
-        return quantityWorkers;
+    public int getQuantityEmployees() {
+        return quantityEmployees;
     }
 
-    public void setQuantityWorkers(int quantityWorkers) {
-        this.quantityWorkers = quantityWorkers;
+    public void setQuantityEmployees(int quantityEmployees) {
+        this.quantityEmployees = quantityEmployees;
     }
 
     public Store getStore() {
