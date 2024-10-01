@@ -59,7 +59,7 @@ public class Employee extends Thread {
         while (this.isWorking()) {
             try{
             work();
-            sleep(5000);
+            sleep(3000);
             }catch(InterruptedException e){
                 System.out.println("uwu");
             }
