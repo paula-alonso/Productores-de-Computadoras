@@ -59,7 +59,7 @@ public class Employee extends Thread {
         while (this.isWorking()) {
             try{
             work();
-            sleep(3000);
+            sleep(5000);
             }catch(InterruptedException e){
                 System.out.println("uwu");
             }
@@ -73,9 +73,9 @@ public class Employee extends Thread {
 
         if (this.day_count >= 1) {
             try {
-                this.company.getMutex().acquire();
+                this.company.getStore().getProductionMutex().acquire();
                 this.company.getStore().AddComponent(this.type, company.getName());
-                this.company.getMutex().release();
+                this.company.getStore().getProductionMutex().release();
                 this.day_count = 0;
             } catch (InterruptedException e) {
                 e.printStackTrace();

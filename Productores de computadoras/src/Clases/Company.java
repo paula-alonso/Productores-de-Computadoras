@@ -16,7 +16,6 @@ public class Company {
 
     private String name;
     private Store store;
-    private Semaphore mutex;
     private Lista<Employee> base_employees;
     private Lista<Employee> cpu_employees;
     private Lista<Employee> ram_employees;
@@ -26,7 +25,6 @@ public class Company {
     public Company(String name, Store store) {
         this.name = name;
         this.store = store;
-        this.mutex = new Semaphore(1);
         this.base_employees = new Lista<Employee>();
         this.cpu_employees = new Lista<Employee>();
         this.ram_employees = new Lista<Employee>();
@@ -148,20 +146,6 @@ public class Company {
      */
     public void setStore(Store store) {
         this.store = store;
-    }
-
-    /**
-     * @return the mutex
-     */
-    public Semaphore getMutex() {
-        return mutex;
-    }
-
-    /**
-     * @param mutex the mutex to set
-     */
-    public void setMutex(Semaphore mutex) {
-        this.mutex = mutex;
     }
 
     /**

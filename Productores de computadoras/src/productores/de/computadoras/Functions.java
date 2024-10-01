@@ -73,11 +73,11 @@ public class Functions {
                     String company_name = "";
                     String[] sections = computadorastxt.split("\n");
                     double duration = Double.parseDouble(sections[1].replace(";", ""));
-                    double deadline = Double.parseDouble(sections[3].replace(";", ""));
+                    int deadline = Integer.parseInt(sections[3].replace(";", ""));
                     int i = 5;
                     while (i < sections.length) {
                         company_name = sections[i].replace("/", "").trim();
-                        Store store = new Store();
+                        Store store = new Store(deadline);
                         Company company = new Company(company_name, store);
                         i += 2; // Saltar a la sección de trabajadores
 

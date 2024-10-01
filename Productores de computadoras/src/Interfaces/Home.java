@@ -6,6 +6,7 @@ package Interfaces;
 
 import Clases.Company;
 import Clases.Employee;
+import Clases.ProjectManager;
 import EDD.Lista;
 import java.io.File;
 import javax.swing.JFormattedTextField;
@@ -25,6 +26,7 @@ public class Home extends javax.swing.JFrame {
     boolean inicialized = false;
     Company apple;
     Company dell;
+    ProjectManager pmApple;
 
     /**
      * Creates new form Home
@@ -129,6 +131,10 @@ public class Home extends javax.swing.JFrame {
         jTextArea3 = new javax.swing.JTextArea();
         power_emp_quantity = new javax.swing.JSpinner();
         power_quantity = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        pmStatus = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        daysToRealise = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
@@ -347,6 +353,24 @@ public class Home extends javax.swing.JFrame {
         power_quantity.setText("Unid. en almacén: 0/35");
         jPanel2.add(power_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, -1, 30));
 
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("Project Manager:");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 120, 30));
+
+        pmStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        pmStatus.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(pmStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, 150, 30));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel22.setText("Días para la entrega:");
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 140, 30));
+
+        daysToRealise.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        daysToRealise.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(daysToRealise, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 50, 30));
+
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/background apple.png"))); // NOI18N
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 460));
 
@@ -540,7 +564,8 @@ public class Home extends javax.swing.JFrame {
         spinnerTextField.setFocusable(false);
     }
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
-
+        pmApple = new ProjectManager (5000, apple.getStore());
+        pmApple.start();
         apple.startAll();
         dell.startAll();
         running = true;
@@ -781,6 +806,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSpinner cpu_emp_quantity1;
     public static javax.swing.JLabel cpu_quantity;
     public static javax.swing.JLabel cpu_quantity1;
+    public static javax.swing.JLabel daysToRealise;
     private javax.swing.JSpinner graphic_emp_quantity;
     private javax.swing.JSpinner graphic_emp_quantity1;
     public static javax.swing.JLabel graphic_quantity;
@@ -794,11 +820,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
@@ -818,6 +846,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea5;
     private javax.swing.JTextArea jTextArea6;
+    public static javax.swing.JLabel pmStatus;
     private javax.swing.JSpinner power_emp_quantity;
     private javax.swing.JSpinner power_emp_quantity1;
     public static javax.swing.JLabel power_quantity;

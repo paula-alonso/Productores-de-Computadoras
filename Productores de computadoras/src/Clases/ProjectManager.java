@@ -9,44 +9,63 @@ package Clases;
  * @author marie
  */
 
+import Interfaces.Home;
 import java.util.concurrent.Semaphore;
 
 
 public class ProjectManager extends Thread {
     
-    private Semaphore mutex;
     private int dayDuration;
     private int salary;
     private int fault;
     private int discount;
     private String status;
-    private int hoursCounter;
-    private int minutesCounter;
-    private int daysCounter;
-    private Company company;
+    private Store store;
 
-    public ProjectManager(Semaphore mutex, int dayDuration, Company company) {
-        this.mutex = mutex;
+    public ProjectManager(int dayDuration, Store store) {
+
         this.dayDuration = dayDuration;
-        this.company = company;
+        this.store = store;
         this.dayDuration = dayDuration;
         this.salary = 40;
         this.fault = 0;
         this.discount = 0;
-        this.minutesCounter = 0;
-        this.hoursCounter = 0;
-        this.daysCounter = 0;
-        this.status = "Working...";
+        this.status = null;
+        
+    }
+    
+    @Override
+    public void run() {
+        while (true){
+            try{
+                long start_time = System.currentTimeMillis();
+                int oneHour = Math.round(dayDuration/24);
+                //Primeras 16 horas
+                while (System.currentTimeMillis() - start_time <= (oneHour*16)){
+                    status = "Trabajando";
+                    Home.pmStatus.setText(status);
+                    sleep(oneHour/2);
+                    
+                    status = "Viendo One Piece";
+                    Home.pmStatus.setText(status);
+                    sleep(oneHour/2);
+                }
+                
+                // 8 horas restantes
+                status= "Trabajando";
+                Home.pmStatus.setText(status);
+                sleep(oneHour*8);
+                store.getDaysMutex().acquire();
+                store.setDeadline(store.getDeadline() - 1);
+                Home.daysToRealise.setText(String.valueOf(store.getDeadline()));
+                store.getDaysMutex().release();  
+            }catch (InterruptedException ex){
+            
+            }
+        }
         
     }
 
-    public Semaphore getMutex() {
-        return mutex;
-    }
-
-    public void setMutex(Semaphore mutex) {
-        this.mutex = mutex;
-    }
 
     public int getDayDuration() {
         return dayDuration;
@@ -87,40 +106,5 @@ public class ProjectManager extends Thread {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public int getHoursCounter() {
-        return hoursCounter;
-    }
-
-    public void setHoursCounter(int hoursCounter) {
-        this.hoursCounter = hoursCounter;
-    }
-
-    public int getMinutesCounter() {
-        return minutesCounter;
-    }
-
-    public void setMinutesCounter(int minutesCounter) {
-        this.minutesCounter = minutesCounter;
-    }
-
-    public int getDaysCounter() {
-        return daysCounter;
-    }
-
-    public void setDaysCounter(int daysCounter) {
-        this.daysCounter = daysCounter;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    
-    
     
 }
