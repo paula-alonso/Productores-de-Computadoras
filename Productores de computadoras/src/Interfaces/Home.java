@@ -67,6 +67,7 @@ public class Home extends javax.swing.JFrame {
         ram_emp_quantity1.setValue(dell.getRam_employees().getSize());
         power_emp_quantity1.setValue(dell.getPower_employees().getSize());
         graphic_emp_quantity1.setValue(dell.getGraphic_employee().getSize());
+        assembler_emp_quantity1.setValue(dell.getAssembler().getSize());
         
         inicialized = true;
     }

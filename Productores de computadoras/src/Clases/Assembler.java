@@ -14,7 +14,7 @@ import java.util.concurrent.Semaphore;
  */
 public class Assembler extends Thread {
     
-    private int salary;
+    private double salary;
     private Semaphore mutex;
     private int dayDuration;
     private int dayCounter;
@@ -22,11 +22,12 @@ public class Assembler extends Thread {
     private float salaryTotal;
     private int quantityEmployees;
     private Store store;
+    private Company company;
 
-    public Assembler(Semaphore mutex, int dayDuration, int quantityWorkers, Store store) {
+    public Assembler(Store store) {
         this.mutex = mutex;
         this.dayDuration = dayDuration;
-        this.quantityEmployees = quantityWorkers;
+        this.quantityEmployees = quantityEmployees;
         this.store = store;
         this.dayCounter = 0;
         this.salary = 50;
@@ -62,9 +63,9 @@ public class Assembler extends Thread {
         this.dayCounter += 1; // Se suma un día de trabajo
         if (this.dayCounter == this.daysToAssemble) { // Si ya han pasado los días necesarios para ensamblar
             try {
-                this.mutex.acquire(); // wait
+                this.company.getMutex().acquire(); // wait
                 this.store.assembleComputer(this.quantityEmployees); // Se ensamblan las computadoras
-                this.mutex.release(); // signal
+                this.company.getMutex().release(); // signal
                 this.dayCounter = 0; // Se reinicia el contador de días
             } catch (InterruptedException ex) { // Si hay una interrupción al tratar de aplicar la exclusión mutua al hilo
                 Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex); //
@@ -89,11 +90,11 @@ public class Assembler extends Thread {
     }
     
     
-    public int getSalary() {
+    public double getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 

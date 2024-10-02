@@ -120,7 +120,11 @@ public class Store {
                 this.graphic_cards += 1;
                 Home.graphic_quantity.setText("Unid. en almacén: "+Integer.toString(this.power)+"/10");
                 break;
-            } 
+            case 6:
+                //                
+                break;
+            }
+            
         
         } else if ("Dell".equals(company_name)) {
             switch(employee_type){

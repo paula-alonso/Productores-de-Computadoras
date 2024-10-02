@@ -4,6 +4,7 @@
  */
 package productores.de.computadoras;
 
+import Clases.Assembler;
 import Clases.Company;
 import Clases.Employee;
 import Clases.Store;
@@ -102,13 +103,22 @@ public class Functions {
                                 case "graphic":
                                     num = 5;
                                     break;
+                                case "assembler":
+                                    num = 6;
+                                    break;
                             }
                             double salary = Double.parseDouble(trabajador[2]);
                             double day_prod = Double.parseDouble(trabajador[3]);
                             for (int j = 1; j <= Integer.parseInt(trabajador[1]); j++) {
-                                Employee employee = new Employee(salary, company, day_prod);
-                                employee.setType(num);
-                                company.AddEmployee(employee);
+                                if (num < 6 ) {
+                                    Employee employee = new Employee(salary, company, day_prod);
+                                    employee.setType(num);
+                                    company.AddEmployee(employee);
+                                } else {
+                                   Assembler assembler = new Assembler(store);
+                                   company.AddAssembler(assembler);
+                                }
+                                
                             }
                             i++;
 

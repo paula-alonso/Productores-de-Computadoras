@@ -22,7 +22,9 @@ public class Company {
     private Lista<Employee> ram_employees;
     private Lista<Employee> power_employees;
     private Lista<Employee> graphic_employee;
-
+    private Lista<Assembler> assembler;
+    
+    
     public Company(String name, Store store) {
         this.name = name;
         this.store = store;
@@ -32,6 +34,7 @@ public class Company {
         this.ram_employees = new Lista<Employee>();
         this.power_employees = new Lista<Employee>();
         this.graphic_employee = new Lista<Employee>();
+        this.assembler = new Lista<Assembler>();
     }
 
     public void AddEmployee(Employee employee) {
@@ -65,10 +68,22 @@ public class Company {
         }
     }
     
+    public void AddAssembler(Assembler assembler) {
+        System.out.println("Assembler añadido");
+        this.assembler.AddElement(assembler);
+        System.out.println(this.assembler.getSize());
+    }
+    
     public void hireEmployee(Employee employee){
         AddEmployee(employee);
         employee.start();
         System.out.println("Empleado iniciado");
+    }
+    
+    public void hireAssembler(Assembler assembler){
+        AddAssembler(assembler);
+        assembler.start();
+        System.out.println("Assembler iniciado");
     }
 
     public void DeleteEmployee(int type) {
@@ -112,10 +127,19 @@ public class Company {
         startList(ram_employees);
         startList(power_employees);
         startList(graphic_employee);
+        startListAssembler(assembler);
     }
 
     public void startList(Lista<Employee> employees) {
         Nodo<Employee> emp = employees.getFirst();
+        while (emp != null) {
+            emp.getData().start();
+            emp = emp.getpNext();
+        }
+    }
+    
+    public void startListAssembler(Lista<Assembler> assemblers) {
+        Nodo<Assembler> emp = assemblers.getFirst();
         while (emp != null) {
             emp.getData().start();
             emp = emp.getpNext();
@@ -233,5 +257,14 @@ public class Company {
     public void setGraphic_employee(Lista<Employee> graphic_employee) {
         this.graphic_employee = graphic_employee;
     }
+    
+        public Lista<Assembler> getAssembler() {
+        return assembler;
+    }
+
+    public void setAssembler(Lista<Assembler> assembler) {
+        this.assembler = assembler;
+    }
+
 
 }
