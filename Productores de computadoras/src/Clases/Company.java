@@ -104,17 +104,18 @@ public class Company {
 
     }
 
-    public void startAll() {
-        startList(base_employees);
-        startList(cpu_employees);
-        startList(ram_employees);
-        startList(power_employees);
-        startList(graphic_employee);
+    public void startAll(int dayDuration) {
+        startList(base_employees, dayDuration);
+        startList(cpu_employees, dayDuration);
+        startList(ram_employees, dayDuration);
+        startList(power_employees, dayDuration);
+        startList(graphic_employee, dayDuration);
     }
 
-    public void startList(Lista<Employee> employees) {
+    public void startList(Lista<Employee> employees, int dayDuration) {
         Nodo<Employee> emp = employees.getFirst();
         while (emp != null) {
+            emp.getData().setDayDuration(dayDuration);
             emp.getData().start();
             emp = emp.getpNext();
         }

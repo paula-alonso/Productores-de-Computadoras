@@ -12,7 +12,7 @@ import java.io.File;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import productores.de.computadoras.Functions;
+import productores.de.computadoras.TXT;
 
 /**
  *
@@ -21,7 +21,7 @@ import productores.de.computadoras.Functions;
 public class Home extends javax.swing.JFrame {
 
     Lista<Company> companies = new Lista<Company>();
-    Functions func = new Functions();
+    TXT txt = new TXT();
     boolean running;
     boolean inicialized = false;
     Company apple;
@@ -50,8 +50,8 @@ public class Home extends javax.swing.JFrame {
     }
 
     private void loadInfo() {
-        companies = func.LeerTxt();
-        
+        txt.LeerTxt();
+        companies = txt.getCompanies();
         //Apple
         apple=companies.getFirst().getData();
        
@@ -69,6 +69,12 @@ public class Home extends javax.swing.JFrame {
         ram_emp_quantity1.setValue(dell.getRam_employees().getSize());
         power_emp_quantity1.setValue(dell.getPower_employees().getSize());
         graphic_emp_quantity1.setValue(dell.getGraphic_employee().getSize());
+        
+        //Day duration
+        dayDuration.setValue(txt.getDayDuration());
+        
+        //Deadline
+        deadline.setValue(txt.getDeadline());
         
         inicialized = true;
     }
@@ -105,8 +111,8 @@ public class Home extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jSpinner2 = new javax.swing.JSpinner();
-        jSpinner1 = new javax.swing.JSpinner();
+        deadline = new javax.swing.JSpinner();
+        dayDuration = new javax.swing.JSpinner();
         inicio = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -184,11 +190,11 @@ public class Home extends javax.swing.JFrame {
         jLabel5.setText("Duración de un día (segundos): ");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, -1));
 
-        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        jPanel1.add(jSpinner2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 240, -1));
+        deadline.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanel1.add(deadline, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 240, -1));
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 180, -1));
+        dayDuration.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanel1.add(dayDuration, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 180, -1));
 
         inicio.setBackground(new java.awt.Color(0, 102, 255));
         inicio.setForeground(new java.awt.Color(255, 255, 255));
@@ -564,10 +570,11 @@ public class Home extends javax.swing.JFrame {
         spinnerTextField.setFocusable(false);
     }
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
-        pmApple = new ProjectManager (5000, apple.getStore());
+        daysToRealise.setText(String.valueOf(txt.getDeadline()));
+        pmApple = new ProjectManager ((int) dayDuration.getValue(), apple.getStore());
         pmApple.start();
-        apple.startAll();
-        dell.startAll();
+        apple.startAll((int) dayDuration.getValue());
+        dell.startAll((int) dayDuration.getValue());
         running = true;
 
     }//GEN-LAST:event_inicioActionPerformed
@@ -585,6 +592,7 @@ public class Home extends javax.swing.JFrame {
             if (getDifference(apple.getBase_employees(), base_emp_quantity) < 0) {
                 Employee new_emp = new Employee(20, apple, 0.25);
                 new_emp.setType(1);
+                new_emp.setDayDuration(txt.getDayDuration());
                 manageQuantityAddChange(new_emp, apple);
             } else {
                 manageQuantityDeleteChange(apple, 1);
@@ -601,6 +609,7 @@ public class Home extends javax.swing.JFrame {
             if (getDifference(dell.getBase_employees(), base_emp_quantity1) < 0) {
                 Employee new_emp = new Employee(20, dell, 0.34);
                 new_emp.setType(1);
+                new_emp.setDayDuration(txt.getDayDuration());
                 manageQuantityAddChange(new_emp, dell);
             } else {
                 manageQuantityDeleteChange(dell, 1);
@@ -624,6 +633,7 @@ public class Home extends javax.swing.JFrame {
             if (getDifference(apple.getCpu_employees(), cpu_emp_quantity) < 0) {
                 Employee new_emp = new Employee(26, apple, 0.25);
                 new_emp.setType(2);
+                new_emp.setDayDuration(txt.getDayDuration());
                 manageQuantityAddChange(new_emp, apple);
             } else {
                 manageQuantityDeleteChange(apple, 2);
@@ -639,6 +649,7 @@ public class Home extends javax.swing.JFrame {
             if (getDifference(apple.getRam_employees(), ram_emp_quantity) < 0) {
                 Employee new_emp = new Employee(40, apple, 1);
                 new_emp.setType(3);
+                new_emp.setDayDuration(txt.getDayDuration());
                 manageQuantityAddChange(new_emp, apple);
             } else {
                 manageQuantityDeleteChange(apple, 3);
@@ -654,6 +665,7 @@ public class Home extends javax.swing.JFrame {
             if (getDifference(apple.getPower_employees(), power_emp_quantity) < 0) {
                 Employee new_emp = new Employee(16, apple, 5);
                 new_emp.setType(4);
+                new_emp.setDayDuration(txt.getDayDuration());
                 manageQuantityAddChange(new_emp, apple);
             } else {
                 manageQuantityDeleteChange(apple, 4);
@@ -669,6 +681,7 @@ public class Home extends javax.swing.JFrame {
             if (getDifference(apple.getGraphic_employee(), graphic_emp_quantity) < 0) {
                 Employee new_emp = new Employee(34, apple, 0.5);
                 new_emp.setType(5);
+                new_emp.setDayDuration(txt.getDayDuration());
                 manageQuantityAddChange(new_emp, apple);
             } else {
                 manageQuantityDeleteChange(apple, 5);
@@ -684,6 +697,7 @@ public class Home extends javax.swing.JFrame {
             if (getDifference(dell.getBase_employees(), cpu_emp_quantity1) < 0) {
                 Employee new_emp = new Employee(26, dell, 0.34);
                 new_emp.setType(2);
+                new_emp.setDayDuration(txt.getDayDuration());
                 manageQuantityAddChange(new_emp, dell);
             } else {
                 manageQuantityDeleteChange(dell, 1);
@@ -700,6 +714,7 @@ public class Home extends javax.swing.JFrame {
             if (getDifference(dell.getBase_employees(), ram_emp_quantity1) < 0) {
                 Employee new_emp = new Employee(40, dell, 2);
                 new_emp.setType(3);
+                new_emp.setDayDuration(txt.getDayDuration());
                 manageQuantityAddChange(new_emp, dell);
             } else {
                 manageQuantityDeleteChange(dell, 1);
@@ -716,6 +731,7 @@ public class Home extends javax.swing.JFrame {
             if (getDifference(dell.getBase_employees(), power_emp_quantity1) < 0) {
                 Employee new_emp = new Employee(16, dell, 5);
                 new_emp.setType(4);
+                new_emp.setDayDuration(txt.getDayDuration());
                 manageQuantityAddChange(new_emp, dell);
             } else {
                 manageQuantityDeleteChange(dell, 1);
@@ -732,6 +748,7 @@ public class Home extends javax.swing.JFrame {
             if (getDifference(dell.getGraphic_employee(), graphic_emp_quantity1) < 0) {
                 Employee new_emp = new Employee(34, dell, 0.5);
                 new_emp.setType(5);
+                new_emp.setDayDuration(txt.getDayDuration());
                 manageQuantityAddChange(new_emp, dell);
             } else {
                 manageQuantityDeleteChange(dell, 5);
@@ -806,7 +823,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSpinner cpu_emp_quantity1;
     public static javax.swing.JLabel cpu_quantity;
     public static javax.swing.JLabel cpu_quantity1;
+    private javax.swing.JSpinner dayDuration;
     public static javax.swing.JLabel daysToRealise;
+    private javax.swing.JSpinner deadline;
     private javax.swing.JSpinner graphic_emp_quantity;
     private javax.swing.JSpinner graphic_emp_quantity1;
     public static javax.swing.JLabel graphic_quantity;
@@ -839,8 +858,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
