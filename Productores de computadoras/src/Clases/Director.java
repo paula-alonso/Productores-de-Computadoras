@@ -50,7 +50,8 @@ public class Director extends Thread {
         this.dayDuration = dayDuration;
         this.store = store;
         this.mutex = store.getDaysMutex();
-        this.company = company;
+        this.company = store.getCompany();
+        this.status = "Labores Administrativas";
         this.salary = 60;
         this.daysToDeliver = 1;
         this.directorMode = false;
@@ -107,9 +108,9 @@ public class Director extends Thread {
                         Home.directorStatus1.setText(status);
                     }
                     
-                    //checkPM();
+                    checkPM();
                     sleep((dayDuration*30)/(24*60));
-                    //checkPM();
+                    checkPM();
                     sleep((dayDuration*5)/(24*60));     
                     
                     
@@ -164,6 +165,29 @@ public class Director extends Thread {
                 Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
         }   
+    }
+    
+    public void checkPM(){
+        if (company.getPM().getStatus().equals("Viendo One Piece")){
+            company.getPM().setFault(company.getPM().getFault() + 1);
+            
+            if ("Apple".equals(this.store.getCompany().getName())){
+                Home.PMfaults.setText("Faltas PM: " + Integer.toString(company.getPM().getFault()));
+            } else {
+                Home.PMfaults1.setText("Faltas PM: " + Integer.toString(company.getPM().getFault()));
+            }
+        
+            company.getPM().setDiscount(company.getPM().getDiscount() + 100); 
+        //    this.labels[3].setText(Integer.toString(company.getPm().getDiscounted()));
+        
+            try {
+                this.mutex.acquire(); //wait
+                //company.getPM().setSalaryAcumulate(company.getPM().getSalaryAcumulate() - 100);//critica   
+                this.mutex.release(); // signal
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     

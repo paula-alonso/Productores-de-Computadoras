@@ -23,6 +23,27 @@ public class Company {
     private Lista<Employee> graphic_employee;
     private Lista<Assembler> assembler;
     
+    public ProjectManager PM;
+
+    /**
+     * Get the value of PM
+     *
+     * @return the value of PM
+     */
+    public ProjectManager getPM() {
+        return PM;
+    }
+
+    /**
+     * Set the value of PM
+     *
+     * @param PM new value of PM
+     */
+    public void setPM(ProjectManager PM) {
+        this.PM = PM;
+    }
+
+    
     
     public Company(String name, Store store) {
         this.name = name;
