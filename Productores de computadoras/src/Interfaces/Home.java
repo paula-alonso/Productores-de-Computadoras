@@ -56,6 +56,7 @@ public class Home extends javax.swing.JFrame {
         companies = txt.getCompanies();
         //Apple
         apple=companies.getFirst().getData();
+        
        
         base_emp_quantity.setValue(apple.getBase_employees().getSize());
         cpu_emp_quantity.setValue(apple.getCpu_employees().getSize());

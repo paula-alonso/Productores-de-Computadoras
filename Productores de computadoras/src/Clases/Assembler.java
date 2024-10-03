@@ -26,8 +26,9 @@ public class Assembler extends Thread {
     private boolean working;
 
     public Assembler(Store store) {
-        this.mutex = mutex;
+        this.mutex = store.getProductionMutex();
         this.dayDuration = dayDuration;
+        this.company =  store.getCompany();
         this.quantityEmployees = quantityEmployees;
         this.store = store;
         this.dayCounter = 0;
@@ -77,14 +78,14 @@ public class Assembler extends Thread {
         
         this.dayCounter += 1; // Se suma un día de trabajo
         if (this.dayCounter == this.daysToAssemble) { // Si ya han pasado los días necesarios para ensamblar
-            //try {
-               // this.store.getMutex().acquire(); // wait
-               // this.store.assembleComputer(this.quantityEmployees); // Se ensamblan las computadoras
-                //this.store.getMutex().release(); // signal
-               // this.dayCounter = 0; // Se reinicia el contador de días
-            //} catch (InterruptedException ex) { // Si hay una interrupción al tratar de aplicar la exclusión mutua al hilo
-                //Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex); //
-            //}
+            try {
+               this.getMutex().acquire(); // wait
+               this.store.assembleComputer(this.company.getAssembler().getSize()); // Se ensamblan las computadoras
+               this.getMutex().release(); // signal
+               this.dayCounter = 0; // Se reinicia el contador de días
+            } catch (InterruptedException ex) { // Si hay una interrupción al tratar de aplicar la exclusión mutua al hilo
+                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex); //
+            }
         }
     }
     
@@ -94,13 +95,13 @@ public class Assembler extends Thread {
      */
     public boolean check(){
         boolean ready = false; 
-        //try {
-        //    this.mutex.acquire(); // wait
-        //    ready = this.store.check(); // Revisa la función Check de la tienda para verificar si se tienen los componentes necesarios
-        //    this.mutex.release(); // signal
-        //} catch (InterruptedException ex) { // 
-        //    Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
-        //}
+        try {
+            this.mutex.acquire(); // wait
+            ready = this.store.check(); // Revisa la función Check de la tienda para verificar si se tienen los componentes necesarios
+            this.mutex.release(); // signal
+        } catch (InterruptedException ex) { // 
+            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return ready;
     }
     

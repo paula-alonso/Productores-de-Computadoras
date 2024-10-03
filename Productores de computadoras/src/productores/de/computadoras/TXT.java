@@ -88,6 +88,15 @@ public class TXT {
                         Store store = new Store(getDeadline());
                         Company company = new Company(company_name, store);
                         store.setCompany(company);
+                        
+                        if (company_name == "Apple") {
+                            int [] necessaryComponents = {2,1,4,4};
+                            store.setNecessaryComponents(necessaryComponents);
+                        }else{
+                            int [] necessaryComponents = {1,5,6,5};
+                            store.setNecessaryComponents(necessaryComponents);
+                        }
+                        
                         i += 2; // Saltar a la sección de trabajadores
 
                         // Leer los trabajadores de la empresa
