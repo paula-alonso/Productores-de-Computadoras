@@ -1,5 +1,5 @@
 Duracion
-3000;
+10000;
 Deadline
 6;
 Empresas

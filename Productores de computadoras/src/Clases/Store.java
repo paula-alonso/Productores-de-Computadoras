@@ -22,9 +22,7 @@ public class Store {
     private int power;
     private int graphic_cards;
     private int computersQuantity;
-    private int computer;
     private int computerWithGraphic;
-    private int counterForGraphic;
     private Company company;
     private int [] necessaryComponents; 
 
@@ -52,9 +50,7 @@ public class Store {
         this.graphic_cards = 0;
         this.power=0;
         this.computersQuantity = 0;
-        this.computer = 0;
         this.computerWithGraphic = 0;
-        this.counterForGraphic = 0;
         
     }
 

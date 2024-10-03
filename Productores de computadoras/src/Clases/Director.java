@@ -46,7 +46,7 @@ public class Director extends Thread {
     }
 
 
-    public Director(Store store) {
+    public Director(int dayDuration, Store store) {
         this.dayDuration = dayDuration;
         this.store = store;
         this.mutex = store.getDaysMutex();
@@ -85,7 +85,13 @@ public class Director extends Thread {
                 checkDeadline();
                 if (directorMode) {
                     status = "Enviando Capitulos";
-                    //this.labels[0].setText(status);
+                    
+                    if ("Apple".equals(this.store.getCompany().getName())){
+                       Home.directorStatus.setText(status);
+                    } else {
+                        Home.directorStatus1.setText(status);
+                    }
+                    
                     work();
                     sleep(this.dayDuration);
                 }else{
@@ -94,23 +100,35 @@ public class Director extends Thread {
                     sleep((this.dayDuration*random)/24);
                     
                     status = "Revisando PM";
-                    //this.labels[0].setText(status);
-                    //checkPM();
-                    sleep((dayDuration*30)/(24*60));
-                    //checkPM();
-                    sleep((dayDuration*5)/(24*60));                    
                     
-                    status = "Labores Administrativos";
-                    //this.labels[0].setText(status);
-                    sleep((dayDuration*25)/(60*24));
-                    sleep((this.dayDuration*(23-random))/24);
-                }
-                
-                if ("Apple".equals(this.store.getCompany().getName())){
-                       // Home.directorStatus1.setText(status);
+                    if ("Apple".equals(this.store.getCompany().getName())){
+                       Home.directorStatus.setText(status);
                     } else {
                         Home.directorStatus1.setText(status);
                     }
+                    
+                    //checkPM();
+                    sleep((dayDuration*30)/(24*60));
+                    //checkPM();
+                    sleep((dayDuration*5)/(24*60));     
+                    
+                    
+                    
+                    status = "Labores Administrativos";
+                    
+                    if ("Apple".equals(this.store.getCompany().getName())){
+                       Home.directorStatus.setText(status);
+                    } else {
+                        Home.directorStatus1.setText(status);
+                    }
+                    
+                    sleep((dayDuration*25)/(60*24));
+                    sleep((this.dayDuration*(23-random))/24);
+                    
+                    
+                }
+                
+                
                 
             } catch (InterruptedException ex) {
                 Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,7 +143,6 @@ public class Director extends Thread {
             if (this.store.getDeadline() == 0) {
                 directorMode = true;
                this.store.setDeadline(reinicioDeadline);
-               // this.labels[1].setText(Integer.toString(this.company.getDeadline()));
             }
             this.mutex.release(); // signal
         } catch (InterruptedException ex) {
