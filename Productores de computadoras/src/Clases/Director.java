@@ -4,6 +4,9 @@
  */
 package Clases;
 
+import Interfaces.Home;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -21,15 +24,132 @@ public class Director extends Thread {
     private String status;
     private Semaphore mutex;
     private Company company;
+    
+    private boolean directorMode;
 
-    public Director(int dayDuration, Store store, Semaphore mutex, Company company) {
+    /**
+     * Get the value of directorMode
+     *
+     * @return the value of directorMode
+     */
+    public boolean isDirectorMode() {
+        return directorMode;
+    }
+
+    /**
+     * Set the value of directorMode
+     *
+     * @param directorMode new value of directorMode
+     */
+    public void setDirectorMode(boolean directorMode) {
+        this.directorMode = directorMode;
+    }
+
+
+    public Director(Store store) {
         this.dayDuration = dayDuration;
         this.store = store;
-        this.mutex = mutex;
+        this.mutex = store.getDaysMutex();
         this.company = company;
         this.salary = 60;
         this.daysToDeliver = 1;
+        this.directorMode = false;
+        this.reinicioDeadline = store.getDeadline();
     }
+    private int reinicioDeadline;
+
+    /**
+     * Get the value of reinicioDeadline
+     *
+     * @return the value of reinicioDeadline
+     */
+    public int getReinicioDeadline() {
+        return reinicioDeadline;
+    }
+
+    /**
+     * Set the value of reinicioDeadline
+     *
+     * @param reinicioDeadline new value of reinicioDeadline
+     */
+    public void setReinicioDeadline(int reinicioDeadline) {
+        this.reinicioDeadline = reinicioDeadline;
+    }
+
+    
+    @Override
+    public void run(){
+        while(true) {
+            try {  
+                //paySalary();
+                checkDeadline();
+                if (directorMode) {
+                    status = "Enviando Capitulos";
+                    //this.labels[0].setText(status);
+                    work();
+                    sleep(this.dayDuration);
+                }else{
+                    double randomHour = Math.random( )*23;
+                    int random = (int)randomHour;
+                    sleep((this.dayDuration*random)/24);
+                    
+                    status = "Revisando PM";
+                    //this.labels[0].setText(status);
+                    //checkPM();
+                    sleep((dayDuration*30)/(24*60));
+                    //checkPM();
+                    sleep((dayDuration*5)/(24*60));                    
+                    
+                    status = "Labores Administrativos";
+                    //this.labels[0].setText(status);
+                    sleep((dayDuration*25)/(60*24));
+                    sleep((this.dayDuration*(23-random))/24);
+                }
+                
+                if ("Apple".equals(this.store.getCompany().getName())){
+                       // Home.directorStatus1.setText(status);
+                    } else {
+                        Home.directorStatus1.setText(status);
+                    }
+                
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    } 
+    
+    
+     public void checkDeadline(){
+        try {
+            this.mutex.acquire(); //wait
+            if (this.store.getDeadline() == 0) {
+                directorMode = true;
+               this.store.setDeadline(reinicioDeadline);
+               // this.labels[1].setText(Integer.toString(this.company.getDeadline()));
+            }
+            this.mutex.release(); // signal
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+     
+    public void work(){
+        this.daysCounter = this.daysCounter + 1;
+        if (this.daysCounter == this.daysToDeliver){ // ese valor de 2 depende de la compania REVISAR!!!!!!
+            try {
+                this.mutex.acquire(); //wait
+                store.sendComputers();
+                this.mutex.release(); // signal
+                this.daysCounter = 0;
+                directorMode = false;
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }   
+    }
+    
+    
 
     public float getSalaryAcumulate() {
         return salaryAcumulate;

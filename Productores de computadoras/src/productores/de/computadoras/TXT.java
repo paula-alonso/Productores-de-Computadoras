@@ -89,7 +89,7 @@ public class TXT {
                         Company company = new Company(company_name, store);
                         store.setCompany(company);
                         
-                        if (company_name == "Apple") {
+                        if ("Apple".equals(company_name)) {
                             int [] necessaryComponents = {2,1,4,4};
                             store.setNecessaryComponents(necessaryComponents);
                         }else{
@@ -105,24 +105,12 @@ public class TXT {
                             String type = trabajador[0];
                             int num = 0;
                             switch (type) {
-                                case "base":
-                                    num = 1;
-                                    break;
-                                case "cpu":
-                                    num = 2;
-                                    break;
-                                case "ram":
-                                    num = 3;
-                                    break;
-                                case "power":
-                                    num = 4;
-                                    break;
-                                case "graphic":
-                                    num = 5;
-                                    break;
-                                case "assembler":
-                                    num = 6;
-                                    break;
+                                case "base" -> num = 1;
+                                case "cpu" -> num = 2;
+                                case "ram" -> num = 3;
+                                case "power" -> num = 4;
+                                case "graphic" -> num = 5;
+                                case "assembler" -> num = 6;
                             }
                             double salary = Double.parseDouble(trabajador[2]);
                             double day_prod = Double.parseDouble(trabajador[3]);

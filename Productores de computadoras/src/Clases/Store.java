@@ -137,7 +137,7 @@ public class Store {
                 }
                 break;
             case 4:
-                if (this.power < 35) {
+                if (this.power < 31) {
                     this.power += 5;
                     Home.power_quantity.setText("Unid. en almacén: "+Integer.toString(this.power)+"/35");
                 }
@@ -145,7 +145,7 @@ public class Store {
             case 5:
                 if (this.graphic_cards< 10) {
                     this.graphic_cards += 1;
-                    Home.graphic_quantity.setText("Unid. en almacén: "+Integer.toString(this.power)+"/10");
+                    Home.graphic_quantity.setText("Unid. en almacén: "+Integer.toString(this.graphic_cards)+"/10");
                 }
                 break;
         
@@ -173,7 +173,7 @@ public class Store {
                 }
                 break;
             case 4:
-                if (this.power < 35) {
+                if (this.power < 31) {
                     this.power += 5;
                     Home.power_quantity1.setText("Unid. en almacén: "+Integer.toString(this.power)+"/35");
                 }
@@ -181,7 +181,7 @@ public class Store {
             case 5:
                 if (this.graphic_cards< 10) {
                     this.graphic_cards += 1;
-                    Home.graphic_quantity1.setText("Unid. en almacén: "+Integer.toString(this.power)+"/10");
+                    Home.graphic_quantity1.setText("Unid. en almacén: "+Integer.toString(this.graphic_cards)+"/10");
                 }
                 break;
         
@@ -233,22 +233,31 @@ public class Store {
         
         this.computersQuantity += computersAmount;
         
+        int amount = computersQuantity-1;
+        
+        if (amount > 0 && amount % 5 == 0) {
+            
+            this.computerWithGraphic = amount / 5;
+            graphic_cards -= 1;
+            
+            
+        }
+        
         // Se actualiza la dispomnibilidad en la tienda
         motherboards -= computersAmount*necessaryComponents[0];
         cpu -= computersAmount*necessaryComponents[1];
         ram -= computersAmount*necessaryComponents[2];
         power -= computersAmount*necessaryComponents[3];
         
-        // Falta hacer que se vea reflejado en  la interfaz
+        //Reflejo interfaz
         
         if ("Apple".equals(this.company.getName())) {
             Home.comp_quantity.setText("Computadoras: "+ Integer.toString(computersQuantity));
+            Home.comp_graph_quantity.setText("con Gráficas: "+ Integer.toString(computerWithGraphic));
         } else {
             Home.comp_quantity1.setText("Computadoras: "+ Integer.toString(computersQuantity));
+            Home.comp_graph_quantity1.setText("con Gráficas: "+ Integer.toString(computerWithGraphic));
         }
-        
-        
-        // Falta el caso en que hay tarjeta gráfica
         
     }
     
@@ -262,6 +271,11 @@ public class Store {
             ready= true;
         }
         return ready;
+    }
+    
+    public void sendComputers() {
+        //
+        System.out.print("\nComputadoras enviadas");
     }
 
     /**
