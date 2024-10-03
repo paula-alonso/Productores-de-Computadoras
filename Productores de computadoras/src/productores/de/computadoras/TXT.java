@@ -26,10 +26,19 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author alons
  */
-public class Functions {
+public class TXT {
 
     private static Component areaTexto;
+    private Lista<Company> companies;
+    private int deadline;
+    private int dayDuration;
 
+    public TXT() {
+        this.companies = new Lista<Company>();
+        this.deadline = 0;
+        this.dayDuration = 0;
+    }
+    
     public static File FileChooser() {
 
         File fichero = null;
@@ -52,9 +61,7 @@ public class Functions {
 
     }
 
-    public Lista<Company> LeerTxt() {
-
-        Lista<Company> companies = new Lista<Company>();
+    public void LeerTxt() {
         String line;
         String computadorastxt = "";
         //String path = "test\\computadoras.txt";
@@ -73,13 +80,14 @@ public class Functions {
 
                     String company_name = "";
                     String[] sections = computadorastxt.split("\n");
-                    double duration = Double.parseDouble(sections[1].replace(";", ""));
-                    double deadline = Double.parseDouble(sections[3].replace(";", ""));
+                    setDayDuration(Integer.parseInt(sections[1].replace(";", "")));
+                    setDeadline(Integer.parseInt(sections[3].replace(";", "")));
                     int i = 5;
                     while (i < sections.length) {
                         company_name = sections[i].replace("/", "").trim();
-                        Store store = new Store();
+                        Store store = new Store(getDeadline());
                         Company company = new Company(company_name, store);
+                        store.setCompany(company);
                         i += 2; // Saltar a la sección de trabajadores
 
                         // Leer los trabajadores de la empresa
@@ -123,7 +131,7 @@ public class Functions {
                             i++;
 
                         }
-                        companies.AddElement(company);
+                        getCompanies().AddElement(company);
                     }
                 }
 
@@ -133,8 +141,40 @@ public class Functions {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
+    }
 
+    /**
+     * @return the companies
+     */
+    public Lista<Company> getCompanies() {
         return companies;
+    }
 
+    /**
+     * @return the deadline
+     */
+    public int getDeadline() {
+        return deadline;
+    }
+
+    /**
+     * @param deadline the deadline to set
+     */
+    public void setDeadline(int deadline) {
+        this.deadline = deadline;
+    }
+
+    /**
+     * @return the dayDuration
+     */
+    public int getDayDuration() {
+        return dayDuration;
+    }
+
+    /**
+     * @param dayDuration the dayDuration to set
+     */
+    public void setDayDuration(int dayDuration) {
+        this.dayDuration = dayDuration;
     }
 }

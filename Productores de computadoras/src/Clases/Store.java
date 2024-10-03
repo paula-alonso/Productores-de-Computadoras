@@ -7,12 +7,15 @@ package Clases;
 import Interfaces.Home;
 
 import Interfaces.Home;
+import java.util.concurrent.Semaphore;
 
 /**
  *
  * @author alons
  */
 public class Store {
+    
+    //Productos fabricados
     private int motherboards;
     private int cpu;
     private int ram;
@@ -24,9 +27,16 @@ public class Store {
     private int counterForGraphic;
     private Company company;
     private int [] necessaryComponents; 
+    private int deadline;
+    
+    //Semáforos
+    private Semaphore productionMutex; //acceso a unidades producidas
+    private Semaphore daysMutex; //acceso al contador de dias
 
-    public Store() {
-        
+    public Store(int deadline) {
+        this.productionMutex = new Semaphore(1);
+        this.daysMutex = new Semaphore(1);
+        this.deadline = deadline;
         this.company = company;
         this.motherboards = 0;
         this.cpu = 0;
@@ -219,6 +229,62 @@ public class Store {
             ready= true;
         }
         return ready;
+    }
+
+    /**
+     * @return the productionMutex
+     */
+    public Semaphore getProductionMutex() {
+        return productionMutex;
+    }
+
+    /**
+     * @param productionMutex the productionMutex to set
+     */
+    public void setProductionMutex(Semaphore productionMutex) {
+        this.productionMutex = productionMutex;
+    }
+
+    /**
+     * @return the daysMutex
+     */
+    public Semaphore getDaysMutex() {
+        return daysMutex;
+    }
+
+    /**
+     * @param daysMutex the daysMutex to set
+     */
+    public void setDaysMutex(Semaphore daysMutex) {
+        this.daysMutex = daysMutex;
+    }
+
+    /**
+     * @return the company
+     */
+    public Company getCompany() {
+        return company;
+    }
+
+    /**
+     * @param company the company to set
+     */
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    /**
+     * @return the deadline
+     */
+    public int getDeadline() {
+        return deadline;
+    }
+
+    /**
+     * @param deadline the deadline to set
+     */
+    public void setDeadline(int deadline) {
+        this.deadline = deadline;
     }
     
     

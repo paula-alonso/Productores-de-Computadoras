@@ -16,6 +16,7 @@ public class Employee extends Thread {
     private final double day_proportion;
     private Company company;
     private boolean working;
+    private int dayDuration;
 
     public Employee(double salary, Company company, double day_proportion) {
         this.type = 0;
@@ -24,6 +25,7 @@ public class Employee extends Thread {
         this.day_proportion = day_proportion;
         this.company = company;
         this.working = true;
+        this.dayDuration = 0;
     }
 
     /**
@@ -59,7 +61,7 @@ public class Employee extends Thread {
         while (this.isWorking()) {
             try{
             work();
-            sleep(5000);
+            sleep(dayDuration);
             }catch(InterruptedException e){
                 System.out.println("uwu");
             }
@@ -73,9 +75,9 @@ public class Employee extends Thread {
 
         if (this.day_count >= 1) {
             try {
-                this.company.getMutex().acquire();
+                this.company.getStore().getProductionMutex().acquire();
                 this.company.getStore().AddComponent(this.type, company.getName());
-                this.company.getMutex().release();
+                this.company.getStore().getProductionMutex().release();
                 this.day_count = 0;
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -101,6 +103,13 @@ public class Employee extends Thread {
      */
     public void setWorking(boolean working) {
         this.working = working;
+    }
+
+    /**
+     * @param dayDuration the dayDuration to set
+     */
+    public void setDayDuration(int dayDuration) {
+        this.dayDuration = dayDuration;
     }
 
 }

@@ -23,6 +23,7 @@ public class Assembler extends Thread {
     private int quantityEmployees;
     private Store store;
     private Company company;
+    private boolean working;
 
     public Assembler(Store store) {
         this.mutex = mutex;
@@ -33,7 +34,21 @@ public class Assembler extends Thread {
         this.salary = 50;
         this.daysToAssemble = 2;
         this.salaryTotal = 0;
+        this.working = true;
         
+    }
+
+    public boolean isWorking() {
+        return working;
+    }
+
+    public void setWorking(boolean working) {
+        this.working = working;
+    }
+    
+    public void Stop() {
+        this.setWorking(false);
+        System.out.println("empleado detenido");
     }
     
     @Override
@@ -62,14 +77,14 @@ public class Assembler extends Thread {
         
         this.dayCounter += 1; // Se suma un día de trabajo
         if (this.dayCounter == this.daysToAssemble) { // Si ya han pasado los días necesarios para ensamblar
-            try {
-                this.company.getMutex().acquire(); // wait
-                this.store.assembleComputer(this.quantityEmployees); // Se ensamblan las computadoras
-                this.company.getMutex().release(); // signal
-                this.dayCounter = 0; // Se reinicia el contador de días
-            } catch (InterruptedException ex) { // Si hay una interrupción al tratar de aplicar la exclusión mutua al hilo
-                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex); //
-            }
+            //try {
+               // this.store.getMutex().acquire(); // wait
+               // this.store.assembleComputer(this.quantityEmployees); // Se ensamblan las computadoras
+                //this.store.getMutex().release(); // signal
+               // this.dayCounter = 0; // Se reinicia el contador de días
+            //} catch (InterruptedException ex) { // Si hay una interrupción al tratar de aplicar la exclusión mutua al hilo
+                //Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex); //
+            //}
         }
     }
     
@@ -79,13 +94,13 @@ public class Assembler extends Thread {
      */
     public boolean check(){
         boolean ready = false; 
-        try {
-            this.mutex.acquire(); // wait
-            ready = this.store.check(); // Revisa la función Check de la tienda para verificar si se tienen los componentes necesarios
-            this.mutex.release(); // signal
-        } catch (InterruptedException ex) { // 
-            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //try {
+        //    this.mutex.acquire(); // wait
+        //    ready = this.store.check(); // Revisa la función Check de la tienda para verificar si se tienen los componentes necesarios
+        //    this.mutex.release(); // signal
+        //} catch (InterruptedException ex) { // 
+        //    Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+        //}
         return ready;
     }
     

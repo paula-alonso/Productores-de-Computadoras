@@ -16,7 +16,6 @@ public class Company {
 
     private String name;
     private Store store;
-    private Semaphore mutex;
     private Lista<Employee> base_employees;
     private Lista<Employee> cpu_employees;
     private Lista<Employee> ram_employees;
@@ -28,7 +27,6 @@ public class Company {
     public Company(String name, Store store) {
         this.name = name;
         this.store = store;
-        this.mutex = new Semaphore(1);
         this.base_employees = new Lista<Employee>();
         this.cpu_employees = new Lista<Employee>();
         this.ram_employees = new Lista<Employee>();
@@ -121,18 +119,35 @@ public class Company {
 
     }
 
-    public void startAll() {
-        startList(base_employees);
-        startList(cpu_employees);
-        startList(ram_employees);
-        startList(power_employees);
-        startList(graphic_employee);
+    public void DeleteAssembler() {
+        Assembler asm_deleted = null;
+        
+        asm_deleted = (Assembler) this.assembler.removeLast().getData();
+        System.out.println("Empleado eliminado de la lista assembler");
+        System.out.println(assembler.getSize());
+                
+        
+        if(asm_deleted.isWorking()){
+            asm_deleted.Stop();
+        }
+
+    }
+  
+
+    public void startAll(int dayDuration) {
+        startList(base_employees, dayDuration);
+        startList(cpu_employees, dayDuration);
+        startList(ram_employees, dayDuration);
+        startList(power_employees, dayDuration);
+        startList(graphic_employee, dayDuration);
         startListAssembler(assembler);
+
     }
 
-    public void startList(Lista<Employee> employees) {
+    public void startList(Lista<Employee> employees, int dayDuration) {
         Nodo<Employee> emp = employees.getFirst();
         while (emp != null) {
+            emp.getData().setDayDuration(dayDuration);
             emp.getData().start();
             emp = emp.getpNext();
         }
@@ -172,20 +187,6 @@ public class Company {
      */
     public void setStore(Store store) {
         this.store = store;
-    }
-
-    /**
-     * @return the mutex
-     */
-    public Semaphore getMutex() {
-        return mutex;
-    }
-
-    /**
-     * @param mutex the mutex to set
-     */
-    public void setMutex(Semaphore mutex) {
-        this.mutex = mutex;
     }
 
     /**
@@ -258,7 +259,7 @@ public class Company {
         this.graphic_employee = graphic_employee;
     }
     
-        public Lista<Assembler> getAssembler() {
+    public Lista<Assembler> getAssembler() {
         return assembler;
     }
 
