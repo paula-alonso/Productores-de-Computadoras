@@ -13,6 +13,7 @@ import EDD.Lista;
 import java.io.File;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import productores.de.computadoras.TXT;
 
@@ -44,13 +45,27 @@ public class Home extends javax.swing.JFrame {
         JFormattedTextField spinnerTextField3 = ((JSpinner.DefaultEditor) ram_emp_quantity.getEditor()).getTextField();
         JFormattedTextField spinnerTextField4 = ((JSpinner.DefaultEditor) power_emp_quantity.getEditor()).getTextField();
         JFormattedTextField spinnerTextField5 = ((JSpinner.DefaultEditor) graphic_emp_quantity.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField6 = ((JSpinner.DefaultEditor) base_emp_quantity1.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField7 = ((JSpinner.DefaultEditor) cpu_emp_quantity1.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField8 = ((JSpinner.DefaultEditor) ram_emp_quantity1.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField9 = ((JSpinner.DefaultEditor) power_emp_quantity1.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField10 = ((JSpinner.DefaultEditor) graphic_emp_quantity1.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField11 = ((JSpinner.DefaultEditor) assembler_emp_quantity.getEditor()).getTextField();
+        JFormattedTextField spinnerTextField12 = ((JSpinner.DefaultEditor) assembler_emp_quantity1.getEditor()).getTextField();
+
         initSpinners(spinnerTextField1);
         initSpinners(spinnerTextField2);
         initSpinners(spinnerTextField3);
         initSpinners(spinnerTextField4);
         initSpinners(spinnerTextField5);
+        initSpinners(spinnerTextField6);
+        initSpinners(spinnerTextField7);
+        initSpinners(spinnerTextField8);
+        initSpinners(spinnerTextField9);
+        initSpinners(spinnerTextField10);
+        initSpinners(spinnerTextField11);
+        initSpinners(spinnerTextField12);
 
-        
         loadInfo();
     }
 
@@ -58,32 +73,31 @@ public class Home extends javax.swing.JFrame {
         txt.LeerTxt();
         companies = txt.getCompanies();
         //Apple
-        apple=companies.getFirst().getData();
-        
-       
+        apple = companies.getFirst().getData();
+
         base_emp_quantity.setValue(apple.getBase_employees().getSize());
         cpu_emp_quantity.setValue(apple.getCpu_employees().getSize());
         ram_emp_quantity.setValue(apple.getRam_employees().getSize());
         power_emp_quantity.setValue(apple.getPower_employees().getSize());
         graphic_emp_quantity.setValue(apple.getGraphic_employee().getSize());
         assembler_emp_quantity.setValue(apple.getAssembler().getSize());
-        
+
         //Dell
-        dell=companies.getLast().getData();
-         
+        dell = companies.getLast().getData();
+
         base_emp_quantity1.setValue(dell.getBase_employees().getSize());
         cpu_emp_quantity1.setValue(dell.getCpu_employees().getSize());
         ram_emp_quantity1.setValue(dell.getRam_employees().getSize());
         power_emp_quantity1.setValue(dell.getPower_employees().getSize());
         graphic_emp_quantity1.setValue(dell.getGraphic_employee().getSize());
         assembler_emp_quantity1.setValue(dell.getAssembler().getSize());
-        
+
         //Day duration
         dayDuration.setValue(txt.getDayDuration());
-        
+
         //Deadline
         deadline.setValue(txt.getDeadline());
-        
+
         inicialized = true;
     }
 
@@ -94,7 +108,7 @@ public class Home extends javax.swing.JFrame {
             company.hireEmployee(new_emp);
         }
     }
-    
+
     public void manageQuantityAddChangeAssembler(Assembler new_asm, Company company) {
         if (!running) {
             company.AddAssembler(new_asm);
@@ -106,7 +120,7 @@ public class Home extends javax.swing.JFrame {
     public void manageQuantityDeleteChange(Company company, int type) {
         company.DeleteEmployee(type);
     }
-    
+
     public void manageQuantityDeleteChangeAssembler(Company company) {
         company.DeleteAssembler();
     }
@@ -116,7 +130,7 @@ public class Home extends javax.swing.JFrame {
         return diference;
 
     }
-    
+
     public int getDifferenceAssembler(Lista<Assembler> list, javax.swing.JSpinner spinner) {
         int diference = list.getSize() - (int) spinner.getValue();
         return diference;
@@ -736,24 +750,24 @@ public class Home extends javax.swing.JFrame {
         spinnerTextField.setFocusable(false);
     }
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
-        
+
         daysToRealise.setText(String.valueOf(apple.getStore().getDeadline()));
         daysToRealise1.setText(String.valueOf(dell.getStore().getDeadline()));
-        
-        pmApple = new ProjectManager ((int) dayDuration.getValue(), apple.getStore());
+
+        pmApple = new ProjectManager((int) dayDuration.getValue(), apple.getStore());
         apple.setPM(pmApple);
         pmApple.start();
-        
-        pmDell = new ProjectManager ((int) dayDuration.getValue(), dell.getStore());
+
+        pmDell = new ProjectManager((int) dayDuration.getValue(), dell.getStore());
         dell.setPM(pmDell);
         pmDell.start();
-        
-        directorApple = new Director ((int) dayDuration.getValue(), apple.getStore());
+
+        directorApple = new Director((int) dayDuration.getValue(), apple.getStore());
         directorApple.start();
-        
-        directorDell = new Director ((int) dayDuration.getValue(), dell.getStore());
+
+        directorDell = new Director((int) dayDuration.getValue(), dell.getStore());
         directorDell.start();
-        
+
         apple.startAll((int) dayDuration.getValue());
         dell.startAll((int) dayDuration.getValue());
         running = true;
@@ -766,36 +780,63 @@ public class Home extends javax.swing.JFrame {
 
     private void base_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_base_emp_quantityStateChanged
 
-        
-       //Apple Base # Employees Spinner change in real time
-        
+        //Apple Base # Employees Spinner change in real time
         if (inicialized) {
-            if (getDifference(apple.getBase_employees(), base_emp_quantity) < 0) {
-                Employee new_emp = new Employee(20, apple, 0.25);
-                new_emp.setType(1);
-                new_emp.setDayDuration(txt.getDayDuration());
-                manageQuantityAddChange(new_emp, apple);
+
+            int lastValidValue = apple.getBase_employees().getSize();
+
+            if (lastValidValue > 1 || (int) base_emp_quantity.getValue() > lastValidValue) {
+
+                if (apple.getTotalEmployees() < apple.getMaxEmployees() || (int) base_emp_quantity.getValue() < lastValidValue) {
+                    if (getDifference(apple.getBase_employees(), base_emp_quantity) < 0) {
+                        Employee new_emp = new Employee(20, apple, 0.25);
+                        new_emp.setType(1);
+                        new_emp.setDayDuration(txt.getDayDuration());
+                        manageQuantityAddChange(new_emp, apple);
+                    } else {
+                        manageQuantityDeleteChange(apple, 1);
+                    }
+                } else {
+                    base_emp_quantity.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChange(apple, 1);
+                base_emp_quantity.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
 
     }//GEN-LAST:event_base_emp_quantityStateChanged
 
     private void base_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_base_emp_quantity1StateChanged
-        
+
         // Dell Base # Employees Spinner change in real time
-      
         if (inicialized) {
-            if (getDifference(dell.getBase_employees(), base_emp_quantity1) < 0) {
-                Employee new_emp = new Employee(20, dell, 0.34);
-                new_emp.setType(1);
-                new_emp.setDayDuration(txt.getDayDuration());
-                manageQuantityAddChange(new_emp, dell);
+
+            int lastValidValue = dell.getBase_employees().getSize();
+
+            if (lastValidValue > 1 || (int) base_emp_quantity1.getValue() > lastValidValue) {
+
+                if (dell.getTotalEmployees() < dell.getMaxEmployees() || (int) base_emp_quantity1.getValue() < lastValidValue) {
+                    if (getDifference(dell.getBase_employees(), base_emp_quantity1) < 0) {
+                        Employee new_emp = new Employee(20, dell, 0.34);
+                        new_emp.setType(1);
+                        new_emp.setDayDuration(txt.getDayDuration());
+                        manageQuantityAddChange(new_emp, dell);
+                    } else {
+                        manageQuantityDeleteChange(dell, 1);
+                    }
+                } else {
+                    base_emp_quantity1.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChange(dell, 1);
+                base_emp_quantity1.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
+
+
     }//GEN-LAST:event_base_emp_quantity1StateChanged
 
     private void base_emp_quantity1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_base_emp_quantity1PropertyChange
@@ -807,149 +848,279 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_base_quantity1PropertyChange
 
     private void cpu_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cpu_emp_quantityStateChanged
-       
+
         // Apple CPU # Employees Spinner change in real time
-        
         if (inicialized) {
-            if (getDifference(apple.getCpu_employees(), cpu_emp_quantity) < 0) {
-                Employee new_emp = new Employee(26, apple, 0.25);
-                new_emp.setType(2);
-                new_emp.setDayDuration(txt.getDayDuration());
-                manageQuantityAddChange(new_emp, apple);
+
+            int lastValidValue = apple.getCpu_employees().getSize();
+
+            if (lastValidValue > 1 || (int) cpu_emp_quantity.getValue() > lastValidValue) {
+
+                if (apple.getTotalEmployees() < apple.getMaxEmployees() || (int) cpu_emp_quantity.getValue() < lastValidValue) {
+                    if (getDifference(apple.getCpu_employees(), cpu_emp_quantity) < 0) {
+                        Employee new_emp = new Employee(26, apple, 0.25);
+                        new_emp.setType(2);
+                        new_emp.setDayDuration(txt.getDayDuration());
+                        manageQuantityAddChange(new_emp, apple);
+                    } else {
+                        manageQuantityDeleteChange(apple, 2);
+                    }
+                } else {
+                    cpu_emp_quantity.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChange(apple, 2);
+                cpu_emp_quantity.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
+
+
     }//GEN-LAST:event_cpu_emp_quantityStateChanged
 
     private void ram_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ram_emp_quantityStateChanged
-       
+
         // Apple RAM # Employees Spinner change in real time
-        
         if (inicialized) {
-            if (getDifference(apple.getRam_employees(), ram_emp_quantity) < 0) {
-                Employee new_emp = new Employee(40, apple, 1);
-                new_emp.setType(3);
-                new_emp.setDayDuration(txt.getDayDuration());
-                manageQuantityAddChange(new_emp, apple);
+
+            int lastValidValue = apple.getRam_employees().getSize();
+
+            if (lastValidValue > 1 || (int) ram_emp_quantity.getValue() > lastValidValue) {
+
+                if (apple.getTotalEmployees() < apple.getMaxEmployees() || (int) ram_emp_quantity.getValue() < lastValidValue) {
+                    if (getDifference(apple.getRam_employees(), ram_emp_quantity) < 0) {
+                        Employee new_emp = new Employee(40, apple, 1);
+                        new_emp.setType(3);
+                        new_emp.setDayDuration(txt.getDayDuration());
+                        manageQuantityAddChange(new_emp, apple);
+                    } else {
+                        manageQuantityDeleteChange(apple, 3);
+                    }
+                } else {
+                    ram_emp_quantity.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChange(apple, 3);
+                ram_emp_quantity.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
+
+
     }//GEN-LAST:event_ram_emp_quantityStateChanged
 
     private void power_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_power_emp_quantityStateChanged
-        
+
         // Apple Power # Employees Spinner change in real time
-        
         if (inicialized) {
-            if (getDifference(apple.getPower_employees(), power_emp_quantity) < 0) {
-                Employee new_emp = new Employee(16, apple, 5);
-                new_emp.setType(4);
-                new_emp.setDayDuration(txt.getDayDuration());
-                manageQuantityAddChange(new_emp, apple);
+
+            int lastValidValue = apple.getPower_employees().getSize();
+
+            if (lastValidValue > 1 || (int) power_emp_quantity.getValue() > lastValidValue) {
+
+                if (apple.getTotalEmployees() < apple.getMaxEmployees() || (int) power_emp_quantity.getValue() < lastValidValue) {
+                    if (getDifference(apple.getPower_employees(), power_emp_quantity) < 0) {
+                        Employee new_emp = new Employee(16, apple, 5);
+                        new_emp.setType(4);
+                        new_emp.setDayDuration(txt.getDayDuration());
+                        manageQuantityAddChange(new_emp, apple);
+                    } else {
+                        manageQuantityDeleteChange(apple, 4);
+                    }
+                } else {
+                    power_emp_quantity.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChange(apple, 4);
+                power_emp_quantity.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
+
+
     }//GEN-LAST:event_power_emp_quantityStateChanged
 
     private void graphic_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_graphic_emp_quantityStateChanged
-        
+
         // Apple Grapic Card # Employees Spinner change in real time
-        
         if (inicialized) {
-            if (getDifference(apple.getGraphic_employee(), graphic_emp_quantity) < 0) {
-                Employee new_emp = new Employee(34, apple, 0.5);
-                new_emp.setType(5);
-                new_emp.setDayDuration(txt.getDayDuration());
-                manageQuantityAddChange(new_emp, apple);
+
+            int lastValidValue = apple.getGraphic_employee().getSize();
+
+            if (lastValidValue > 1 || (int) graphic_emp_quantity.getValue() > lastValidValue) {
+
+                if (apple.getTotalEmployees() < apple.getMaxEmployees() || (int) graphic_emp_quantity.getValue() < lastValidValue) {
+                    if (getDifference(apple.getGraphic_employee(), graphic_emp_quantity) < 0) {
+                        Employee new_emp = new Employee(34, apple, 0.5);
+                        new_emp.setType(5);
+                        new_emp.setDayDuration(txt.getDayDuration());
+                        manageQuantityAddChange(new_emp, apple);
+                    } else {
+                        manageQuantityDeleteChange(apple, 5);
+                    }
+                } else {
+                    graphic_emp_quantity.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChange(apple, 5);
+                graphic_emp_quantity.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
+
+
     }//GEN-LAST:event_graphic_emp_quantityStateChanged
 
     private void cpu_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cpu_emp_quantity1StateChanged
-        
+
         // Dell CPU # Employees Spinner change in real time
-        
         if (inicialized) {
-            if (getDifference(dell.getBase_employees(), cpu_emp_quantity1) < 0) {
-                Employee new_emp = new Employee(26, dell, 0.34);
-                new_emp.setType(2);
-                new_emp.setDayDuration(txt.getDayDuration());
-                manageQuantityAddChange(new_emp, dell);
+
+            int lastValidValue = dell.getCpu_employees().getSize();
+
+            if (lastValidValue > 1 || (int) cpu_emp_quantity1.getValue() > lastValidValue) {
+
+                if (dell.getTotalEmployees() < dell.getMaxEmployees() || (int) cpu_emp_quantity1.getValue() < lastValidValue) {
+                    if (getDifference(dell.getCpu_employees(), cpu_emp_quantity1) < 0) {
+                        Employee new_emp = new Employee(26, dell, 0.34);
+                        new_emp.setType(2);
+                        new_emp.setDayDuration(txt.getDayDuration());
+                        manageQuantityAddChange(new_emp, dell);
+                    } else {
+                        manageQuantityDeleteChange(dell, 2);
+                    }
+                } else {
+                    cpu_emp_quantity1.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChange(dell, 1);
+                cpu_emp_quantity1.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
-        } 
+        }
+
 
     }//GEN-LAST:event_cpu_emp_quantity1StateChanged
 
     private void ram_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ram_emp_quantity1StateChanged
-        
+
         // Dell RAM # Employees Spinner change in real time
-        
         if (inicialized) {
-            if (getDifference(dell.getBase_employees(), ram_emp_quantity1) < 0) {
-                Employee new_emp = new Employee(40, dell, 2);
-                new_emp.setType(3);
-                new_emp.setDayDuration(txt.getDayDuration());
-                manageQuantityAddChange(new_emp, dell);
+
+            int lastValidValue = dell.getRam_employees().getSize();
+
+            if (lastValidValue > 1 || (int) ram_emp_quantity1.getValue() > lastValidValue) {
+
+                if (dell.getTotalEmployees() < dell.getMaxEmployees() || (int) ram_emp_quantity1.getValue() < lastValidValue) {
+                    if (getDifference(dell.getRam_employees(), ram_emp_quantity1) < 0) {
+                        Employee new_emp = new Employee(40, dell, 2);
+                        new_emp.setType(3);
+                        new_emp.setDayDuration(txt.getDayDuration());
+                        manageQuantityAddChange(new_emp, dell);
+                    } else {
+                        manageQuantityDeleteChange(dell, 3);
+                    }
+                } else {
+                    ram_emp_quantity1.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChange(dell, 1);
+                ram_emp_quantity1.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
-        
+
+
     }//GEN-LAST:event_ram_emp_quantity1StateChanged
 
     private void power_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_power_emp_quantity1StateChanged
-        
+
         // Dell Power # Employees Spinner change in real time
-        
         if (inicialized) {
-            if (getDifference(dell.getBase_employees(), power_emp_quantity1) < 0) {
-                Employee new_emp = new Employee(16, dell, 5);
-                new_emp.setType(4);
-                new_emp.setDayDuration(txt.getDayDuration());
-                manageQuantityAddChange(new_emp, dell);
+
+            int lastValidValue = dell.getPower_employees().getSize();
+
+            if (lastValidValue > 1 || (int) power_emp_quantity1.getValue() > lastValidValue) {
+
+                if (dell.getTotalEmployees() < dell.getMaxEmployees() || (int) power_emp_quantity1.getValue() < lastValidValue) {
+                    if (getDifference(dell.getPower_employees(), power_emp_quantity1) < 0) {
+                        Employee new_emp = new Employee(16, dell, 5);
+                        new_emp.setType(4);
+                        new_emp.setDayDuration(txt.getDayDuration());
+                        manageQuantityAddChange(new_emp, dell);
+                    } else {
+                        manageQuantityDeleteChange(dell, 1);
+                    }
+                } else {
+                    power_emp_quantity1.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChange(dell, 1);
+                power_emp_quantity1.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
-        
+
+
     }//GEN-LAST:event_power_emp_quantity1StateChanged
 
     private void graphic_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_graphic_emp_quantity1StateChanged
-        
+
         // Dell Grapic Card # Employees Spinner change in real time
-        
         if (inicialized) {
-            if (getDifference(dell.getGraphic_employee(), graphic_emp_quantity1) < 0) {
-                Employee new_emp = new Employee(34, dell, 0.5);
-                new_emp.setType(5);
-                new_emp.setDayDuration(txt.getDayDuration());
-                manageQuantityAddChange(new_emp, dell);
+
+            int lastValidValue = dell.getGraphic_employee().getSize();
+
+            if (lastValidValue > 1 || (int) graphic_emp_quantity1.getValue() > lastValidValue) {
+
+                if (dell.getTotalEmployees() < dell.getMaxEmployees() || (int) graphic_emp_quantity1.getValue() < lastValidValue) {
+                    if (getDifference(dell.getGraphic_employee(), graphic_emp_quantity1) < 0) {
+                        Employee new_emp = new Employee(34, dell, 0.5);
+                        new_emp.setType(5);
+                        new_emp.setDayDuration(txt.getDayDuration());
+                        manageQuantityAddChange(new_emp, dell);
+                    } else {
+                        manageQuantityDeleteChange(dell, 5);
+                    }
+                } else {
+                    graphic_emp_quantity1.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChange(dell, 5);
+                graphic_emp_quantity1.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
-        
+
+
     }//GEN-LAST:event_graphic_emp_quantity1StateChanged
 
     private void assembler_emp_quantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_assembler_emp_quantity1StateChanged
-       
-    // Dell Assembler # Employees Spinner change in real time
-        
+
+        // Dell Assembler # Employees Spinner change in real time
         if (inicialized) {
-            if (getDifferenceAssembler(dell.getAssembler(), assembler_emp_quantity1) < 0) {
-                Assembler new_asm = new Assembler(dell.getStore(), txt.getDayDuration());
-                manageQuantityAddChangeAssembler(new_asm, dell);
+
+            int lastValidValue = dell.getAssembler().getSize();
+
+            if (lastValidValue > 1 || (int) assembler_emp_quantity1.getValue() > lastValidValue) {
+                if (dell.getTotalEmployees() < dell.getMaxEmployees() || (int) assembler_emp_quantity1.getValue() < lastValidValue) {
+                    if (getDifferenceAssembler(dell.getAssembler(), assembler_emp_quantity1) < 0) {
+                        Assembler new_asm = new Assembler(dell.getStore(), txt.getDayDuration());
+                        manageQuantityAddChangeAssembler(new_asm, dell);
+                    } else {
+                        manageQuantityDeleteChangeAssembler(dell);
+                    }
+                } else {
+                    assembler_emp_quantity1.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChangeAssembler(dell);
+                assembler_emp_quantity1.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
+
+
     }//GEN-LAST:event_assembler_emp_quantity1StateChanged
 
     private void assembler_emp_quantity1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_assembler_emp_quantity1PropertyChange
@@ -957,18 +1128,31 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_assembler_emp_quantity1PropertyChange
 
     private void assembler_emp_quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_assembler_emp_quantityStateChanged
-        
+
         // Apple Assembler # Employees Spinner change in real time
-        
         if (inicialized) {
-            if (getDifferenceAssembler(apple.getAssembler(), assembler_emp_quantity) < 0) {
-                Assembler new_asm = new Assembler(apple.getStore(), txt.getDayDuration());
-                manageQuantityAddChangeAssembler(new_asm, apple);
+
+            int lastValidValue = apple.getAssembler().getSize();
+
+            if (lastValidValue > 1 || (int) assembler_emp_quantity.getValue() > lastValidValue) {
+                if (apple.getTotalEmployees() < apple.getMaxEmployees() || (int) assembler_emp_quantity.getValue() < lastValidValue) {
+                    if (getDifferenceAssembler(apple.getAssembler(), assembler_emp_quantity) < 0) {
+                        Assembler new_asm = new Assembler(apple.getStore(), txt.getDayDuration());
+                        manageQuantityAddChangeAssembler(new_asm, apple);
+                    } else {
+                        manageQuantityDeleteChangeAssembler(apple);
+                    }
+                } else {
+                    assembler_emp_quantity.setValue(lastValidValue);
+                    JOptionPane.showMessageDialog(rootPane, "Ha excedido la cantidad máxima de empleados");
+                }
             } else {
-                manageQuantityDeleteChangeAssembler(apple);
+                assembler_emp_quantity.setValue(lastValidValue);
+                JOptionPane.showMessageDialog(rootPane, "Debe tener mínimo un (1) empleado");
             }
         }
-        
+
+
     }//GEN-LAST:event_assembler_emp_quantityStateChanged
 
     private void assembler_emp_quantityPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_assembler_emp_quantityPropertyChange

@@ -37,7 +37,7 @@ public class Director extends Thread {
     }
 
     /**
-     * Set the value of directorModegit sttgit
+     * Set the value of directorMode
      *
      * @param directorMode new value of directorMode
      */
@@ -167,7 +167,7 @@ public class Director extends Thread {
      
     public void work(){
         this.daysCounter = this.daysCounter + 1;
-        if (this.daysCounter == this.daysToDeliver){ // ese valor de 2 depende de la compania REVISAR!!!!!!
+        if (this.daysCounter == this.daysToDeliver){ // 
             try {
                 this.mutex.acquire(); //wait
                 store.sendComputers();

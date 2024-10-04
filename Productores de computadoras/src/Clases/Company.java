@@ -23,6 +23,27 @@ public class Company {
     private Lista<Employee> graphic_employee;
     private Lista<Assembler> assembler;
     public ProjectManager PM;
+    
+    private int maxEmployees;
+
+    /**
+     * Get the value of maxEmployees
+     *
+     * @return the value of maxEmployees
+     */
+    public int getMaxEmployees() {
+        return maxEmployees;
+    }
+
+    /**
+     * Set the value of maxEmployees
+     *
+     * @param maxEmployees new value of maxEmployees
+     */
+    public void setMaxEmployees(int maxEmployees) {
+        this.maxEmployees = maxEmployees;
+    }
+
 
     /**
      * Get the value of PM
@@ -41,8 +62,12 @@ public class Company {
     public void setPM(ProjectManager PM) {
         this.PM = PM;
     }
-
     
+    public int getTotalEmployees () {
+        int totalEmployees;
+        totalEmployees = base_employees.getSize() + cpu_employees.getSize() + ram_employees.getSize() + power_employees.getSize() + graphic_employee.getSize() + assembler.getSize(); 
+        return totalEmployees;
+    }    
     
     public Company(String name, Store store) {
         this.name = name;

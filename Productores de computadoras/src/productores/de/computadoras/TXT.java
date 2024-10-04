@@ -95,13 +95,15 @@ public class TXT {
                             store.setNecessaryComponents(necessaryComponents);
                             store.setComputerPrice(150);
                             store.setGraphicsQuantity(2);
+                            company.setMaxEmployees(18);
                             
                             
                         }else{
                             int [] necessaryComponents = {1,5,6,5};
                             store.setNecessaryComponents(necessaryComponents);
                             store.setComputerPrice(80);
-                             store.setGraphicsQuantity(1);
+                            store.setGraphicsQuantity(1);
+                            company.setMaxEmployees(17);
                         }
                         
                         i += 2; // Saltar a la sección de trabajadores
