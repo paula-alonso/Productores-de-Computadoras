@@ -25,6 +25,27 @@ public class Director extends Thread {
     private Semaphore mutex;
     private Company company;
     
+    private Semaphore mutex2;
+
+    /**
+     * Get the value of mutex2
+     *
+     * @return the value of mutex2
+     */
+    public Semaphore getMutex2() {
+        return mutex2;
+    }
+
+    /**
+     * Set the value of mutex2
+     *
+     * @param mutex2 new value of mutex2
+     */
+    public void setMutex2(Semaphore mutex2) {
+        this.mutex2 = mutex2;
+    }
+
+    
     private boolean directorMode;
 
     /**
@@ -56,6 +77,7 @@ public class Director extends Thread {
         this.daysToDeliver = 1;
         this.directorMode = false;
         this.reinicioDeadline = store.getDeadline();
+        this.mutex2 = store.getDaysMutex();
     }
     private int reinicioDeadline;
 
@@ -148,7 +170,7 @@ public class Director extends Thread {
     
      public void checkDeadline(){
         try {
-            this.mutex.acquire(); //wait
+            this.mutex2.acquire(); //wait
             if (this.store.getDeadline() == 0) {
                 directorMode = true;
                this.store.setDeadline(reinicioDeadline);
@@ -158,7 +180,7 @@ public class Director extends Thread {
                         Home.daysToRealise1.setText(Integer.toString(this.store.getDeadline()));
                     }
             }
-            this.mutex.release(); // signal
+            this.mutex2.release(); // signal
         } catch (InterruptedException ex) {
             Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
         }
