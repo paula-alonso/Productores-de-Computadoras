@@ -24,7 +24,68 @@ public class Store {
     private int computersQuantity;
     private int computerWithGraphic;
     private Company company;
-    private int [] necessaryComponents; 
+    private int [] necessaryComponents;
+    private int earnings;
+    private int computerPrice;
+    
+    private int graphicsQuantity; //per Computer
+
+    /**
+     * Get the value of graphicsQuantity necessary per Computer
+     *
+     * @return the value of graphicsQuantity
+     */
+    public int getGraphicsQuantity() {
+        return graphicsQuantity;
+    }
+
+    /**
+     * Set the value of graphicsQuantity
+     *
+     * @param graphicsQuantity new value of graphicsQuantity
+     */
+    public void setGraphicsQuantity(int graphicsQuantity) {
+        this.graphicsQuantity = graphicsQuantity;
+    }
+
+
+    /**
+     * Get the value of computerPrice
+     *
+     * @return the value of computerPrice
+     */
+    public int getComputerPrice() {
+        return computerPrice;
+    }
+
+    /**
+     * Set the value of computerPrice
+     *
+     * @param computerPrice new value of computerPrice
+     */
+    public void setComputerPrice(int computerPrice) {
+        this.computerPrice = computerPrice;
+    }
+
+
+    /**
+     * Get the value of earnings
+     *
+     * @return the value of earnings
+     */
+    public int getEarnings() {
+        return earnings;
+    }
+
+    /**
+     * Set the value of earnings
+     *
+     * @param earnings new value of earnings
+     */
+    public void setEarnings(int earnings) {
+        this.earnings = earnings;
+    }
+
 
     public int[] getNecessaryComponents() {
         return necessaryComponents;
@@ -43,7 +104,7 @@ public class Store {
         this.productionMutex = new Semaphore(1);
         this.daysMutex = new Semaphore(1);
         this.deadline = deadline;
-        this.company = company;
+        this.company = this.getCompany();
         this.motherboards = 0;
         this.cpu = 0;
         this.ram = 0;
@@ -231,15 +292,17 @@ public class Store {
         
         int amount = computersQuantity-1;
         
+        // Caso Tarjeta Gráfica
+        
         if (amount > 0 && amount % 5 == 0) {
             
             this.computerWithGraphic = amount / 5;
-            graphic_cards -= 1;
+            graphic_cards -= this.getGraphicsQuantity();
             
             
         }
         
-        // Se actualiza la dispomnibilidad en la tienda
+        // Se actualiza la disponibilidad en la tienda
         motherboards -= computersAmount*necessaryComponents[0];
         cpu -= computersAmount*necessaryComponents[1];
         ram -= computersAmount*necessaryComponents[2];
@@ -271,6 +334,25 @@ public class Store {
     
     public void sendComputers() {
         //
+        earnings += computersQuantity*computerPrice;
+        computersQuantity = 0;
+        computerWithGraphic = 0;
+        
+        if ("Apple".equals(this.company.getName())) {
+            Home.comp_quantity.setText("Computadoras: "+ Integer.toString(computersQuantity));
+            Home.comp_graph_quantity.setText("con Gráficas: "+ Integer.toString(computerWithGraphic));
+        } else {
+            Home.comp_quantity1.setText("Computadoras: "+ Integer.toString(computersQuantity));
+            Home.comp_graph_quantity1.setText("con Gráficas: "+ Integer.toString(computerWithGraphic));
+        }
+        
+        
+        if ("Apple".equals(this.company.getName())) {
+            Home.ganancias.setText("Ganancias: "+ Integer.toString(earnings)+"K");
+        } else {
+            Home.ganancias1.setText("Ganancias: "+ Integer.toString(earnings)+"K");
+        }
+        
         System.out.print("\nComputadoras enviadas");
     }
 

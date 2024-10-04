@@ -21,6 +21,27 @@ public class ProjectManager extends Thread {
     private int discount;
     private String status;
     private Store store;
+    
+    private double salaryAcumulate;
+
+    /**
+     * Get the value of salaryAcumulate
+     *
+     * @return the value of salaryAcumulate
+     */
+    public double getSalaryAcumulate() {
+        return salaryAcumulate;
+    }
+
+    /**
+     * Set the value of salaryAcumulate
+     *
+     * @param salaryAcumulate new value of salaryAcumulate
+     */
+    public void setSalaryAcumulate(double salaryAcumulate) {
+        this.salaryAcumulate = salaryAcumulate;
+    }
+
 
     public ProjectManager(int dayDuration, Store store) {
 

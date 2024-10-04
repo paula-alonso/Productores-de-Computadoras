@@ -22,7 +22,6 @@ public class Company {
     private Lista<Employee> power_employees;
     private Lista<Employee> graphic_employee;
     private Lista<Assembler> assembler;
-    
     public ProjectManager PM;
 
     /**

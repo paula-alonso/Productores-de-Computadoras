@@ -90,11 +90,18 @@ public class TXT {
                         store.setCompany(company);
                         
                         if ("Apple".equals(company_name)) {
+                            
                             int [] necessaryComponents = {2,1,4,4};
                             store.setNecessaryComponents(necessaryComponents);
+                            store.setComputerPrice(150);
+                            store.setGraphicsQuantity(2);
+                            
+                            
                         }else{
                             int [] necessaryComponents = {1,5,6,5};
                             store.setNecessaryComponents(necessaryComponents);
+                            store.setComputerPrice(80);
+                             store.setGraphicsQuantity(1);
                         }
                         
                         i += 2; // Saltar a la sección de trabajadores
@@ -120,7 +127,7 @@ public class TXT {
                                     employee.setType(num);
                                     company.AddEmployee(employee);
                                 } else {
-                                   Assembler assembler = new Assembler(store);
+                                   Assembler assembler = new Assembler(store, dayDuration);
                                    company.AddAssembler(assembler);
                                 }
                                 

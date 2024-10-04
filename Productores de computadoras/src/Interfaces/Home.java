@@ -161,20 +161,20 @@ public class Home extends javax.swing.JFrame {
         assembler_emp_quantity = new javax.swing.JSpinner();
         comp_graph_quantity = new javax.swing.JLabel();
         comp_quantity = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
+        ganancias = new javax.swing.JLabel();
+        gastos = new javax.swing.JLabel();
+        utilidad = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         PMfaults = new javax.swing.JLabel();
+        directorStatus = new javax.swing.JLabel();
+        pmStatus = new javax.swing.JLabel();
         discount = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         jTextArea3 = new javax.swing.JTextArea();
         power_emp_quantity = new javax.swing.JSpinner();
         power_quantity = new javax.swing.JLabel();
-        pmStatus = new javax.swing.JLabel();
-        directorStatus = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         daysToRealise = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -215,6 +215,7 @@ public class Home extends javax.swing.JFrame {
         comp_quantity1 = new javax.swing.JLabel();
         graphic_quantity1 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -380,27 +381,27 @@ public class Home extends javax.swing.JFrame {
         comp_graph_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         comp_graph_quantity.setForeground(new java.awt.Color(0, 0, 0));
         comp_graph_quantity.setText("con Gráficas: 0");
-        jPanel2.add(comp_graph_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, -1, 30));
+        jPanel2.add(comp_graph_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 410, -1, 30));
 
         comp_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         comp_quantity.setForeground(new java.awt.Color(0, 0, 0));
         comp_quantity.setText("Computadoras: 0");
         jPanel2.add(comp_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, -1, 30));
 
-        jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel34.setText("Ganancias:");
-        jPanel2.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 100, 30));
+        ganancias.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ganancias.setForeground(new java.awt.Color(255, 255, 255));
+        ganancias.setText("Ganancias:");
+        jPanel2.add(ganancias, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 160, 30));
 
-        jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel35.setText("Gastos:");
-        jPanel2.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 60, 30));
+        gastos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        gastos.setForeground(new java.awt.Color(255, 255, 255));
+        gastos.setText("Gastos:");
+        jPanel2.add(gastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 160, 30));
 
-        jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel36.setText("Utilidad:");
-        jPanel2.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 60, 30));
+        utilidad.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        utilidad.setForeground(new java.awt.Color(255, 255, 255));
+        utilidad.setText("Utilidad:");
+        jPanel2.add(utilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 160, 30));
 
         jLabel37.setBackground(new java.awt.Color(204, 91, 129));
         jLabel37.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -422,12 +423,25 @@ public class Home extends javax.swing.JFrame {
         PMfaults.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         PMfaults.setForeground(new java.awt.Color(0, 0, 0));
         PMfaults.setText("Faltas PM: 0");
-        jPanel2.add(PMfaults, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, 120, 30));
+        jPanel2.add(PMfaults, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, 120, 30));
+
+        directorStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        directorStatus.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(directorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 200, 30));
+
+        pmStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        pmStatus.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(pmStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 160, 150, 30));
 
         discount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         discount.setForeground(new java.awt.Color(0, 0, 0));
         discount.setText("Sueldo descontado: 0");
-        jPanel2.add(discount, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, 170, 30));
+        jPanel2.add(discount, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 170, 30));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("Project Manager:");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 120, 30));
 
         jTextArea3.setEditable(false);
         jTextArea3.setColumns(20);
@@ -454,26 +468,13 @@ public class Home extends javax.swing.JFrame {
         power_quantity.setText("Unid. en almacén: 0/35");
         jPanel2.add(power_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, -1, 30));
 
-        pmStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        pmStatus.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(pmStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 160, 150, 30));
-
-        directorStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        directorStatus.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(directorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 200, 30));
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("Project Manager:");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 120, 30));
-
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setText("Días para la entrega:");
         jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 140, 30));
 
         daysToRealise.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        daysToRealise.setForeground(new java.awt.Color(0, 0, 0));
+        daysToRealise.setForeground(new java.awt.Color(204, 91, 129));
         jPanel2.add(daysToRealise, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, 30, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/background apple.png"))); // NOI18N
@@ -566,7 +567,7 @@ public class Home extends javax.swing.JFrame {
         jPanel3.add(pmStatus1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 160, 150, 30));
 
         daysToRealise1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        daysToRealise1.setForeground(new java.awt.Color(0, 0, 0));
+        daysToRealise1.setForeground(new java.awt.Color(0, 118, 206));
         jPanel3.add(daysToRealise1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, 30, 30));
 
         jTextArea5.setEditable(false);
@@ -597,17 +598,17 @@ public class Home extends javax.swing.JFrame {
         utilidad1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         utilidad1.setForeground(new java.awt.Color(255, 255, 255));
         utilidad1.setText("Utilidad:");
-        jPanel3.add(utilidad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 60, 30));
+        jPanel3.add(utilidad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 160, 30));
 
         gastos1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         gastos1.setForeground(new java.awt.Color(255, 255, 255));
         gastos1.setText("Gastos:");
-        jPanel3.add(gastos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 60, 30));
+        jPanel3.add(gastos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 160, 30));
 
         ganancias1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ganancias1.setForeground(new java.awt.Color(255, 255, 255));
         ganancias1.setText("Ganancias:");
-        jPanel3.add(ganancias1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 100, 30));
+        jPanel3.add(ganancias1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 160, 30));
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(0, 0, 0));
@@ -617,12 +618,12 @@ public class Home extends javax.swing.JFrame {
         discount1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         discount1.setForeground(new java.awt.Color(0, 0, 0));
         discount1.setText("Sueldo descontado: 0");
-        jPanel3.add(discount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, 170, 30));
+        jPanel3.add(discount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 170, 30));
 
         PMfaults1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         PMfaults1.setForeground(new java.awt.Color(0, 0, 0));
         PMfaults1.setText("Faltas PM: 0");
-        jPanel3.add(PMfaults1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, 120, 30));
+        jPanel3.add(PMfaults1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, 120, 30));
 
         Director1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Director1.setForeground(new java.awt.Color(0, 0, 0));
@@ -692,7 +693,7 @@ public class Home extends javax.swing.JFrame {
         comp_graph_quantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         comp_graph_quantity1.setForeground(new java.awt.Color(0, 0, 0));
         comp_graph_quantity1.setText("con Gráficas: 0");
-        jPanel3.add(comp_graph_quantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, -1, 30));
+        jPanel3.add(comp_graph_quantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 410, -1, 30));
 
         comp_quantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         comp_quantity1.setForeground(new java.awt.Color(0, 0, 0));
@@ -706,6 +707,13 @@ public class Home extends javax.swing.JFrame {
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/background dell.jpg"))); // NOI18N
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 470));
+
+        jLabel39.setBackground(new java.awt.Color(0, 118, 206));
+        jLabel39.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel39.setOpaque(true);
+        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 170, 90));
 
         jTabbedPane1.addTab("Dell", jPanel3);
 
@@ -728,7 +736,10 @@ public class Home extends javax.swing.JFrame {
         spinnerTextField.setFocusable(false);
     }
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
+        
         daysToRealise.setText(String.valueOf(apple.getStore().getDeadline()));
+        daysToRealise1.setText(String.valueOf(dell.getStore().getDeadline()));
+        
         pmApple = new ProjectManager ((int) dayDuration.getValue(), apple.getStore());
         apple.setPM(pmApple);
         pmApple.start();
@@ -933,8 +944,7 @@ public class Home extends javax.swing.JFrame {
         
         if (inicialized) {
             if (getDifferenceAssembler(dell.getAssembler(), assembler_emp_quantity1) < 0) {
-                Assembler new_asm = new Assembler(dell.getStore());
-                new_asm.setDayDuration(txt.getDayDuration());
+                Assembler new_asm = new Assembler(dell.getStore(), txt.getDayDuration());
                 manageQuantityAddChangeAssembler(new_asm, dell);
             } else {
                 manageQuantityDeleteChangeAssembler(dell);
@@ -952,8 +962,7 @@ public class Home extends javax.swing.JFrame {
         
         if (inicialized) {
             if (getDifferenceAssembler(apple.getAssembler(), assembler_emp_quantity) < 0) {
-                Assembler new_asm = new Assembler(apple.getStore());
-                new_asm.setDayDuration(txt.getDayDuration());
+                Assembler new_asm = new Assembler(apple.getStore(), txt.getDayDuration());
                 manageQuantityAddChangeAssembler(new_asm, apple);
             } else {
                 manageQuantityDeleteChangeAssembler(apple);
@@ -1029,8 +1038,10 @@ public class Home extends javax.swing.JFrame {
     public static javax.swing.JLabel directorStatus1;
     public static javax.swing.JLabel discount;
     public static javax.swing.JLabel discount1;
-    private javax.swing.JLabel ganancias1;
-    private javax.swing.JLabel gastos1;
+    public static javax.swing.JLabel ganancias;
+    public static javax.swing.JLabel ganancias1;
+    public static javax.swing.JLabel gastos;
+    public static javax.swing.JLabel gastos1;
     private javax.swing.JSpinner graphic_emp_quantity;
     private javax.swing.JSpinner graphic_emp_quantity1;
     public static javax.swing.JLabel graphic_quantity;
@@ -1045,7 +1056,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
+    public static javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
@@ -1057,11 +1068,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1071,7 +1080,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    public static javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea5;
@@ -1086,6 +1095,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSpinner ram_emp_quantity1;
     public static javax.swing.JLabel ram_quantity;
     public static javax.swing.JLabel ram_quantity1;
-    private javax.swing.JLabel utilidad1;
+    public static javax.swing.JLabel utilidad;
+    public static javax.swing.JLabel utilidad1;
     // End of variables declaration//GEN-END:variables
 }

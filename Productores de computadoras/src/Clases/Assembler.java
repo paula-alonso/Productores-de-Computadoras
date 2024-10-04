@@ -7,6 +7,7 @@ package Clases;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.concurrent.Semaphore;
+import productores.de.computadoras.TXT;
 
 /**
  *
@@ -24,12 +25,33 @@ public class Assembler extends Thread {
     private Store store;
     private Company company;
     private boolean working;
+    
+    private double salaryAcumulate;
 
-    public Assembler(Store store) {
+    /**
+     * Get the value of salaryAccumulate
+     *
+     * @return the value of salaryAccumulate
+     */
+    public double getSalaryAcumulate() {
+        return salaryAcumulate;
+    }
+
+    /**
+     * Set the value of salaryAccumulate
+     *
+     * @param salaryAccumulate new value of salaryAccumulate
+     */
+    public void setSalaryAcumulate(int salaryAcumulate) {
+        this.salaryAcumulate = salaryAcumulate;
+    }
+
+
+    public Assembler(Store store, int dayDuration) {
         this.mutex = store.getProductionMutex();
         this.dayDuration = dayDuration;
         this.company =  store.getCompany();
-        this.quantityEmployees = quantityEmployees;
+        this.quantityEmployees = company.getAssembler().getSize();
         this.store = store;
         this.dayCounter = 0;
         this.salary = 50;
@@ -69,6 +91,10 @@ public class Assembler extends Thread {
                 Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public void paySalary(){
+        this.salaryAcumulate = this.salaryAcumulate + ((this.salary * 24) * this.quantityEmployees);
     }
     
     /**

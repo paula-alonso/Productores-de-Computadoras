@@ -37,7 +37,7 @@ public class Director extends Thread {
     }
 
     /**
-     * Set the value of directorMode
+     * Set the value of directorModegit sttgit
      *
      * @param directorMode new value of directorMode
      */
@@ -80,21 +80,25 @@ public class Director extends Thread {
     
     @Override
     public void run(){
+         if ("Apple".equals(this.store.getCompany().getName())){
+             Home.directorStatus.setText(status);
+         } else {
+             Home.directorStatus1.setText(status);
+         }
         while(true) {
             try {  
-                //paySalary();
+                paySalary();
                 checkDeadline();
                 if (directorMode) {
-                    status = "Enviando Capitulos";
+                    status = "Enviando Computadoras";
                     
                     if ("Apple".equals(this.store.getCompany().getName())){
                        Home.directorStatus.setText(status);
                     } else {
                         Home.directorStatus1.setText(status);
                     }
-                    
                     work();
-                    sleep(this.dayDuration);
+                    sleep(this.dayDuration); // Dura 1 día haciendo esto
                 }else{
                     double randomHour = Math.random( )*23;
                     int random = (int)randomHour;
@@ -135,7 +139,11 @@ public class Director extends Thread {
                 Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    } 
+    }
+    
+    public void paySalary(){
+        this.salaryAcumulate = this.salaryAcumulate + (this.salary * 24);
+    }
     
     
      public void checkDeadline(){
@@ -144,6 +152,11 @@ public class Director extends Thread {
             if (this.store.getDeadline() == 0) {
                 directorMode = true;
                this.store.setDeadline(reinicioDeadline);
+               if ("Apple".equals(this.store.getCompany().getName())){
+                       Home.daysToRealise.setText(Integer.toString(this.store.getDeadline()));
+                    } else {
+                        Home.daysToRealise1.setText(Integer.toString(this.store.getDeadline()));
+                    }
             }
             this.mutex.release(); // signal
         } catch (InterruptedException ex) {
@@ -178,11 +191,16 @@ public class Director extends Thread {
             }
         
             company.getPM().setDiscount(company.getPM().getDiscount() + 100); 
-        //    this.labels[3].setText(Integer.toString(company.getPm().getDiscounted()));
+            
+            if ("Apple".equals(this.store.getCompany().getName())){
+                Home.discount.setText("Sueldo descontado: " + Integer.toString(company.getPM().getDiscount()));
+            } else {
+                Home.discount1.setText("Sueldo descontado: " + Integer.toString(company.getPM().getDiscount()));
+            }
         
             try {
                 this.mutex.acquire(); //wait
-                //company.getPM().setSalaryAcumulate(company.getPM().getSalaryAcumulate() - 100);//critica   
+                company.getPM().setSalaryAcumulate(company.getPM().getSalaryAcumulate() - 100);//critica   
                 this.mutex.release(); // signal
             } catch (InterruptedException ex) {
                 Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
