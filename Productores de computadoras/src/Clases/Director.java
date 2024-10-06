@@ -77,7 +77,7 @@ public class Director extends Thread {
         this.daysToDeliver = 1;
         this.directorMode = false;
         this.reinicioDeadline = store.getDeadline();
-        this.mutex2 = store.getDaysMutex();
+        this.mutex2 = store.getProductionMutex();
     }
     private int reinicioDeadline;
 
@@ -102,7 +102,7 @@ public class Director extends Thread {
     
     @Override
     public void run(){
-         if ("Apple".equals(this.store.getCompany().getName())){
+         if ("Apple".equals(this.company.getName())){
              Home.directorStatus.setText(status);
          } else {
              Home.directorStatus1.setText(status);
@@ -113,8 +113,7 @@ public class Director extends Thread {
                 checkDeadline();
                 if (directorMode) {
                     status = "Enviando Computadoras";
-                    
-                    if ("Apple".equals(this.store.getCompany().getName())){
+                    if ("Apple".equals(this.company.getName())){
                        Home.directorStatus.setText(status);
                     } else {
                         Home.directorStatus1.setText(status);
@@ -128,7 +127,7 @@ public class Director extends Thread {
                     
                     status = "Revisando PM";
                     
-                    if ("Apple".equals(this.store.getCompany().getName())){
+                    if ("Apple".equals(this.company.getName())){
                        Home.directorStatus.setText(status);
                     } else {
                         Home.directorStatus1.setText(status);
@@ -143,7 +142,7 @@ public class Director extends Thread {
                     
                     status = "Labores Administrativos";
                     
-                    if ("Apple".equals(this.store.getCompany().getName())){
+                    if ("Apple".equals(this.company.getName())){
                        Home.directorStatus.setText(status);
                     } else {
                         Home.directorStatus1.setText(status);
@@ -170,9 +169,9 @@ public class Director extends Thread {
     
      public void checkDeadline(){
         try {
-            this.mutex2.acquire(); //wait
+            this.mutex.acquire(); //wait
             if (this.store.getDeadline() == 0) {
-                directorMode = true;
+               directorMode = true;
                this.store.setDeadline(reinicioDeadline);
                if ("Apple".equals(this.store.getCompany().getName())){
                        Home.daysToRealise.setText(Integer.toString(this.store.getDeadline()));
@@ -180,7 +179,7 @@ public class Director extends Thread {
                         Home.daysToRealise1.setText(Integer.toString(this.store.getDeadline()));
                     }
             }
-            this.mutex2.release(); // signal
+            this.mutex.release(); // signal
         } catch (InterruptedException ex) {
             Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -188,7 +187,7 @@ public class Director extends Thread {
     
      
     public void work(){
-        this.daysCounter = this.daysCounter + 1;
+        this.daysCounter += 1;
         if (this.daysCounter == this.daysToDeliver){ // 
             try {
                 this.mutex.acquire(); //wait

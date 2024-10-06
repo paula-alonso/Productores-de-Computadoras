@@ -751,9 +751,13 @@ public class Home extends javax.swing.JFrame {
     }
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
 
+        apple.getStore().setDeadline((int)deadline.getValue());
+        dell.getStore().setDeadline((int)deadline.getValue());
+        
         daysToRealise.setText(String.valueOf(apple.getStore().getDeadline()));
         daysToRealise1.setText(String.valueOf(dell.getStore().getDeadline()));
-
+        
+        
         pmApple = new ProjectManager((int) dayDuration.getValue(), apple.getStore());
         apple.setPM(pmApple);
         pmApple.start();

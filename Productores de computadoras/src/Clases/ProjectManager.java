@@ -11,6 +11,8 @@ package Clases;
 
 import Interfaces.Home;
 import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class ProjectManager extends Thread {
@@ -90,22 +92,32 @@ public class ProjectManager extends Thread {
                 } else {
                     Home.pmStatus1.setText(status);
                 }
+                
+                work();
+                
                 sleep(oneHour*8);
-                store.getDaysMutex().acquire();
-                store.setDeadline(store.getDeadline() - 1);
                 
-                if ("Apple".equals(this.store.getCompany().getName())){
-                    Home.daysToRealise.setText(String.valueOf(store.getDeadline()));
-                } else {
-                    Home.daysToRealise1.setText(String.valueOf(store.getDeadline()));
-                }
                 
-                store.getDaysMutex().release();  
             }catch (InterruptedException ex){
-            
+                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
+    }
+    
+    public void work () {
+        try {
+            store.getDaysMutex().acquire();
+            store.setDeadline(store.getDeadline() - 1);
+            if ("Apple".equals(this.store.getCompany().getName())){
+                Home.daysToRealise.setText(String.valueOf(store.getDeadline()));
+            } else {
+                Home.daysToRealise1.setText(String.valueOf(store.getDeadline()));
+            }
+            store.getDaysMutex().release();  
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 
