@@ -27,9 +27,26 @@ public class Store {
     private int [] necessaryComponents;
     private int earnings;
     private int computerPrice;
-    
     private int graphicsQuantity; //per Computer
+    private double costs;
+    private double utility;
+    private int deadline;
+    private Semaphore productionMutex;
 
+    public Store(int deadline) {
+        this.productionMutex = new Semaphore(1);
+        this.deadline = deadline;
+        this.company = this.getCompany();
+        this.motherboards = 0;
+        this.cpu = 0;
+        this.ram = 0;
+        this.graphic_cards = 0;
+        this.power=0;
+        this.computersQuantity = 0;
+        this.computerWithGraphic = 0;
+        this.utility = 0;
+        
+    }
     /**
      * Get the value of graphicsQuantity necessary per Computer
      *
@@ -93,26 +110,6 @@ public class Store {
 
     public void setNecessaryComponents(int[] necessaryComponents) {
         this.necessaryComponents = necessaryComponents;
-    }
-    private int deadline;
-    
-    //Semáforos
-    private Semaphore productionMutex; //acceso a unidades producidas
-    private Semaphore daysMutex; //acceso al contador de dias
-
-    public Store(int deadline) {
-        this.productionMutex = new Semaphore(1);
-        this.daysMutex = new Semaphore(1);
-        this.deadline = deadline;
-        this.company = this.getCompany();
-        this.motherboards = 0;
-        this.cpu = 0;
-        this.ram = 0;
-        this.graphic_cards = 0;
-        this.power=0;
-        this.computersQuantity = 0;
-        this.computerWithGraphic = 0;
-        
     }
 
     /**
@@ -335,6 +332,7 @@ public class Store {
     public void sendComputers() {
         //
         earnings += computersQuantity*computerPrice;
+        utility = earnings*1000 - costs;
         computersQuantity = 0;
         computerWithGraphic = 0;
         
@@ -349,8 +347,10 @@ public class Store {
         
         if ("Apple".equals(this.company.getName())) {
             Home.ganancias.setText("Ganancias: "+ Integer.toString(earnings)+"K");
+            Home.utilidad.setText("Utilidad: "+Double.toString(utility)+"S");
         } else {
             Home.ganancias1.setText("Ganancias: "+ Integer.toString(earnings)+"K");
+            Home.utilidad1.setText("Utilidad: "+Double.toString(utility)+"$");
         }
         
         System.out.print("\nComputadoras enviadas");
@@ -368,20 +368,6 @@ public class Store {
      */
     public void setProductionMutex(Semaphore productionMutex) {
         this.productionMutex = productionMutex;
-    }
-
-    /**
-     * @return the daysMutex
-     */
-    public Semaphore getDaysMutex() {
-        return daysMutex;
-    }
-
-    /**
-     * @param daysMutex the daysMutex to set
-     */
-    public void setDaysMutex(Semaphore daysMutex) {
-        this.daysMutex = daysMutex;
     }
 
     /**
@@ -410,6 +396,41 @@ public class Store {
      */
     public void setDeadline(int deadline) {
         this.deadline = deadline;
+    }
+
+    /**
+     * @return the costs
+     */
+    public double getCosts() {
+        return costs;
+    }
+
+    /**
+     * @param costs the costs to set
+     */
+    public void setCosts(double costs, String name) {
+        this.costs = costs;
+        String text = "Gastos: "+ String.valueOf(costs)+"$";
+        if(name.equals("Apple")){
+            Home.gastos.setText(text);
+        } else {
+            Home.gastos1.setText(text);
+        }
+        
+    }
+
+    /**
+     * @return the utility
+     */
+    public double getUtility() {
+        return utility;
+    }
+
+    /**
+     * @param utility the utility to set
+     */
+    public void setUtility(double utility) {
+        this.utility = utility;
     }
     
     

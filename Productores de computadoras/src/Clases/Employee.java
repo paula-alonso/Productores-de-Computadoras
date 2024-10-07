@@ -4,6 +4,10 @@
  */
 package Clases;
 
+import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author alons
@@ -17,6 +21,7 @@ public class Employee extends Thread {
     private Company company;
     private boolean working;
     private int dayDuration;
+    private Semaphore mutex;
 
     public Employee(double salary, Company company, double day_proportion) {
         this.type = 0;
@@ -26,6 +31,7 @@ public class Employee extends Thread {
         this.company = company;
         this.working = true;
         this.dayDuration = 0;
+        this.mutex = company.getStore().getProductionMutex();
     }
 
     /**
@@ -59,13 +65,14 @@ public class Employee extends Thread {
     @Override
     public void run() {
         while (this.isWorking()) {
-            try{
-            work();
-            sleep(dayDuration);
-            }catch(InterruptedException e){
+            try {
+                paySalary();
+                work();
+                sleep(dayDuration);
+            } catch (InterruptedException e) {
                 System.out.println("uwu");
             }
-            
+
         }
     }
 
@@ -75,15 +82,25 @@ public class Employee extends Thread {
 
         if (this.day_count >= 1) {
             try {
-                this.company.getStore().getProductionMutex().acquire();
+                mutex.acquire();
                 this.company.getStore().AddComponent(this.type, company.getName());
-                this.company.getStore().getProductionMutex().release();
+                mutex.release();
                 this.day_count = 0;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
+    }
+
+    public void paySalary() {
+        try {
+            mutex.acquire();
+            company.getStore().setCosts(company.getStore().getCosts() + salary * 24, company.getName());
+            mutex.release();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Director.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void Stop() {

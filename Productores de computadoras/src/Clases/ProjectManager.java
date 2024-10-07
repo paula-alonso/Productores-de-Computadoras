@@ -8,22 +8,21 @@ package Clases;
  *
  * @author marie
  */
-
 import Interfaces.Home;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class ProjectManager extends Thread {
-    
+
     private int dayDuration;
     private int salary;
     private int fault;
     private int discount;
     private String status;
     private Store store;
-    
+    private Semaphore mutex;
+
     private double salaryAcumulate;
 
     /**
@@ -44,7 +43,6 @@ public class ProjectManager extends Thread {
         this.salaryAcumulate = salaryAcumulate;
     }
 
-
     public ProjectManager(int dayDuration, Store store) {
 
         this.dayDuration = dayDuration;
@@ -54,72 +52,83 @@ public class ProjectManager extends Thread {
         this.fault = 0;
         this.discount = 0;
         this.status = null;
-        
+        this.mutex = store.getProductionMutex();
+
     }
-    
+
     @Override
     public void run() {
-        while (true){
-            try{
-                long start_time = System.currentTimeMillis();
-                int oneHour = Math.round(dayDuration/24);
-                //Primeras 16 horas
-                while (System.currentTimeMillis() - start_time <= (oneHour*16)){
+        while (true) {
+            int oneHour = Math.round(dayDuration / 24);
+            for (int i = 1; i <= 16; i++) { //simula las 16 horas
+                try {
                     status = "Trabajando";
-                    if ("Apple".equals(this.store.getCompany().getName())){
+                    if ("Apple".equals(this.store.getCompany().getName())) {
                         Home.pmStatus.setText(status);
                     } else {
                         Home.pmStatus1.setText(status);
                     }
-                  
-                    sleep(oneHour/2);
-                    
+                    sleep(oneHour / 2);//espera media hora
                     status = "Viendo One Piece";
-                    
-                    if ("Apple".equals(this.store.getCompany().getName())){
+                    if ("Apple".equals(this.store.getCompany().getName())) {
                         Home.pmStatus.setText(status);
                     } else {
                         Home.pmStatus1.setText(status);
                     }
-                    
-                    sleep(oneHour/2);
+                    sleep(oneHour / 2);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ProjectManager.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("error en pm en las 16 horas " + this.store.getCompany());
                 }
-                
-                // 8 horas restantes
-                status= "Trabajando";
-                if ("Apple".equals(this.store.getCompany().getName())){
-                    Home.pmStatus.setText(status);
-                } else {
-                    Home.pmStatus1.setText(status);
+            }
+            status = "Trabajando";
+            if ("Apple".equals(this.store.getCompany().getName())) {
+                Home.pmStatus.setText(status);
+            } else {
+                Home.pmStatus1.setText(status);
+            }
+            
+            try {
+                sleep(oneHour * 8); //siguientes 8 horas
+                store.getProductionMutex().acquire();
+                if (store.getDeadline() > 0) {
+                    store.setDeadline(store.getDeadline() - 1);
+                    if ("Apple".equals(this.store.getCompany().getName())) {
+                        Home.daysToRealise.setText(String.valueOf(store.getDeadline()));
+                    } else {
+                        Home.daysToRealise1.setText(String.valueOf(store.getDeadline()));
+                    }
                 }
-                
-                work();
-                
-                sleep(oneHour*8);
-                
-                
-            }catch (InterruptedException ex){
+                paySalary();
+                store.getProductionMutex().release();
+            } catch (InterruptedException ex) {
                 Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
-    
-    public void work () {
+
+    public void work(int oneHour) {
         try {
-            store.getDaysMutex().acquire();
-            store.setDeadline(store.getDeadline() - 1);
-            if ("Apple".equals(this.store.getCompany().getName())){
-                Home.daysToRealise.setText(String.valueOf(store.getDeadline()));
-            } else {
-                Home.daysToRealise1.setText(String.valueOf(store.getDeadline()));
+            sleep(oneHour * 8);
+            store.getProductionMutex().acquire();
+            if (store.getDeadline() > 0) {
+                store.setDeadline(store.getDeadline() - 1);
+                if ("Apple".equals(this.store.getCompany().getName())) {
+                    Home.daysToRealise.setText(String.valueOf(store.getDeadline()));
+                } else {
+                    Home.daysToRealise1.setText(String.valueOf(store.getDeadline()));
+                }
             }
-            store.getDaysMutex().release();  
+            store.getProductionMutex().release();
         } catch (InterruptedException ex) {
             Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void paySalary() {
+        store.setCosts(store.getCosts() + salary * 24, store.getCompany().getName());
+    }
 
     public int getDayDuration() {
         return dayDuration;
@@ -160,5 +169,5 @@ public class ProjectManager extends Thread {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
 }

@@ -404,17 +404,17 @@ public class Home extends javax.swing.JFrame {
 
         ganancias.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ganancias.setForeground(new java.awt.Color(255, 255, 255));
-        ganancias.setText("Ganancias:");
+        ganancias.setText("Ganancias: 0K");
         jPanel2.add(ganancias, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 160, 30));
 
         gastos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         gastos.setForeground(new java.awt.Color(255, 255, 255));
-        gastos.setText("Gastos:");
+        gastos.setText("Gastos: 0$");
         jPanel2.add(gastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 160, 30));
 
         utilidad.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         utilidad.setForeground(new java.awt.Color(255, 255, 255));
-        utilidad.setText("Utilidad:");
+        utilidad.setText("Utilidad: 0$");
         jPanel2.add(utilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 160, 30));
 
         jLabel37.setBackground(new java.awt.Color(204, 91, 129));
@@ -616,12 +616,12 @@ public class Home extends javax.swing.JFrame {
 
         gastos1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         gastos1.setForeground(new java.awt.Color(255, 255, 255));
-        gastos1.setText("Gastos:");
+        gastos1.setText("Gastos: 0$");
         jPanel3.add(gastos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 160, 30));
 
         ganancias1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ganancias1.setForeground(new java.awt.Color(255, 255, 255));
-        ganancias1.setText("Ganancias:");
+        ganancias1.setText("Ganancias: 0K");
         jPanel3.add(ganancias1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 160, 30));
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -735,7 +735,7 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 743, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

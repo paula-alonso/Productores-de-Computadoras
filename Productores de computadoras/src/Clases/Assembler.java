@@ -78,7 +78,7 @@ public class Assembler extends Thread {
     public void run(){
         while(true) {
             try {  
-                //paySalary();
+                paySalary();
                 if (dayCounter == 0){ // comentar
                     if (check()){
                         work();
@@ -94,7 +94,13 @@ public class Assembler extends Thread {
     }
     
     public void paySalary(){
-        this.salaryAcumulate = this.salaryAcumulate + ((this.salary * 24) * this.quantityEmployees);
+        try {
+            mutex.acquire();
+            store.setCosts(store.getCosts() + salary * 24, company.getName());
+            mutex.release();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Director.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**

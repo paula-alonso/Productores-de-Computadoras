@@ -1,13 +1,13 @@
 Duracion
 10000;
 Deadline
-6;
+2;
 Empresas
 Apple/
 Trabajadores:
-base,3,20,0.25
+base,5,20,0.25
 cpu,4,26,0.25
-ram,5,40,1
+ram,3,40,1
 power,1,16,5
 graphic,2,34,0.5
 assembler,1,50,2
