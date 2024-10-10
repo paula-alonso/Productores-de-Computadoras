@@ -10,11 +10,23 @@ import Clases.Director;
 import Clases.Employee;
 import Clases.ProjectManager;
 import EDD.Lista;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.HashMap;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import productores.de.computadoras.TXT;
 
 /**
@@ -24,15 +36,17 @@ import productores.de.computadoras.TXT;
 public class Home extends javax.swing.JFrame {
 
     Lista<Company> companies = new Lista<Company>();
-    TXT txt = new TXT();
+    static TXT txt = new TXT();
     boolean running;
     boolean inicialized = false;
-    Company apple;
-    Company dell;
+    static Company apple;
+    static Company dell;
     ProjectManager pmApple;
     ProjectManager pmDell;
     Director directorApple;
     Director directorDell;
+    
+    
 
     /**
      * Creates new form Home
@@ -68,6 +82,8 @@ public class Home extends javax.swing.JFrame {
 
         loadInfo();
     }
+    
+    
 
     private void loadInfo() {
         txt.LeerTxt();
@@ -230,9 +246,18 @@ public class Home extends javax.swing.JFrame {
         graphic_quantity1 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        panelChart = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                formPropertyChange(evt);
+            }
+        });
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -731,11 +756,33 @@ public class Home extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Dell", jPanel3);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel36.setText("GANANCIAS");
+        jPanel4.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
+
+        jLabel43.setBackground(new java.awt.Color(0, 118, 206));
+        jLabel43.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel43.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel43.setOpaque(true);
+        jPanel4.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 180, 10));
+
+        panelChart.setBackground(new java.awt.Color(204, 204, 204));
+        panelChart.setForeground(new java.awt.Color(255, 255, 255));
+        panelChart.setLayout(new java.awt.BorderLayout());
+        jPanel4.add(panelChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 700, 390));
+
+        jTabbedPane1.addTab("Gráfico", jPanel4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 743, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -775,6 +822,31 @@ public class Home extends javax.swing.JFrame {
         apple.startAll((int) dayDuration.getValue());
         dell.startAll((int) dayDuration.getValue());
         running = true;
+        
+        
+        //Aquí se crea todo el tema de la gráfica    
+    Global.addApple(0, 0);
+    Global.addDell(0, 0);
+    Global.addSeries(Global.getApple());
+    Global.addSeries(Global.getDell());
+        
+    JFreeChart chart = ChartFactory.createXYLineChart("Utilidad vs Tiempo", "Utilidad (Millones $)", "Tiempo (Días)", Global.dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        
+    final XYPlot plot = chart.getXYPlot( );
+        
+    ChartPanel barPanel = new ChartPanel(chart);
+        
+    XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
+    renderer.setSeriesPaint( 0 , Color.BLACK );
+    renderer.setSeriesPaint( 1 , Color.RED);
+    renderer.setSeriesStroke( 0 , new BasicStroke( 4.0f ) );
+    renderer.setSeriesStroke( 1 , new BasicStroke( 4.0f ) );
+    plot.setRenderer( renderer );
+
+    panelChart.removeAll();
+    panelChart.add(barPanel);
+    panelChart.validate();
+        
 
     }//GEN-LAST:event_inicioActionPerformed
 
@@ -1163,6 +1235,10 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_assembler_emp_quantityPropertyChange
 
+    private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formPropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -1189,14 +1265,36 @@ public class Home extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Home().setVisible(true);
+                JFrame home = new Home();
+                home.setVisible(true);
+                
+                
+                home.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Evita el cierre inmediato
+
+        // Agregar un listener para manejar el evento de cierre
+            home.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí puedes programar la acción que deseas realizar
+                int respuesta = JOptionPane.showConfirmDialog(home, "¿Desea guardar los cambios?", "Confirmar Cierre", JOptionPane.YES_NO_OPTION);
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    txt.editTxt((int)dayDuration.getValue(),(int)deadline.getValue(),apple,dell);
+                    home.dispose(); // Cierra la ventana
+                } else if (respuesta == JOptionPane.NO_OPTION) {
+                    home.dispose(); // Cierra la ventana
+                }
             }
         });
+                
+            }
+        });
+        
+        
     }
 
 
@@ -1218,10 +1316,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSpinner cpu_emp_quantity1;
     public static javax.swing.JLabel cpu_quantity;
     public static javax.swing.JLabel cpu_quantity1;
-    private javax.swing.JSpinner dayDuration;
+    private static javax.swing.JSpinner dayDuration;
     public static javax.swing.JLabel daysToRealise;
     public static javax.swing.JLabel daysToRealise1;
-    private javax.swing.JSpinner deadline;
+    private static javax.swing.JSpinner deadline;
     public static javax.swing.JLabel directorStatus;
     public static javax.swing.JLabel directorStatus1;
     public static javax.swing.JLabel discount;
@@ -1256,10 +1354,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1268,11 +1368,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     public static javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea5;
     private javax.swing.JTextArea jTextArea6;
+    public static javax.swing.JPanel panelChart;
     public static javax.swing.JLabel pmStatus;
     public static javax.swing.JLabel pmStatus1;
     private javax.swing.JSpinner power_emp_quantity;
