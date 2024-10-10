@@ -4,6 +4,7 @@
  */
 package Clases;
 
+import Interfaces.Global;
 import Interfaces.Home;
 
 import Interfaces.Home;
@@ -348,9 +349,11 @@ public class Store {
         if ("Apple".equals(this.company.getName())) {
             Home.ganancias.setText("Ganancias: "+ Integer.toString(earnings)+"K");
             Home.utilidad.setText("Utilidad: "+Double.toString(utility)+"S");
+            Global.addApple((Global.getDaycounter()-1)/2, (int)utility);
         } else {
             Home.ganancias1.setText("Ganancias: "+ Integer.toString(earnings)+"K");
             Home.utilidad1.setText("Utilidad: "+Double.toString(utility)+"$");
+            Global.addDell((Global.getDaycounter()-1)/2,(int)utility);
         }
         
         System.out.print("\nComputadoras enviadas");

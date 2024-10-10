@@ -18,8 +18,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class Global {
     
-    final static XYSeries apple = new XYSeries( "Apple" );           
-
+    final static XYSeries apple = new XYSeries( "Apple" );
     final static XYSeries dell = new XYSeries( "Dell" );
       
     public final static XYSeriesCollection dataset = new XYSeriesCollection( );

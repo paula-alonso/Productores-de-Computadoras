@@ -250,6 +250,10 @@ public class Home extends javax.swing.JFrame {
         jLabel36 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         panelChart = new javax.swing.JPanel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -776,6 +780,22 @@ public class Home extends javax.swing.JFrame {
         panelChart.setLayout(new java.awt.BorderLayout());
         jPanel4.add(panelChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 700, 390));
 
+        jLabel62.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        jLabel62.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel62.setText("Apple:");
+        jPanel4.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, -1, -1));
+
+        jLabel28.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel28.setText("Dell:");
+        jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, -1, -1));
+
+        jPanel7.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel4.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, -1, 20));
+
+        jPanel8.setBackground(new java.awt.Color(255, 0, 0));
+        jPanel4.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, -1, 20));
+
         jTabbedPane1.addTab("Gráfico", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -822,15 +842,14 @@ public class Home extends javax.swing.JFrame {
         apple.startAll((int) dayDuration.getValue());
         dell.startAll((int) dayDuration.getValue());
         running = true;
-        
-        
-        //Aquí se crea todo el tema de la gráfica    
+
+    //Grafica  
     Global.addApple(0, 0);
     Global.addDell(0, 0);
     Global.addSeries(Global.getApple());
     Global.addSeries(Global.getDell());
         
-    JFreeChart chart = ChartFactory.createXYLineChart("Utilidad vs Tiempo", "Utilidad (Millones $)", "Tiempo (Días)", Global.dataset, PlotOrientation.HORIZONTAL, false, true, false);
+    JFreeChart chart = ChartFactory.createXYLineChart("Utilidad vs Tiempo", "Tiempo (Días)", "Utilidad (Millones $)", Global.dataset, PlotOrientation.VERTICAL, true, true, false);
         
     final XYPlot plot = chart.getXYPlot( );
         
@@ -845,7 +864,8 @@ public class Home extends javax.swing.JFrame {
 
     panelChart.removeAll();
     panelChart.add(barPanel);
-    panelChart.validate();
+    panelChart.revalidate();
+    panelChart.repaint();
         
 
     }//GEN-LAST:event_inicioActionPerformed
@@ -1351,6 +1371,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
@@ -1362,6 +1383,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1369,6 +1391,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     public static javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;

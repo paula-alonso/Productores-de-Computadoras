@@ -8,6 +8,7 @@ package Clases;
  *
  * @author marie
  */
+import Interfaces.Global;
 import Interfaces.Home;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
@@ -100,6 +101,7 @@ public class ProjectManager extends Thread {
                     }
                 }
                 paySalary();
+                Global.setDaycounter(Global.getDaycounter() + 1);
                 store.getProductionMutex().release();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
