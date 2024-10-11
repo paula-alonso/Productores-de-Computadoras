@@ -8,7 +8,6 @@ package Clases;
  *
  * @author marie
  */
-import Interfaces.Global;
 import Interfaces.Home;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
