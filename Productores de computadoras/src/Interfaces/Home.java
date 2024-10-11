@@ -1306,8 +1306,10 @@ public class Home extends javax.swing.JFrame {
                 if (respuesta == JOptionPane.YES_OPTION) {
                     txt.editTxt((int)dayDuration.getValue(),(int)deadline.getValue(),apple,dell);
                     home.dispose(); // Cierra la ventana
+                    System.exit(0);
                 } else if (respuesta == JOptionPane.NO_OPTION) {
                     home.dispose(); // Cierra la ventana
+                    System.exit(0);
                 }
             }
         });
