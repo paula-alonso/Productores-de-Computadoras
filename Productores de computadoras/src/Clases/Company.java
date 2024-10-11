@@ -85,26 +85,26 @@ public class Company {
             case 1:
                 System.out.println(base_employees.getSize());
                 this.base_employees.AddElement(employee);
-                System.out.println("Empleado añadodo a base");
+                System.out.println("Empleado añadodo a base"+this.name);
                 System.out.println(base_employees.getSize());
                 break;
             case 2:
-                System.out.println("Empleado añadodo a cpu");
+                System.out.println("Empleado añadodo a cpu"+this.name);
                 this.cpu_employees.AddElement(employee);
                 System.out.println(cpu_employees.getSize());
                 break;
             case 3:
-                System.out.println("Empleado añadodo a ram");
+                System.out.println("Empleado añadodo a ram"+this.name);
                 this.ram_employees.AddElement(employee);
                 System.out.println(ram_employees.getSize());
                 break;
             case 4:
-                System.out.println("Empleado añadodo a alimentacion");
+                System.out.println("Empleado añadodo a alimentacion"+this.name);
                 this.power_employees.AddElement(employee);
                 System.out.println(power_employees.getSize());
                 break;
             case 5:
-                System.out.println("Empleado añadodo a tarjeta");
+                System.out.println("Empleado añadodo a tarjeta"+this.name);
                 this.graphic_employee.AddElement(employee);
                 System.out.println(graphic_employee.getSize());
                 break;
@@ -112,7 +112,7 @@ public class Company {
     }
     
     public void AddAssembler(Assembler assembler) {
-        System.out.println("Assembler añadido");
+        System.out.println("Assembler añadido"+this.name);
         this.assembler.AddElement(assembler);
         System.out.println(this.assembler.getSize());
     }
@@ -126,7 +126,7 @@ public class Company {
     public void hireAssembler(Assembler assembler){
         AddAssembler(assembler);
         assembler.start();
-        System.out.println("Assembler iniciado");
+        System.out.println("Assembler iniciado"+this.name);
     }
 
     public void DeleteEmployee(int type) {
@@ -134,27 +134,27 @@ public class Company {
         switch (type) {
             case 1:
                 emp_deleted = (Employee) this.base_employees.removeLast().getData();
-                System.out.println("Empleado eliminado de la lista de base");
+                System.out.println("Empleado eliminado de la lista de base"+this.name);
                 System.out.println(base_employees.getSize());
                 break;
             case 2:
                 emp_deleted = (Employee) this.cpu_employees.removeLast().getData();
-                System.out.println("Empleado eliminado de la lista de cpu");
+                System.out.println("Empleado eliminado de la lista de cpu"+this.name);
                 System.out.println(cpu_employees.getSize());
                 break;
             case 3:
                 emp_deleted = (Employee) this.ram_employees.removeLast().getData();
-                System.out.println("Empleado eliminado de la lista de ram");
+                System.out.println("Empleado eliminado de la lista de ram"+this.name);
                 System.out.println(ram_employees.getSize());
                 break;
             case 4:
                 emp_deleted = (Employee) this.power_employees.removeLast().getData();
-                System.out.println("Empleado eliminado de la lista de power");
+                System.out.println("Empleado eliminado de la lista de power"+this.name);
                 System.out.println(power_employees.getSize());
                 break;
             case 5:
                 emp_deleted = (Employee) this.graphic_employee.removeLast().getData();
-                System.out.println("Empleado eliminado de la lista de tarjeta");
+                System.out.println("Empleado eliminado de la lista de tarjeta"+this.name);
                 System.out.println(graphic_employee.getSize());
                 break;
         }
@@ -168,7 +168,7 @@ public class Company {
         Assembler asm_deleted = null;
         
         asm_deleted = (Assembler) this.assembler.removeLast().getData();
-        System.out.println("Empleado eliminado de la lista assembler");
+        System.out.println("Empleado eliminado de la lista assembler"+this.name);
         System.out.println(assembler.getSize());
                 
         

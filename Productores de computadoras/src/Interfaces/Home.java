@@ -1145,7 +1145,7 @@ public class Home extends javax.swing.JFrame {
                         new_emp.setDayDuration(txt.getDayDuration());
                         manageQuantityAddChange(new_emp, dell);
                     } else {
-                        manageQuantityDeleteChange(dell, 1);
+                        manageQuantityDeleteChange(dell, 4);
                     }
                 } else {
                     power_emp_quantity1.setValue(lastValidValue);

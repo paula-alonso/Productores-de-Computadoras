@@ -41,27 +41,6 @@ public class TXT {
         this.dayDuration = 0;
     }
 
-    public static File FileChooser() {
-
-        File fichero = null;
-
-        JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(".TXT", "txt");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setFileFilter(filter);
-        int seleccion = fileChooser.showOpenDialog(areaTexto);
-        if (seleccion == JFileChooser.APPROVE_OPTION) {
-            fichero = fileChooser.getSelectedFile();
-            String path = fichero.getAbsolutePath();
-            if (!path.contains("txt")) {
-                JOptionPane.showMessageDialog(null, "Por favor elija un archivo del tipo txt");
-                return null;
-            }
-        }
-
-        return fichero;
-
-    }
 
     public void LeerTxt() {
         String line;
