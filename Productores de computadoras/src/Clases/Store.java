@@ -4,7 +4,6 @@
  */
 package Clases;
 
-import Interfaces.Global;
 import Interfaces.Home;
 
 import Interfaces.Home;

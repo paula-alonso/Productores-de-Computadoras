@@ -4,6 +4,7 @@
  */
 package Interfaces;
 
+import Clases.Global;
 import Clases.Assembler;
 import Clases.Company;
 import Clases.Director;
@@ -849,7 +850,7 @@ public class Home extends javax.swing.JFrame {
     Global.addSeries(Global.getApple());
     Global.addSeries(Global.getDell());
         
-    JFreeChart chart = ChartFactory.createXYLineChart("Utilidad vs Tiempo", "Tiempo (Días)", "Utilidad (Millones $)", Global.dataset, PlotOrientation.VERTICAL, true, true, false);
+    JFreeChart chart = ChartFactory.createXYLineChart("Utilidad vs Tiempo", "Tiempo (Días)", "Utilidad ($)", Global.dataset, PlotOrientation.VERTICAL, true, true, false);
         
     final XYPlot plot = chart.getXYPlot( );
         
